@@ -1,0 +1,2 @@
+c:\users\francis\documents\visual studio 2013\Projects\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
+C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
