@@ -7,17 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HugoLand
+namespace HugoLand.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class RecoveryItem
+    public partial class Monster
     {
-        public int ItemID { get; set; }
-        public int RecoverAmount { get; set; }
-        public short RecoveryType { get; set; }
+        public Monster()
+        {
+            this.Maps = new HashSet<Map>();
+        }
     
-        public virtual Item Item { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Level { get; set; }
+        public int StatHP { get; set; }
+        public float StatDMGmin { get; set; }
+        public float StatDMGmax { get; set; }
+    
+        public virtual ICollection<Map> Maps { get; set; }
     }
 }

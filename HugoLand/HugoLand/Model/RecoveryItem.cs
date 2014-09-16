@@ -7,24 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HugoLand
+namespace HugoLand.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Spell
+    public partial class RecoveryItem
     {
-        public Spell()
-        {
-            this.Heroes = new HashSet<Hero>();
-        }
+        public int ItemID { get; set; }
+        public int RecoverAmount { get; set; }
+        public short RecoveryType { get; set; }
     
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int ReqLevel { get; set; }
-        public float MagicPotency { get; set; }
-        public short SpellType { get; set; }
-    
-        public virtual ICollection<Hero> Heroes { get; set; }
+        public virtual Item Item { get; set; }
     }
 }

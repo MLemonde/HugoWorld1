@@ -7,25 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HugoLand
+namespace HugoLand.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Monster
+    public partial class Item
     {
-        public Monster()
+        public Item()
         {
-            this.Maps = new HashSet<Map>();
+            this.PlayerInventories = new HashSet<PlayerInventory>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public int Level { get; set; }
-        public int StatHP { get; set; }
-        public float StatDMGmin { get; set; }
-        public float StatDMGmax { get; set; }
+        public int Value { get; set; }
+        public int ReqLevel { get; set; }
+        public int ReqSTR { get; set; }
+        public int ReqDEX { get; set; }
+        public int ReqINT { get; set; }
+        public int ReqSTAM { get; set; }
     
-        public virtual ICollection<Map> Maps { get; set; }
+        public virtual RecoveryItem RecoveryItem { get; set; }
+        public virtual ICollection<PlayerInventory> PlayerInventories { get; set; }
     }
 }

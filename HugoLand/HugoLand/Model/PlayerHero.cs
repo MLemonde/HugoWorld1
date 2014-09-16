@@ -7,30 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HugoLand
+namespace HugoLand.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Item
+    public partial class PlayerHero
     {
-        public Item()
+        public PlayerHero()
         {
             this.PlayerInventories = new HashSet<PlayerInventory>();
         }
     
-        public int Id { get; set; }
+        public int UserAccountID { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
         public int Level { get; set; }
-        public int Value { get; set; }
-        public int ReqLevel { get; set; }
-        public int ReqSTR { get; set; }
-        public int ReqDEX { get; set; }
-        public int ReqINT { get; set; }
-        public int ReqSTAM { get; set; }
+        public int HeroID { get; set; }
+        public long Experience { get; set; }
+        public int Money { get; set; }
+        public int StatBaseStr { get; set; }
+        public int StatBaseDex { get; set; }
+        public int StatBaseInt { get; set; }
+        public int StatBaseSTAM { get; set; }
     
-        public virtual RecoveryItem RecoveryItem { get; set; }
+        public virtual Hero Hero { get; set; }
         public virtual ICollection<PlayerInventory> PlayerInventories { get; set; }
+        public virtual UserAccount UserAccount { get; set; }
     }
 }

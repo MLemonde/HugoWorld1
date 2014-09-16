@@ -7,28 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HugoLand
+namespace HugoLand.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Map
+    public partial class Spell
     {
-        public Map()
+        public Spell()
         {
-            this.Map1 = new HashSet<Map>();
-            this.Maps = new HashSet<Map>();
-            this.Monsters = new HashSet<Monster>();
+            this.Heroes = new HashSet<Hero>();
         }
     
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Level { get; set; }
         public int ReqLevel { get; set; }
+        public float MagicPotency { get; set; }
+        public short SpellType { get; set; }
     
-        public virtual ICollection<Map> Map1 { get; set; }
-        public virtual ICollection<Map> Maps { get; set; }
-        public virtual ICollection<Monster> Monsters { get; set; }
+        public virtual ICollection<Hero> Heroes { get; set; }
     }
 }
