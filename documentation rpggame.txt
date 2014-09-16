@@ -1,0 +1,81 @@
+Documentation de la base de données
+
+[Tables Entités]
+
+Hero
+But		Représente l'entité d'une classe du jeu
+Spécifications	Les différents ratio servent à faire un calcul pour les
+		différents attributs qui auront un effet sur le jeu.
+		Exemple: un ratio de 150% pour l'attribut Stam donnera
+		plus de vie par point de Stam qu'un ration de 110%.
+
+UserAcount
+But		Gére l'accès aux données
+Spécifications	Indépendant de l'authentification SQL
+		Penser à intégrer un aspect de sécurité pour le mot de passe
+
+PlayerHero
+But		Représente une entité du joueur
+Spécifications	Le joueur possède une classe de héro. Son nom est unique.
+		Le nombre de points de vie/mana maximum est calculé à partir
+		des points d'endurance et d'intelligence. Les dégats sont calculés
+		à partir de la force ou de l'intelligence (en fonction du type d'attaque
+		utilisée). Les chances de toucher et de coup critique sont calculés
+		grâce à la dextérité. Les montants de vie/mana que le joueur possèdent
+		lors des combats seront gérés par le programme.
+
+		Le calcul des dégâts s'effectue de la manière suivante au niveau du
+		programme: Grâce à la formule, on trouve le potentiel de dommage.
+		Ensuite, on multiplie ce potentiel par 0.6 pour obtenir l'interval de
+		dégâts possible.
+
+Monster
+But		Représente une entité de monstre
+Spécifications	Les attributs d'un monstres ont été simplifiés. On spécifie d'avance
+		le nombre de dégats et de vie. Le nombre de points d'expériences
+		et d'argent qu'il donnera à sa mort sera déterminé par une fonction
+		de calcul en fonction de sa vie et de son niveau.
+
+Map
+But		Représente une entité d'endroit que le joueur peut se trouver
+Spécifications	Indique un niveau minimum pour entrer
+
+Spell
+But		Représente une entité de sort
+Spécifications	La force de base du sort est définie par MagicPotency. Le dommage ou soin
+		final sera calculé via l'intelligence du joueur et du potentiel.
+
+Item
+But		Représente une entité d'articles (utilisables ou non)
+Spécifications	Le niveau de l'article est principalement utilisé pour l'obtention d'une
+		instance d'un article lors de la défaite d'un monstre.
+
+RecoveryItem
+But		Représente une entité dérivée d'Item spécifiant les informations d'un article
+		qui soigne
+Spécifications	Implenté pour montrer comment l'héritage fonctionne dans EF avec le mode ModelFirst
+
+[Tables Relations]
+
+MapLink
+But		Table avec relations many-to-many entre deux maps
+Spécifications	Permet d'obtenir une collection de maps auxquelles sont liées la map
+		dans laquelle le joueur se trouve (Simulation de 'chemins')
+
+MonsterSpawn
+But		Table avec relations many-tomany entre une map et un monstre
+Spécifications	Permet d'obtenir la liste des monstres disponibles pour une map
+		donnée (celle où se trouve le joueur par exemple). Je voulais
+		ajouter uu pourcentage de chance de voir apparaître un certain
+		monstre.
+
+HeroSpell
+But		Table avec relations many-to-many entre un hero et un spell
+Spécifications	Permet d'afficher quels sorts sont disponibles pour une classe.
+
+PlayerInventory
+But		Table avec relations many-to-many entre un joueur et un article
+Spécifications	Permet d'obtenir une liste d'articles détenus par le joueur. Une propriété
+		'Quantity' permet de savoir combien le joueur en possède. (Ajoute ici de la
+		complexité sur EF, puisqu'il ne convertira pas cette table en 2 propriétés
+		de navigation de la même manière que les trois autres).
