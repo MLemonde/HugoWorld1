@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controleur\ItemController.cs" />
     <Compile Include="Controleur\MainControleur.cs" />
     <Compile Include="Model\Classe.cs">
       <DependentUpon>HugoWorldModel.tt</DependentUpon>
@@ -73,6 +74,7 @@
     <Compile Include="Model\EffetItem.cs">
       <DependentUpon>HugoWorldModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\EntityHelper.cs" />
     <Compile Include="Model\Hero.cs">
       <DependentUpon>HugoWorldModel.tt</DependentUpon>
     </Compile>
