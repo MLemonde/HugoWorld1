@@ -7,11 +7,25 @@ using System.Threading.Tasks;
 
 namespace HugoLand.Controleur
 {
+    /// <summary>
+    /// Auteur: Mathew Lemonde
+    /// Description : Controlleur de Compte joueur
+    /// </summary>
     class CompteJoueurController
     {
         RpgGameEntities context = new RpgGameEntities();
 
 
+        /// <summary>
+        /// Auteur: Mathew Lemonde
+        /// Description : Creer un nouveau compte
+        /// </summary>
+        /// <param name="sUsername"></param>
+        /// <param name="sPass"></param>
+        /// <param name="sEmail"></param>
+        /// <param name="sFname"></param>
+        /// <param name="sLname"></param>
+        /// <param name="iType"></param>
         public void CreatePlayer(string sUsername,string sPass,string sEmail,string sFname,string sLname,int iType)
         {          
             //TODO VRAI HASH
@@ -29,6 +43,11 @@ namespace HugoLand.Controleur
             context.SaveChanges();
 
         }
+        /// <summary>
+        /// Auteur:Mathew Lemonde
+        /// Description : Supprimer un compte
+        /// </summary>
+        /// <param name="id"></param>
         public void DeletePlayer(int id)
         {
             CompteJoueur Account = context.CompteJoueurs.Find(id);
@@ -36,6 +55,15 @@ namespace HugoLand.Controleur
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Auteur: Mathew Lemonde
+        /// Description: Modifier un compte
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="sEmail"></param>
+        /// <param name="sFname"></param>
+        /// <param name="sLname"></param>
+        /// <param name="iType"></param>
         public void EditPlayer(int id,string sEmail,string sFname,string sLname,int iType)
         {
             CompteJoueur Account = context.CompteJoueurs.Find(id);
@@ -50,9 +78,22 @@ namespace HugoLand.Controleur
             context.SaveChanges();
         }
 
-        public void ValidatePlayer(string sUsername,string sPassword)
+        /// <summary>
+        /// Auteur: Mathew Lemonde
+        /// Description: Valider le login
+        /// </summary>
+        /// <param name="sUsername"></param>
+        /// <param name="sPassword"></param>
+        /// <returns></returns>
+        public bool ValidatePlayer(string sUsername,string sPassword)
         {
-            
+            var Account = context.CompteJoueurs.Include("NomUtilisateur").Where(c => c.NomUtilisateur == sUsername).ToList();
+            foreach (var uti in Account)
+            {
+                if (uti.Password == "soada11" + sPassword + "neoi333`")
+                    return true;
+            }
+            return false;
         }
     }
 }

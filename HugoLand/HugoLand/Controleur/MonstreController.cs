@@ -16,6 +16,8 @@ namespace HugoLand.Controleur
         RpgGameEntities context = new RpgGameEntities();
 
         /// <summary>
+        /// Auteur: Mathew Lemonde
+        /// 
         /// Creation d'un Monstre avec valeur aléatoires
         /// </summary>
         /// <param name="Mondeid"></param>
@@ -38,6 +40,8 @@ namespace HugoLand.Controleur
         }
 
         /// <summary>
+        /// Auteur: Mathew Lemonde
+        /// 
         /// Suppression d'un monstre
         /// </summary>
         /// <param name="monster"></param>
@@ -49,6 +53,7 @@ namespace HugoLand.Controleur
         }
 
         /// <summary>
+        /// Auteur: Mathew Lemonde
         /// Modification d'un monstre
         /// </summary>
         /// <param name="MonsterID"></param>

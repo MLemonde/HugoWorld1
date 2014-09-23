@@ -63,8 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controleur\CompteJoueurController.cs" />
     <Compile Include="Controleur\ItemController.cs" />
     <Compile Include="Controleur\MainControleur.cs" />
+    <Compile Include="Controleur\MondeController.cs" />
+    <Compile Include="Controleur\MonstreController.cs" />
     <Compile Include="Model\Classe.cs">
       <DependentUpon>HugoWorldModel.tt</DependentUpon>
     </Compile>
