@@ -20,22 +20,23 @@ namespace HugoLand.Controleur
         /// 
         /// Creation d'un Monstre avec valeur aléatoires
         /// </summary>
-        /// <param name="Mondeid"></param>
-        public void CreateMonster(Monde Mondeid)
+        /// <param name="Monde"></param>
+        public void CreateMonster(Monde Monde)
         {
             Random _rand = new Random();
             int DmgMin = _rand.Next(0, 100);
             Monstre monster = new Monstre()
             {
-                MondeId = Mondeid.Id,
+                MondeId = Monde.Id,
                 Nom = "Monster",
                 Niveau = _rand.Next(0,101),
-                x= _rand.Next(0,int.Parse(Mondeid.LimiteX)),
-                y = _rand.Next(0, int.Parse(Mondeid.LimiteY)),
+                x= _rand.Next(0,int.Parse(Monde.LimiteX)),
+                y = _rand.Next(0, int.Parse(Monde.LimiteY)),
                 StatPV = _rand.Next(0,400),
                 StatDmgMax = _rand.Next(DmgMin,400)
             };
             context.Monstres.Add(monster);
+            Monde.Monstres.Add(monster);
             context.SaveChanges();
         }
 
@@ -47,8 +48,8 @@ namespace HugoLand.Controleur
         /// <param name="monster"></param>
         /// <param name="Map"></param>
         public void DeleteMonster(Monstre monster,Monde Map)
-        {
-            context.Monstres.Remove(monster);
+        {         
+            Map.Monstres.Remove(monster);
             context.SaveChanges();
         }
 
