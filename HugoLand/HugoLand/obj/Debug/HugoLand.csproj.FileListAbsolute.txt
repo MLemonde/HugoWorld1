@@ -3,3 +3,4 @@ C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLan
 H:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
 G:\Google Drive\5eme_session\Applications avec bases de données\TP01\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache
+C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config

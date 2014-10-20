@@ -5,14 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HugoLand.Controleur
+namespace HugoLand.Controller
 {
     class MondeController
     {
-        RpgGameEntities context = new RpgGameEntities();
+        Entities db = new Entities();
 
         #region MONDE
-        public void CreateMap(string iLimiteX, string iLimiteY, string sDescription) //TODO CHECKER PARAMS : DONE??
+
+        /// <summary>
+        /// Create a new world
+        /// </summary>
+        /// <param name="iLimiteX">Limit of the world (x)</param>
+        /// <param name="iLimiteY">Limit of the world (y)</param>
+        /// <param name="sDescription">A small description of your new world!</param>
+        public void CreateMap(string iLimiteX, string iLimiteY, string sDescription)
         {
             Monde monde = new Monde()
             {
@@ -20,46 +27,85 @@ namespace HugoLand.Controleur
                 LimiteY = iLimiteY,
                 Description = sDescription
             };
-            context.Mondes.Add(monde);
-            context.SaveChanges();
+            db.Mondes.Add(monde);
+            db.SaveChanges();
         }
-        public void EditMap(int iID, string sDescription, string iLimiteX, string iLimiteY) //TODO LIMITES
+
+        /// <summary>
+        /// Edit the world you want.
+        /// </summary>
+        /// <param name="iID">The ID of the world you wanna change</param>
+        /// <param name="sDescription">The new description of the world you wanna change</param>
+        /// <param name="iLimiteX">The new limit of the world (x)</param>
+        /// <param name="iLimiteY">The new limit of the world (y)</param>
+        public void EditMap(int iID, string sDescription, string iLimiteX, string iLimiteY)
         {
-            //Map map = context.Maps.Find(id);
-            Monde monde = context.Mondes.Find(iID);
+            Monde monde = db.Mondes.Find(iID);
             if (monde == null)
                 return;
             else
             {
-                //map.Description = sDesc;
                 monde.Description = sDescription;
                 monde.LimiteX = iLimiteX;
                 monde.LimiteY = iLimiteY;
             }
-            context.SaveChanges();
+            db.SaveChanges();
         }
+
+        /// <summary>
+        /// This method is used if you wanna change only the description of the world
+        /// </summary>
+        /// <param name="iID">The ID of the world you wanna change</param>
+        /// <param name="sDescription">The new description of the world</param>
         public void EditMap(int iID, string sDescription)
         {
-            Monde monde = context.Mondes.Find(iID);
+            Monde monde = db.Mondes.Find(iID);
+            if (monde == null)
+                return;
+            else
+                monde.Description = sDescription;
+
+            db.SaveChanges();
+        }
+
+        /// <summary>
+        /// This method is used if you want to change only the positions of the world
+        /// </summary>
+        /// <param name="iID">The ID of the world you wanna change</param>
+        /// <param name="iLimiteX">The new limit of the world (x)</param>
+        /// <param name="iLimiteY">The new limit of the world (y)</param>
+        public void EditMap(int iID, string iLimiteX, string iLimiteY)
+        {
+            Monde monde = db.Mondes.Find(iID);
             if (monde == null)
                 return;
             else
             {
-                monde.Description = sDescription;
+                monde.LimiteX = iLimiteX;
+                monde.LimiteY = iLimiteY;
             }
-            context.SaveChanges();
+            db.SaveChanges();
         }
 
-        public void DeleteMap(Monde monde)
+        /// <summary>
+        /// Use this methode if you ever wanna delete the world
+        /// </summary>
+        /// <param name="iID">The ID of the world you wanna destroy</param>
+        public void DeleteMap(int iID)
         {
-            context.Mondes.Remove(monde);
-            context.SaveChanges();
+            Monde monde = db.Mondes.Find(iID);
+            if (monde == null)
+                return;
+            else
+                db.Mondes.Remove(monde);
+            db.SaveChanges();
         }
 
         public List<Monde> GetListMap()
         {
-            return context.Mondes.ToList();
+            return db.Mondes.ToList(); 
         }
+
         #endregion
     }
 }
