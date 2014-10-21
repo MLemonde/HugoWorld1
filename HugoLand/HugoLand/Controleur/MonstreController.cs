@@ -13,7 +13,7 @@ namespace HugoLand.Controller
         /// Auteur: Mathew Lemonde
         /// Description : Controlleur pour l'entity monstre
         /// </summary>
-        RpgGameEntities context = new RpgGameEntities();
+        HugoWorldEntities context = new HugoWorldEntities();
 
         /// <summary>
         /// Auteur: Mathew Lemonde

@@ -4,24 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d805e2fd2c5f4ebaaf24da487002f19b" Name="Diagram1" ZoomLevel="85">
-        <EntityTypeShape EntityType="RpgGameModel.Classe" Width="1.5" PointX="2.125" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RpgGameModel.CompteJoueur" Width="1.5" PointX="6.125" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RpgGameModel.EffetItem" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RpgGameModel.Hero" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RpgGameModel.Item" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RpgGameModel.Monde" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="RpgGameModel.Monstre" Width="1.5" PointX="2.375" PointY="5" IsExpanded="false" />
-        <EntityTypeShape EntityType="RpgGameModel.ObjetMonde" Width="1.5" PointX="0.5" PointY="7.625" IsExpanded="true" />
-        <AssociationConnector Association="RpgGameModel.FK_Classe_Monde" ManuallyRouted="false" />
-        <AssociationConnector Association="RpgGameModel.FK_Hero_Classe" ManuallyRouted="false" />
-        <AssociationConnector Association="RpgGameModel.IsPartOfAccount" ManuallyRouted="false" />
-        <AssociationConnector Association="RpgGameModel.FK_EffetItem_Item" ManuallyRouted="false" />
-        <AssociationConnector Association="RpgGameModel.FK_Hero_Monde" ManuallyRouted="false" />
-        <AssociationConnector Association="RpgGameModel.FK_Item_Monde" ManuallyRouted="false" />
-        <AssociationConnector Association="RpgGameModel.FK_Monstre_Monde" ManuallyRouted="false" />
-        <AssociationConnector Association="RpgGameModel.FK_ObjetMonde_Monde" ManuallyRouted="false" />
-        <AssociationConnector Association="RpgGameModel.InventaireHero" ManuallyRouted="false" />
+      <Diagram DiagramId="9f12f562602d4676b4a00aa1cbb6b974" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Classe" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="Model.CompteJoueur" Width="1.5" PointX="3" PointY="13" />
+        <EntityTypeShape EntityType="Model.EffetItem" Width="1.5" PointX="9.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Model.Hero" Width="1.5" PointX="5.25" PointY="3.125" />
+        <EntityTypeShape EntityType="Model.Item" Width="1.5" PointX="7.5" PointY="3.5" />
+        <EntityTypeShape EntityType="Model.Monde" Width="1.5" PointX="0.75" PointY="5.625" />
+        <EntityTypeShape EntityType="Model.Monstre" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="Model.ObjetMonde" Width="1.5" PointX="3" PointY="5.875" />
+        <AssociationConnector Association="Model.FK_Classe_Monde" />
+        <AssociationConnector Association="Model.FK_Hero_Classe" />
+        <AssociationConnector Association="Model.IsPartOfAccount" />
+        <AssociationConnector Association="Model.FK_EffetItem_Item" />
+        <AssociationConnector Association="Model.FK_Hero_Monde" />
+        <AssociationConnector Association="Model.FK_Item_Monde" />
+        <AssociationConnector Association="Model.FK_Monstre_Monde" />
+        <AssociationConnector Association="Model.FK_ObjetMonde_Monde" />
+        <AssociationConnector Association="Model.InventaireHero" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

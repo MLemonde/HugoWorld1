@@ -12,7 +12,40 @@ namespace HugoLand
     {
         static void Main(string[] args)
         {
-            RpgGameEntities context = new RpgGameEntities();
+            HugoWorldEntities context = new HugoWorldEntities();
+
+            Hero hero = new Hero()
+            {
+                y = 0,
+                x = 0,
+                StatBaseStr = 0,
+                StatBaseStam = 0,
+                StatBaseInt = 0,
+                StatBaseDex = 0,
+                Niveau = 0,
+                MondeId = context.Mondes.First().Id,
+                Experience = 100,
+                Argent = 200,
+                CompteJoueurId = context.CompteJoueurs.First().Id,
+                ClasseId = context.Classes.First().Id,
+                //Id = 100
+            };
+            //context.InsertHero(context.CompteJoueurs.First().Id, 0, 0, 0, 0, 0, 0, 0, 0, 0, context.Mondes.First().Id, context.Classes.First().Id);
+            //int id = context.Heroes.
+            context.Heroes.Add(hero);
+            context.SaveChanges();
+            hero = context.Heroes.FirstOrNull(h => h.Argent == hero.Argent);
+            hero.Argent = 2;
+            context.SaveChanges();
+
+            Console.WriteLine();
+
+            context.Heroes.Remove(hero);
+            context.SaveChanges();
+
+            Console.WriteLine();
+            Console.WriteLine();
+
 
             MondeController mondeControleur = new MondeController();
             #region
@@ -33,7 +66,7 @@ namespace HugoLand
             }
 
             Console.WriteLine("\nmodification du premier monde");
-            mondeControleur.EditMonde(_lstmondes.First().Id, "99","98", "Description");
+            mondeControleur.EditMonde(_lstmondes.First().Id, "Description", "99", "98");
             Console.WriteLine(_lstmondes.First().Description);
 
             Console.WriteLine("\nsupression du premier monde");
@@ -81,7 +114,7 @@ namespace HugoLand
             #region
             monstreController.CreateMonster(mondeId);
             monstreController.EditMonster(_lstmondes.First().Monstres.First().Id, "Patate", 10, 10, 10, 10, 10, 10);
-            monstreController.DeleteMonster(_lstmondes.First().Monstres.First().Id, mondeId);
+            monstreController.DeleteMonster(_lstmondes.First().Monstres.First().Id);
             #endregion
 
             CompteJoueurController compteJoueurController = new CompteJoueurController();
@@ -92,14 +125,20 @@ namespace HugoLand
                 Console.WriteLine();
             compteJoueurController.EditPlayer("Joueur01", "newEmail@hotmail.com", "Francis", "Lussier", 1);
             compteJoueurController.DeletePlayer("Joueur01");
-            #endregion
 
             int compteId = context.CompteJoueurs.First().Id;
+            #endregion
 
             HeroController heroController = new HeroController();
             #region
             heroController.CreateHero(compteId, classID, 0, 0, 20, 20, 20, 20, 20, 200, 300);
             heroController.CreateHero(compteId, classID, 0, 0, 30, 30, 30, 30, 30, 400, 300);
+            int heroId = context.Heroes.First().Id;
+
+            heroController.EditHero(heroId, classID, 10, 10, 10, 10, 10, 10, 10, 10, 10);
+            heroController.DeleteHero(heroId);
+
+            heroId = context.Heroes.First().Id;
             #endregion
 
             ItemController itemController = new ItemController();

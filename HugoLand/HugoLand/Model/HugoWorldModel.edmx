@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RpgGameModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Classe">
           <Key>
             <PropertyRef Name="Id" />
@@ -44,11 +44,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="CompteJoueurId" Type="int" Nullable="false" />
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Niveau" Type="int" Nullable="false" />
           <Property Name="Experience" Type="bigint" Nullable="false" />
           <Property Name="x" Type="int" Nullable="false" />
-          <Property Name="y" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="y" Type="int" Nullable="false" />
           <Property Name="Argent" Type="money" Nullable="false" />
           <Property Name="StatBaseStr" Type="int" Nullable="false" />
           <Property Name="StatBaseDex" Type="int" Nullable="false" />
@@ -239,7 +239,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="RpgGameModelStoreContainer">
+        <Function Name="DeleteHero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HeroId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertHero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CompteJoueurId" Type="int" Mode="In" />
+          <Parameter Name="Niveau" Type="int" Mode="In" />
+          <Parameter Name="Experience" Type="bigint" Mode="In" />
+          <Parameter Name="x" Type="int" Mode="In" />
+          <Parameter Name="y" Type="int" Mode="In" />
+          <Parameter Name="Argent" Type="money" Mode="In" />
+          <Parameter Name="StatBaseStr" Type="int" Mode="In" />
+          <Parameter Name="StatBaseDex" Type="int" Mode="In" />
+          <Parameter Name="StatBaseInt" Type="int" Mode="In" />
+          <Parameter Name="StatBaseStam" Type="int" Mode="In" />
+          <Parameter Name="MondeId" Type="int" Mode="In" />
+          <Parameter Name="ClasseId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateHero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HeroId" Type="int" Mode="In" />
+          <Parameter Name="MondeId" Type="int" Mode="In" />
+          <Parameter Name="ClasseId" Type="int" Mode="In" />
+          <Parameter Name="CompteJoueurId" Type="int" Mode="In" />
+          <Parameter Name="Niveau" Type="int" Mode="In" />
+          <Parameter Name="Experience" Type="bigint" Mode="In" />
+          <Parameter Name="x" Type="int" Mode="In" />
+          <Parameter Name="y" Type="int" Mode="In" />
+          <Parameter Name="Argent" Type="money" Mode="In" />
+          <Parameter Name="StatBaseStr" Type="int" Mode="In" />
+          <Parameter Name="StatBaseDex" Type="int" Mode="In" />
+          <Parameter Name="StatBaseInt" Type="int" Mode="In" />
+          <Parameter Name="StatBaseStam" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Classe" EntityType="Self.Classe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompteJoueur" EntityType="Self.CompteJoueur" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EffetItem" EntityType="Self.EffetItem" Schema="dbo" store:Type="Tables" />
@@ -290,38 +322,115 @@
             <End Role="Hero" EntitySet="Hero" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="RpgGameModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HugoWorldEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="InsertHero">
+            <Parameter Name="CompteJoueurId" Mode="In" Type="Int32" />
+            <Parameter Name="Niveau" Mode="In" Type="Int32" />
+            <Parameter Name="Experience" Mode="In" Type="Int64" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="Argent" Mode="In" Type="Decimal" />
+            <Parameter Name="StatBaseStr" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseDex" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseInt" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseStam" Mode="In" Type="Int32" />
+            <Parameter Name="MondeId" Mode="In" Type="Int32" />
+            <Parameter Name="ClasseId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Classes" EntityType="Model.Classe" />
+          <EntitySet Name="CompteJoueurs" EntityType="Model.CompteJoueur" />
+          <EntitySet Name="EffetItems" EntityType="Model.EffetItem" />
+          <EntitySet Name="Heroes" EntityType="Model.Hero" />
+          <EntitySet Name="Items" EntityType="Model.Item" />
+          <EntitySet Name="Mondes" EntityType="Model.Monde" />
+          <EntitySet Name="Monstres" EntityType="Model.Monstre" />
+          <EntitySet Name="ObjetMondes" EntityType="Model.ObjetMonde" />
+          <AssociationSet Name="FK_Classe_Monde" Association="Model.FK_Classe_Monde">
+            <End Role="Monde" EntitySet="Mondes" />
+            <End Role="Classe" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hero_Classe" Association="Model.FK_Hero_Classe">
+            <End Role="Classe" EntitySet="Classes" />
+            <End Role="Hero" EntitySet="Heroes" />
+          </AssociationSet>
+          <AssociationSet Name="IsPartOfAccount" Association="Model.IsPartOfAccount">
+            <End Role="CompteJoueur" EntitySet="CompteJoueurs" />
+            <End Role="Hero" EntitySet="Heroes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffetItem_Item" Association="Model.FK_EffetItem_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="EffetItem" EntitySet="EffetItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hero_Monde" Association="Model.FK_Hero_Monde">
+            <End Role="Monde" EntitySet="Mondes" />
+            <End Role="Hero" EntitySet="Heroes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Monde" Association="Model.FK_Item_Monde">
+            <End Role="Monde" EntitySet="Mondes" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monstre_Monde" Association="Model.FK_Monstre_Monde">
+            <End Role="Monde" EntitySet="Mondes" />
+            <End Role="Monstre" EntitySet="Monstres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjetMonde_Monde" Association="Model.FK_ObjetMonde_Monde">
+            <End Role="Monde" EntitySet="Mondes" />
+            <End Role="ObjetMonde" EntitySet="ObjetMondes" />
+          </AssociationSet>
+          <AssociationSet Name="InventaireHero" Association="Model.InventaireHero">
+            <End Role="Hero" EntitySet="Heroes" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <FunctionImport Name="DeleteHero">
+          <Parameter Name="HeroId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateHero">
+            <Parameter Name="HeroId" Mode="In" Type="Int32" />
+            <Parameter Name="MondeId" Mode="In" Type="Int32" />
+            <Parameter Name="ClasseId" Mode="In" Type="Int32" />
+            <Parameter Name="CompteJoueurId" Mode="In" Type="Int32" />
+            <Parameter Name="Niveau" Mode="In" Type="Int32" />
+            <Parameter Name="Experience" Mode="In" Type="Int64" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="Argent" Mode="In" Type="Decimal" />
+            <Parameter Name="StatBaseStr" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseDex" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseInt" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseStam" Mode="In" Type="Int32" />
+          </FunctionImport>
+          </EntityContainer>
         <EntityType Name="Classe">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NomClasse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NomClasse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="StatPoidsStr" Type="Single" Nullable="false" />
           <Property Name="StatPoidsDex" Type="Single" Nullable="false" />
           <Property Name="StatPoidsInt" Type="Single" Nullable="false" />
           <Property Name="StatPoidsStam" Type="Single" Nullable="false" />
           <Property Name="MondeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Monde" Relationship="Self.FK_Classe_Monde" FromRole="Classe" ToRole="Monde" />
-          <NavigationProperty Name="Heroes" Relationship="Self.FK_Hero_Classe" FromRole="Classe" ToRole="Hero" />
+          <NavigationProperty Name="Monde" Relationship="Model.FK_Classe_Monde" FromRole="Classe" ToRole="Monde" />
+          <NavigationProperty Name="Heroes" Relationship="Model.FK_Hero_Classe" FromRole="Classe" ToRole="Hero" />
         </EntityType>
         <EntityType Name="CompteJoueur">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NomUtilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Courriel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NomUtilisateur" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Courriel" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Prenom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TypeUtilisateur" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Heroes" Relationship="Self.IsPartOfAccount" FromRole="CompteJoueur" ToRole="Hero" />
+          <NavigationProperty Name="Heroes" Relationship="Model.IsPartOfAccount" FromRole="CompteJoueur" ToRole="Hero" />
         </EntityType>
         <EntityType Name="EffetItem">
           <Key>
@@ -331,7 +440,7 @@
           <Property Name="ItemId" Type="Int32" Nullable="false" />
           <Property Name="ValeurEffet" Type="Int32" Nullable="false" />
           <Property Name="TypeEffet" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Item" Relationship="Self.FK_EffetItem_Item" FromRole="EffetItem" ToRole="Item" />
+          <NavigationProperty Name="Item" Relationship="Model.FK_EffetItem_Item" FromRole="EffetItem" ToRole="Item" />
         </EntityType>
         <EntityType Name="Hero">
           <Key>
@@ -342,31 +451,31 @@
           <Property Name="Niveau" Type="Int32" Nullable="false" />
           <Property Name="Experience" Type="Int64" Nullable="false" />
           <Property Name="x" Type="Int32" Nullable="false" />
-          <Property Name="y" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Argent" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="y" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Argent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="StatBaseStr" Type="Int32" Nullable="false" />
           <Property Name="StatBaseDex" Type="Int32" Nullable="false" />
           <Property Name="StatBaseInt" Type="Int32" Nullable="false" />
           <Property Name="StatBaseStam" Type="Int32" Nullable="false" />
           <Property Name="MondeId" Type="Int32" Nullable="false" />
           <Property Name="ClasseId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Classe" Relationship="Self.FK_Hero_Classe" FromRole="Hero" ToRole="Classe" />
-          <NavigationProperty Name="CompteJoueur" Relationship="Self.IsPartOfAccount" FromRole="Hero" ToRole="CompteJoueur" />
-          <NavigationProperty Name="Monde" Relationship="Self.FK_Hero_Monde" FromRole="Hero" ToRole="Monde" />
-          <NavigationProperty Name="Items" Relationship="Self.InventaireHero" FromRole="Hero" ToRole="Item" />
+          <NavigationProperty Name="Classe" Relationship="Model.FK_Hero_Classe" FromRole="Hero" ToRole="Classe" />
+          <NavigationProperty Name="CompteJoueur" Relationship="Model.IsPartOfAccount" FromRole="Hero" ToRole="CompteJoueur" />
+          <NavigationProperty Name="Monde" Relationship="Model.FK_Hero_Monde" FromRole="Hero" ToRole="Monde" />
+          <NavigationProperty Name="Items" Relationship="Model.InventaireHero" FromRole="Hero" ToRole="Item" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="x" Type="Int32" />
           <Property Name="y" Type="Int32" />
           <Property Name="Niveau" Type="Int32" Nullable="false" />
           <Property Name="ValeurArgent" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Poids" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Poids" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="ReqNiveau" Type="Int32" Nullable="false" />
           <Property Name="ReqForce" Type="Int32" Nullable="false" />
           <Property Name="ReqDexterite" Type="Int32" Nullable="false" />
@@ -374,30 +483,30 @@
           <Property Name="ReqEndurance" Type="Int32" Nullable="false" />
           <Property Name="MondeId" Type="Int32" Nullable="false" />
           <Property Name="Quantite" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="EffetItems" Relationship="Self.FK_EffetItem_Item" FromRole="Item" ToRole="EffetItem" />
-          <NavigationProperty Name="Monde" Relationship="Self.FK_Item_Monde" FromRole="Item" ToRole="Monde" />
-          <NavigationProperty Name="Heroes" Relationship="Self.InventaireHero" FromRole="Item" ToRole="Hero" />
+          <NavigationProperty Name="EffetItems" Relationship="Model.FK_EffetItem_Item" FromRole="Item" ToRole="EffetItem" />
+          <NavigationProperty Name="Monde" Relationship="Model.FK_Item_Monde" FromRole="Item" ToRole="Monde" />
+          <NavigationProperty Name="Heroes" Relationship="Model.InventaireHero" FromRole="Item" ToRole="Hero" />
         </EntityType>
         <EntityType Name="Monde">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LimiteX" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="LimiteY" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Classes" Relationship="Self.FK_Classe_Monde" FromRole="Monde" ToRole="Classe" />
-          <NavigationProperty Name="Heroes" Relationship="Self.FK_Hero_Monde" FromRole="Monde" ToRole="Hero" />
-          <NavigationProperty Name="Items" Relationship="Self.FK_Item_Monde" FromRole="Monde" ToRole="Item" />
-          <NavigationProperty Name="Monstres" Relationship="Self.FK_Monstre_Monde" FromRole="Monde" ToRole="Monstre" />
-          <NavigationProperty Name="ObjetMondes" Relationship="Self.FK_ObjetMonde_Monde" FromRole="Monde" ToRole="ObjetMonde" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LimiteX" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="LimiteY" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Classes" Relationship="Model.FK_Classe_Monde" FromRole="Monde" ToRole="Classe" />
+          <NavigationProperty Name="Heroes" Relationship="Model.FK_Hero_Monde" FromRole="Monde" ToRole="Hero" />
+          <NavigationProperty Name="Items" Relationship="Model.FK_Item_Monde" FromRole="Monde" ToRole="Item" />
+          <NavigationProperty Name="Monstres" Relationship="Model.FK_Monstre_Monde" FromRole="Monde" ToRole="Monstre" />
+          <NavigationProperty Name="ObjetMondes" Relationship="Model.FK_ObjetMonde_Monde" FromRole="Monde" ToRole="ObjetMonde" />
         </EntityType>
         <EntityType Name="Monstre">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Niveau" Type="Int32" Nullable="false" />
           <Property Name="x" Type="Int32" Nullable="false" />
           <Property Name="y" Type="Int32" Nullable="false" />
@@ -405,7 +514,7 @@
           <Property Name="StatDmgMin" Type="Single" Nullable="false" />
           <Property Name="StatDmgMax" Type="Single" Nullable="false" />
           <Property Name="MondeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Monde" Relationship="Self.FK_Monstre_Monde" FromRole="Monstre" ToRole="Monde" />
+          <NavigationProperty Name="Monde" Relationship="Model.FK_Monstre_Monde" FromRole="Monstre" ToRole="Monde" />
         </EntityType>
         <EntityType Name="ObjetMonde">
           <Key>
@@ -414,14 +523,14 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="x" Type="Int32" Nullable="false" />
           <Property Name="y" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TypeObjet" Type="Int32" Nullable="false" />
           <Property Name="MondeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Monde" Relationship="Self.FK_ObjetMonde_Monde" FromRole="ObjetMonde" ToRole="Monde" />
+          <NavigationProperty Name="Monde" Relationship="Model.FK_ObjetMonde_Monde" FromRole="ObjetMonde" ToRole="Monde" />
         </EntityType>
         <Association Name="FK_Classe_Monde">
-          <End Role="Monde" Type="Self.Monde" Multiplicity="1" />
-          <End Role="Classe" Type="Self.Classe" Multiplicity="*" />
+          <End Type="Model.Monde" Role="Monde" Multiplicity="1" />
+          <End Type="Model.Classe" Role="Classe" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Monde">
               <PropertyRef Name="Id" />
@@ -432,8 +541,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Hero_Classe">
-          <End Role="Classe" Type="Self.Classe" Multiplicity="1" />
-          <End Role="Hero" Type="Self.Hero" Multiplicity="*" />
+          <End Type="Model.Classe" Role="Classe" Multiplicity="1" />
+          <End Type="Model.Hero" Role="Hero" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Classe">
               <PropertyRef Name="Id" />
@@ -444,8 +553,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="IsPartOfAccount">
-          <End Role="CompteJoueur" Type="Self.CompteJoueur" Multiplicity="1" />
-          <End Role="Hero" Type="Self.Hero" Multiplicity="*" />
+          <End Type="Model.CompteJoueur" Role="CompteJoueur" Multiplicity="1" />
+          <End Type="Model.Hero" Role="Hero" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CompteJoueur">
               <PropertyRef Name="Id" />
@@ -456,8 +565,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EffetItem_Item">
-          <End Role="Item" Type="Self.Item" Multiplicity="1" />
-          <End Role="EffetItem" Type="Self.EffetItem" Multiplicity="*" />
+          <End Type="Model.Item" Role="Item" Multiplicity="1" />
+          <End Type="Model.EffetItem" Role="EffetItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Item">
               <PropertyRef Name="Id" />
@@ -468,8 +577,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Hero_Monde">
-          <End Role="Monde" Type="Self.Monde" Multiplicity="1" />
-          <End Role="Hero" Type="Self.Hero" Multiplicity="*" />
+          <End Type="Model.Monde" Role="Monde" Multiplicity="1" />
+          <End Type="Model.Hero" Role="Hero" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Monde">
               <PropertyRef Name="Id" />
@@ -480,8 +589,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Item_Monde">
-          <End Role="Monde" Type="Self.Monde" Multiplicity="1" />
-          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <End Type="Model.Monde" Role="Monde" Multiplicity="1" />
+          <End Type="Model.Item" Role="Item" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Monde">
               <PropertyRef Name="Id" />
@@ -492,8 +601,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Monstre_Monde">
-          <End Role="Monde" Type="Self.Monde" Multiplicity="1" />
-          <End Role="Monstre" Type="Self.Monstre" Multiplicity="*" />
+          <End Type="Model.Monde" Role="Monde" Multiplicity="1" />
+          <End Type="Model.Monstre" Role="Monstre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Monde">
               <PropertyRef Name="Id" />
@@ -504,8 +613,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ObjetMonde_Monde">
-          <End Role="Monde" Type="Self.Monde" Multiplicity="1" />
-          <End Role="ObjetMonde" Type="Self.ObjetMonde" Multiplicity="*" />
+          <End Type="Model.Monde" Role="Monde" Multiplicity="1" />
+          <End Type="Model.ObjetMonde" Role="ObjetMonde" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Monde">
               <PropertyRef Name="Id" />
@@ -516,184 +625,177 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="InventaireHero">
-          <End Role="Hero" Type="Self.Hero" Multiplicity="*" />
-          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <End Type="Model.Hero" Role="Hero" Multiplicity="*" />
+          <End Type="Model.Item" Role="Item" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="RpgGameEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Classes" EntityType="Self.Classe" />
-          <EntitySet Name="CompteJoueurs" EntityType="Self.CompteJoueur" />
-          <EntitySet Name="EffetItems" EntityType="Self.EffetItem" />
-          <EntitySet Name="Heroes" EntityType="Self.Hero" />
-          <EntitySet Name="Items" EntityType="Self.Item" />
-          <EntitySet Name="Mondes" EntityType="Self.Monde" />
-          <EntitySet Name="Monstres" EntityType="Self.Monstre" />
-          <EntitySet Name="ObjetMondes" EntityType="Self.ObjetMonde" />
-          <AssociationSet Name="FK_Classe_Monde" Association="Self.FK_Classe_Monde">
-            <End Role="Monde" EntitySet="Mondes" />
-            <End Role="Classe" EntitySet="Classes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Hero_Classe" Association="Self.FK_Hero_Classe">
-            <End Role="Classe" EntitySet="Classes" />
-            <End Role="Hero" EntitySet="Heroes" />
-          </AssociationSet>
-          <AssociationSet Name="IsPartOfAccount" Association="Self.IsPartOfAccount">
-            <End Role="CompteJoueur" EntitySet="CompteJoueurs" />
-            <End Role="Hero" EntitySet="Heroes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EffetItem_Item" Association="Self.FK_EffetItem_Item">
-            <End Role="Item" EntitySet="Items" />
-            <End Role="EffetItem" EntitySet="EffetItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Hero_Monde" Association="Self.FK_Hero_Monde">
-            <End Role="Monde" EntitySet="Mondes" />
-            <End Role="Hero" EntitySet="Heroes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Item_Monde" Association="Self.FK_Item_Monde">
-            <End Role="Monde" EntitySet="Mondes" />
-            <End Role="Item" EntitySet="Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Monstre_Monde" Association="Self.FK_Monstre_Monde">
-            <End Role="Monde" EntitySet="Mondes" />
-            <End Role="Monstre" EntitySet="Monstres" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ObjetMonde_Monde" Association="Self.FK_ObjetMonde_Monde">
-            <End Role="Monde" EntitySet="Mondes" />
-            <End Role="ObjetMonde" EntitySet="ObjetMondes" />
-          </AssociationSet>
-          <AssociationSet Name="InventaireHero" Association="Self.InventaireHero">
-            <End Role="Hero" EntitySet="Heroes" />
-            <End Role="Item" EntitySet="Items" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="RpgGameModelStoreContainer" CdmEntityContainer="RpgGameEntities">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="HugoWorldEntities">
+          <FunctionImportMapping FunctionImportName="InsertHero" FunctionName="Model.Store.InsertHero" />
           <EntitySetMapping Name="Classes">
-            <EntityTypeMapping TypeName="RpgGameModel.Classe">
+            <EntityTypeMapping TypeName="Model.Classe">
               <MappingFragment StoreEntitySet="Classe">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="NomClasse" ColumnName="NomClasse" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="StatPoidsStr" ColumnName="StatPoidsStr" />
-                <ScalarProperty Name="StatPoidsDex" ColumnName="StatPoidsDex" />
-                <ScalarProperty Name="StatPoidsInt" ColumnName="StatPoidsInt" />
-                <ScalarProperty Name="StatPoidsStam" ColumnName="StatPoidsStam" />
                 <ScalarProperty Name="MondeId" ColumnName="MondeId" />
+                <ScalarProperty Name="StatPoidsStam" ColumnName="StatPoidsStam" />
+                <ScalarProperty Name="StatPoidsInt" ColumnName="StatPoidsInt" />
+                <ScalarProperty Name="StatPoidsDex" ColumnName="StatPoidsDex" />
+                <ScalarProperty Name="StatPoidsStr" ColumnName="StatPoidsStr" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NomClasse" ColumnName="NomClasse" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CompteJoueurs">
-            <EntityTypeMapping TypeName="RpgGameModel.CompteJoueur">
+            <EntityTypeMapping TypeName="Model.CompteJoueur">
               <MappingFragment StoreEntitySet="CompteJoueur">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="NomUtilisateur" ColumnName="NomUtilisateur" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Courriel" ColumnName="Courriel" />
-                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
-                <ScalarProperty Name="Nom" ColumnName="Nom" />
                 <ScalarProperty Name="TypeUtilisateur" ColumnName="TypeUtilisateur" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Courriel" ColumnName="Courriel" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="NomUtilisateur" ColumnName="NomUtilisateur" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EffetItems">
-            <EntityTypeMapping TypeName="RpgGameModel.EffetItem">
+            <EntityTypeMapping TypeName="Model.EffetItem">
               <MappingFragment StoreEntitySet="EffetItem">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
-                <ScalarProperty Name="ValeurEffet" ColumnName="ValeurEffet" />
                 <ScalarProperty Name="TypeEffet" ColumnName="TypeEffet" />
+                <ScalarProperty Name="ValeurEffet" ColumnName="ValeurEffet" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Heroes">
-            <EntityTypeMapping TypeName="RpgGameModel.Hero">
+            <EntityTypeMapping TypeName="Model.Hero">
               <MappingFragment StoreEntitySet="Hero">
-                <ScalarProperty Name="CompteJoueurId" ColumnName="CompteJoueurId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
-                <ScalarProperty Name="Experience" ColumnName="Experience" />
-                <ScalarProperty Name="x" ColumnName="x" />
-                <ScalarProperty Name="y" ColumnName="y" />
-                <ScalarProperty Name="Argent" ColumnName="Argent" />
-                <ScalarProperty Name="StatBaseStr" ColumnName="StatBaseStr" />
-                <ScalarProperty Name="StatBaseDex" ColumnName="StatBaseDex" />
-                <ScalarProperty Name="StatBaseInt" ColumnName="StatBaseInt" />
-                <ScalarProperty Name="StatBaseStam" ColumnName="StatBaseStam" />
-                <ScalarProperty Name="MondeId" ColumnName="MondeId" />
                 <ScalarProperty Name="ClasseId" ColumnName="ClasseId" />
+                <ScalarProperty Name="MondeId" ColumnName="MondeId" />
+                <ScalarProperty Name="StatBaseStam" ColumnName="StatBaseStam" />
+                <ScalarProperty Name="StatBaseInt" ColumnName="StatBaseInt" />
+                <ScalarProperty Name="StatBaseDex" ColumnName="StatBaseDex" />
+                <ScalarProperty Name="StatBaseStr" ColumnName="StatBaseStr" />
+                <ScalarProperty Name="Argent" ColumnName="Argent" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CompteJoueurId" ColumnName="CompteJoueurId" />
               </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Model.Hero">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="Model.Store.InsertHero">
+                  <ScalarProperty Name="ClasseId" ParameterName="ClasseId" />
+                  <ScalarProperty Name="MondeId" ParameterName="MondeId" />
+                  <ScalarProperty Name="StatBaseStam" ParameterName="StatBaseStam" />
+                  <ScalarProperty Name="StatBaseInt" ParameterName="StatBaseInt" />
+                  <ScalarProperty Name="StatBaseDex" ParameterName="StatBaseDex" />
+                  <ScalarProperty Name="StatBaseStr" ParameterName="StatBaseStr" />
+                  <ScalarProperty Name="Argent" ParameterName="Argent" />
+                  <ScalarProperty Name="y" ParameterName="y" />
+                  <ScalarProperty Name="x" ParameterName="x" />
+                  <ScalarProperty Name="Experience" ParameterName="Experience" />
+                  <ScalarProperty Name="Niveau" ParameterName="Niveau" />
+                  <ScalarProperty Name="CompteJoueurId" ParameterName="CompteJoueurId" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="Model.Store.UpdateHero">
+                  <ScalarProperty Name="Id" ParameterName="HeroId" Version="Current" />
+                  <ScalarProperty Name="StatBaseStam" ParameterName="StatBaseStam" Version="Current" />
+                  <ScalarProperty Name="StatBaseInt" ParameterName="StatBaseInt" Version="Current" />
+                  <ScalarProperty Name="StatBaseDex" ParameterName="StatBaseDex" Version="Current" />
+                  <ScalarProperty Name="StatBaseStr" ParameterName="StatBaseStr" Version="Current" />
+                  <ScalarProperty Name="Argent" ParameterName="Argent" Version="Current" />
+                  <ScalarProperty Name="y" ParameterName="y" Version="Current" />
+                  <ScalarProperty Name="x" ParameterName="x" Version="Current" />
+                  <ScalarProperty Name="Experience" ParameterName="Experience" Version="Current" />
+                  <ScalarProperty Name="Niveau" ParameterName="Niveau" Version="Current" />
+                  <ScalarProperty Name="CompteJoueurId" ParameterName="CompteJoueurId" Version="Current" />
+                  <ScalarProperty Name="ClasseId" ParameterName="ClasseId" Version="Current" />
+                  <ScalarProperty Name="MondeId" ParameterName="MondeId" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="Model.Store.DeleteHero" >
+                  <ScalarProperty Name="Id" ParameterName="HeroId" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">
-            <EntityTypeMapping TypeName="RpgGameModel.Item">
+            <EntityTypeMapping TypeName="Model.Item">
               <MappingFragment StoreEntitySet="Item">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nom" ColumnName="Nom" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="x" ColumnName="x" />
-                <ScalarProperty Name="y" ColumnName="y" />
-                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
-                <ScalarProperty Name="ValeurArgent" ColumnName="ValeurArgent" />
-                <ScalarProperty Name="Poids" ColumnName="Poids" />
-                <ScalarProperty Name="ReqNiveau" ColumnName="ReqNiveau" />
-                <ScalarProperty Name="ReqForce" ColumnName="ReqForce" />
-                <ScalarProperty Name="ReqDexterite" ColumnName="ReqDexterite" />
-                <ScalarProperty Name="ReqIntelligence" ColumnName="ReqIntelligence" />
-                <ScalarProperty Name="ReqEndurance" ColumnName="ReqEndurance" />
-                <ScalarProperty Name="MondeId" ColumnName="MondeId" />
                 <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="MondeId" ColumnName="MondeId" />
+                <ScalarProperty Name="ReqEndurance" ColumnName="ReqEndurance" />
+                <ScalarProperty Name="ReqIntelligence" ColumnName="ReqIntelligence" />
+                <ScalarProperty Name="ReqDexterite" ColumnName="ReqDexterite" />
+                <ScalarProperty Name="ReqForce" ColumnName="ReqForce" />
+                <ScalarProperty Name="ReqNiveau" ColumnName="ReqNiveau" />
+                <ScalarProperty Name="Poids" ColumnName="Poids" />
+                <ScalarProperty Name="ValeurArgent" ColumnName="ValeurArgent" />
+                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Mondes">
-            <EntityTypeMapping TypeName="RpgGameModel.Monde">
+            <EntityTypeMapping TypeName="Model.Monde">
               <MappingFragment StoreEntitySet="Monde">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="LimiteX" ColumnName="LimiteX" />
                 <ScalarProperty Name="LimiteY" ColumnName="LimiteY" />
+                <ScalarProperty Name="LimiteX" ColumnName="LimiteX" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Monstres">
-            <EntityTypeMapping TypeName="RpgGameModel.Monstre">
+            <EntityTypeMapping TypeName="Model.Monstre">
               <MappingFragment StoreEntitySet="Monstre">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nom" ColumnName="Nom" />
-                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
-                <ScalarProperty Name="x" ColumnName="x" />
-                <ScalarProperty Name="y" ColumnName="y" />
-                <ScalarProperty Name="StatPV" ColumnName="StatPV" />
-                <ScalarProperty Name="StatDmgMin" ColumnName="StatDmgMin" />
-                <ScalarProperty Name="StatDmgMax" ColumnName="StatDmgMax" />
                 <ScalarProperty Name="MondeId" ColumnName="MondeId" />
+                <ScalarProperty Name="StatDmgMax" ColumnName="StatDmgMax" />
+                <ScalarProperty Name="StatDmgMin" ColumnName="StatDmgMin" />
+                <ScalarProperty Name="StatPV" ColumnName="StatPV" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ObjetMondes">
-            <EntityTypeMapping TypeName="RpgGameModel.ObjetMonde">
+            <EntityTypeMapping TypeName="Model.ObjetMonde">
               <MappingFragment StoreEntitySet="ObjetMonde">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="x" ColumnName="x" />
-                <ScalarProperty Name="y" ColumnName="y" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="TypeObjet" ColumnName="TypeObjet" />
                 <ScalarProperty Name="MondeId" ColumnName="MondeId" />
+                <ScalarProperty Name="TypeObjet" ColumnName="TypeObjet" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="InventaireHero" TypeName="RpgGameModel.InventaireHero" StoreEntitySet="InventaireHero">
-            <EndProperty Name="Hero">
-              <ScalarProperty Name="Id" ColumnName="IdHero" />
-            </EndProperty>
+          <AssociationSetMapping Name="InventaireHero" TypeName="Model.InventaireHero" StoreEntitySet="InventaireHero">
             <EndProperty Name="Item">
               <ScalarProperty Name="Id" ColumnName="ItemId" />
             </EndProperty>
+            <EndProperty Name="Hero">
+              <ScalarProperty Name="Id" ColumnName="IdHero" />
+            </EndProperty>
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="DeleteHero" FunctionName="Model.Store.DeleteHero" />
+          <FunctionImportMapping FunctionImportName="UpdateHero" FunctionName="Model.Store.UpdateHero" />
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
@@ -709,7 +811,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
       </DesignerInfoPropertySet>
     </Options>

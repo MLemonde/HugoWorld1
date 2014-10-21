@@ -9,7 +9,7 @@ namespace HugoLand.Controleur
 {
     class InventaireHeroController
     {
-        RpgGameEntities context = new RpgGameEntities();
+        HugoWorldEntities context = new HugoWorldEntities();
 
         
         /// <summary>

@@ -2,13 +2,13 @@ c:\users\francis\documents\visual studio 2013\Projects\HugoLand\HugoLand\bin\Deb
 H:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
 G:\Google Drive\5eme_session\Applications avec bases de données\TP01\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
 C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
-C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache
-C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe
-C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.pdb
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.dll
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.xml
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.exe
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.pdb
+C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.pdb
+C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache

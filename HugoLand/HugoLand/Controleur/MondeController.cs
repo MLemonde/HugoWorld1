@@ -9,7 +9,7 @@ namespace HugoLand.Controller
 {
     class MondeController
     {
-        RpgGameEntities db = new RpgGameEntities();
+        HugoWorldEntities db = new HugoWorldEntities();
 
         /// <summary>
         /// Auteur: Marc-André Landry
@@ -40,13 +40,13 @@ namespace HugoLand.Controller
         /// <param name="iLimiteY">The new limit of the world (y)</param>
         public void EditMonde(int iID, string sDescription, string iLimiteX, string iLimiteY)
         {
-            var Monde = db.Mondes.FirstOrNull(c => c.Id == iID);
-            if (Monde == null)
+            var monde = db.Mondes.FirstOrNull(c => c.Id == iID);
+            if (monde == null && iLimiteX.Length > 10 && iLimiteY.Length > 10)
                 return;
             
-                Monde.Description = sDescription;
-                Monde.LimiteX = iLimiteX;
-                Monde.LimiteY = iLimiteY;
+            monde.Description = sDescription;
+            monde.LimiteX = iLimiteX;
+            monde.LimiteY = iLimiteY;
             
             db.SaveChanges();
         }
@@ -99,7 +99,10 @@ namespace HugoLand.Controller
             var monde = db.Mondes.FirstOrNull(c => c.Id == iID);
             if (monde == null)
                 return;
-            
+
+            List<Classe> lstClass = monde.Classes.ToList();
+
+
             db.Mondes.Remove(monde);
             db.SaveChanges();
         }

@@ -9,29 +9,26 @@ namespace HugoLand.Controller
 {
     class EffetItemController
     {
+        HugoWorldEntities context = new HugoWorldEntities();
+
         /// <summary>
         /// Auteur Francis
         /// </summary>
         public void CreateEffetItem(int itemId, int typeEffet, int valeurEffet)
         {
-            
+            var item = context.Items.FirstOrNull(c => c.Id == itemId);
+            if (item == null)
+                return;
 
-            using (RpgGameEntities context = new RpgGameEntities())
+            EffetItem effet = new EffetItem()
             {
-                var item = context.Items.FirstOrNull(c => c.Id == itemId);
-                if (item == null)
-                    return;
-
-               EffetItem effet = new EffetItem()
-                {
-                    ItemId = itemId,
-                    TypeEffet = typeEffet,
-                    ValeurEffet = valeurEffet,
-                };
-                 context.EffetItems.Add(effet);
-                 item.EffetItems.Add(effet);
-                 context.SaveChanges();
-            }
+                ItemId = itemId,
+                TypeEffet = typeEffet,
+                ValeurEffet = valeurEffet,
+            };
+            context.EffetItems.Add(effet);
+            item.EffetItems.Add(effet);
+            context.SaveChanges();
         }
 
         /// <summary>
@@ -39,15 +36,12 @@ namespace HugoLand.Controller
         /// </summary>
         public void DeleteEffetItem(int effetItemId)
         {
-            using (RpgGameEntities context = new RpgGameEntities())
-            {
                 EffetItem effetItem = context.EffetItems.FirstOrNull(i => i.Id == effetItemId);
                 if (effetItem == null)
                     return;
                 effetItem.Item.EffetItems.Remove(effetItem);
                 context.EffetItems.Remove(effetItem);
                 context.SaveChanges();
-            }
         }
 
         /// <summary>
@@ -55,10 +49,6 @@ namespace HugoLand.Controller
         /// </summary>
         public void EditEffetItem(int effetItemId, int typeEffet, int valeurEffet)
         {
-            using (RpgGameEntities context = new RpgGameEntities())
-            {
-                
-
                 EffetItem effetItem = context.EffetItems.FirstOrNull(i => i.Id == effetItemId);
                 if (effetItem == null)
                     return;
@@ -67,7 +57,6 @@ namespace HugoLand.Controller
                 effetItem.ValeurEffet = valeurEffet;
 
                 context.SaveChanges();
-            }
         }
     }
 }
