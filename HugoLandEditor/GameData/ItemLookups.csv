@@ -1,0 +1,10 @@
+Armour,1,Armour,gamedata\tiles.bmp,7,4,Y,1,Open,
+Attack,2Attack,gamedata\tiles.bmp,8,4,Y,1,Open,
+Treasure1,3,Treasure,gamedata\tiles.bmp,10,3,Y,1,Open
+Treasure2,4,Treasure,gamedata\tiles.bmp,8,5,Y,1,Open,
+KeyBrown,5,Key,gamedata\tiles.bmp,7,3,Y,1,Open,Brown
+KeyGreen,6,Key,gamedata\tiles.bmp,8,3,Y,1,Open,Green
+KeyRed,kre,7,gamedata\tiles.bmp,9,3,Y,1,Open,Red
+Food1,8,Food,gamedata\tiles.bmp,10,4,Y,1,Open,
+Food2,9,Food,gamedata\tiles.bmp,7,5,Y,1,Open,
+Potion,10,Potion,gamedata\tiles.bmp,9,4,Y,1,Open
