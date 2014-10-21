@@ -66,6 +66,7 @@ namespace HugoLand.Controleur
         /// <param name="iType"></param>
         public void EditPlayer(int id,string sEmail,string sFname,string sLname,int iType)
         {
+            //TODO ID Vers username
             CompteJoueur Account = context.CompteJoueurs.Find(id);
             if (Account == null)
                 return;

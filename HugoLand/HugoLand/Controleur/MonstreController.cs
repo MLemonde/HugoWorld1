@@ -49,6 +49,7 @@ namespace HugoLand.Controleur
         /// <param name="Map"></param>
         public void DeleteMonster(Monstre monster,Monde Map)
         {         
+            //TODO p-e pas passe monde
             Map.Monstres.Remove(monster);
             context.SaveChanges();
         }
