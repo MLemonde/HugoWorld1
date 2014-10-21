@@ -12,6 +12,7 @@ namespace HugoLand.Controller
         RpgGameEntities db = new RpgGameEntities();
 
         /// <summary>
+        /// Auteur: Marc-André Landry
         /// Create a new world
         /// </summary>
         /// <param name="iLimiteX">Limit of the world (x)</param>
@@ -30,6 +31,7 @@ namespace HugoLand.Controller
         }
 
         /// <summary>
+        /// Auteur: Marc-André Landry
         /// Edit the world you want.
         /// </summary>
         /// <param name="iID">The ID of the world you wanna change</param>
@@ -38,35 +40,36 @@ namespace HugoLand.Controller
         /// <param name="iLimiteY">The new limit of the world (y)</param>
         public void EditMonde(int iID, string sDescription, string iLimiteX, string iLimiteY)
         {
-            Monde monde = db.Mondes.Find(iID);
-            if (monde == null)
+            var Monde = db.Mondes.FirstOrNull(c => c.Id == iID);
+            if (Monde == null)
                 return;
-            else
-            {
-                monde.Description = sDescription;
-                monde.LimiteX = iLimiteX;
-                monde.LimiteY = iLimiteY;
-            }
+            
+                Monde.Description = sDescription;
+                Monde.LimiteX = iLimiteX;
+                Monde.LimiteY = iLimiteY;
+            
             db.SaveChanges();
         }
 
         /// <summary>
+        /// Auteur: Marc-André Landry        /// 
         /// This method is used if you wanna change only the description of the world
         /// </summary>
         /// <param name="iID">The ID of the world you wanna change</param>
         /// <param name="sDescription">The new description of the world</param>
         public void EditMonde(int iID, string sDescription)
         {
-            Monde monde = db.Mondes.Find(iID);
+            var monde = db.Mondes.FirstOrNull(c => c.Id == iID);
             if (monde == null)
                 return;
-            else
+            
                 monde.Description = sDescription;
 
             db.SaveChanges();
         }
 
         /// <summary>
+        /// Auteur: Marc-André Landry        /// 
         /// This method is used if you want to change only the positions of the world
         /// </summary>
         /// <param name="iID">The ID of the world you wanna change</param>
@@ -74,28 +77,30 @@ namespace HugoLand.Controller
         /// <param name="iLimiteY">The new limit of the world (y)</param>
         public void EditMonde(int iID, string iLimiteX, string iLimiteY)
         {
-            Monde monde = db.Mondes.Find(iID);
+            var monde = db.Mondes.FirstOrNull(c => c.Id == iID);
             if (monde == null)
                 return;
-            else
-            {
+            
+            
                 monde.LimiteX = iLimiteX;
                 monde.LimiteY = iLimiteY;
-            }
+            
             db.SaveChanges();
         }
 
         /// <summary>
+        /// Auteur: Marc-André Landry
+        /// 
         /// Use this methode if you ever wanna delete the world
         /// </summary>
         /// <param name="iID">The ID of the world you wanna destroy</param>
         public void DeleteMonde(int iID)
         {
-            Monde monde = db.Mondes.Find(iID);
+            var monde = db.Mondes.FirstOrNull(c => c.Id == iID);
             if (monde == null)
                 return;
-            else
-                db.Mondes.Remove(monde);
+            
+            db.Mondes.Remove(monde);
             db.SaveChanges();
         }
 
