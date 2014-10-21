@@ -13,12 +13,17 @@ namespace HugoLand.Controleur
 
         public void AddItemToHero(Hero hero, Item item)
         {
-            Item newitem = new Item()
+            for (int x = 0; x < 10; x++)
             {
-
-            };
-
-
+                for (int y = 0; y < 10; y++)
+                {
+                    if (hero.Items.FirstOrNull(i => i.x == x && i.y == y) == null)
+                    {
+                        hero.Items.Add(item);
+                        return;
+                    }
+                }
+            }
         }
 
         public void DeleteItemFromHero(Hero hero, Item item)
