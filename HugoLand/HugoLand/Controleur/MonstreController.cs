@@ -20,22 +20,26 @@ namespace HugoLand.Controller
         /// 
         /// Creation d'un Monstre avec valeur aléatoires
         /// </summary>
-        /// <param name="Mondeid"></param>
-        public void CreateMonster(Monde Mondeid)
+        /// <param name="Mondeid">Id du monde</param>
+        public void CreateMonster(int Mondeid)
         {
+            var Monde = context.Mondes.FirstOrNull(c => c.Id == Mondeid);
+            if (Monde == null)
+                return;
             Random _rand = new Random();
             int DmgMin = _rand.Next(0, 100);
             Monstre monster = new Monstre()
             {
-                MondeId = Mondeid.Id,
+                MondeId = Monde.Id,
                 Nom = "Monster",
                 Niveau = _rand.Next(0,101),
-                x= _rand.Next(0,int.Parse(Mondeid.LimiteX)),
-                y = _rand.Next(0, int.Parse(Mondeid.LimiteY)),
+                x= _rand.Next(0,int.Parse(Monde.LimiteX)),
+                y = _rand.Next(0, int.Parse(Monde.LimiteY)),
                 StatPV = _rand.Next(0,400),
                 StatDmgMax = _rand.Next(DmgMin,400)
             };
             context.Monstres.Add(monster);
+            Monde.Monstres.Add(monster);
             context.SaveChanges();
         }
 
@@ -45,10 +49,15 @@ namespace HugoLand.Controller
         /// Suppression d'un monstre
         /// </summary>
         /// <param name="monster"></param>
-        /// <param name="Map"></param>
-        public void DeleteMonster(Monstre monster,Monde Map)
+        /// <param name="Mapid">Id du monde</param>
+        public void DeleteMonster(Monstre monster,int Mapid)
         {
+            var Monde = context.Mondes.FirstOrNull(c => c.Id == Mapid);
+            if (Monde == null)
+                return;
+
             context.Monstres.Remove(monster);
+            Monde.Monstres.Remove(monster);
             context.SaveChanges();
         }
 

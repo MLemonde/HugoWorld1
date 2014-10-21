@@ -183,3 +183,5 @@ UpgradeLog*.htm
 FakesAssemblies/
 *.suo
 *.suo
+HugoLand/HugoLand/obj/Debug/HugoLand.csproj.FileListAbsolute.txt
+HugoLand/HugoLand/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache

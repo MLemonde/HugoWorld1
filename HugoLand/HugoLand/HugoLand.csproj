@@ -113,6 +113,7 @@
     <Compile Include="Model\ObjetMonde.cs">
       <DependentUpon>HugoWorldModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\PasswordHash.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
