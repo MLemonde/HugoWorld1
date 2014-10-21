@@ -101,5 +101,25 @@ namespace HugoLand.Controller
             else
                 return new List<Hero>();
         }
+
+        //o	Pour un héros, retourner tous les éléments (ObjetMonde, Monstre, Item, Héro) qui se trouve dans un rayon de 200 par 200.
+
+
+        /// <summary>
+        /// Auteur Francis
+        /// retourne une liste de objects (ObjetMonde, Monstre, Item, Héro) qui se trouve dans le rayon de 200 par 200 du héro.
+        /// </summary>
+        /// <param name="HeroId"></param>
+        public List<object> GetElementsArroundHero(int HeroId)
+        {
+            Hero hero = context.Heroes.FirstOrNull(h => h.Id == HeroId);
+            List<object> elements = new List<object>();
+            elements.AddRange(context.Monstres.Where(m => m.x >= hero.x - 100 && m.x <= hero.x + 100 && m.y >= hero.y - 100 && m.y <= hero.y + 100));
+            elements.AddRange(context.ObjetMondes.Where(m => m.x >= hero.x - 100 && m.x <= hero.x + 100 && m.y >= hero.y - 100 && m.y <= hero.y + 100));
+            elements.AddRange(context.Items.Where(m => m.x >= hero.x - 100 && m.x <= hero.x + 100 && m.y >= hero.y - 100 && m.y <= hero.y + 100));
+            elements.AddRange(context.Heroes.Where(m => m.x >= hero.x - 100 && m.x <= hero.x + 100 && m.y >= hero.y - 100 && m.y <= hero.y + 100));
+            
+            return elements;
+        }
     }
 }
