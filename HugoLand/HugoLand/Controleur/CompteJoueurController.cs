@@ -26,9 +26,12 @@ namespace HugoLand.Controller
         /// <param name="sFname">Prénom</param>
         /// <param name="sLname">Nom de Famille</param>
         /// <param name="iType"> Type de compte (int)  0=Util, 1=Admin</param>
-        public void CreatePlayer(string sUsername,string sPass,string sEmail,string sFname,string sLname,int iType)
-        {          
-           
+        public bool CreatePlayer(string sUsername,string sPass,string sEmail,string sFname,string sLname,int iType)
+        {
+            var account = context.CompteJoueurs.FirstOrNull(c => c.NomUtilisateur == sUsername);
+            if (account != null)
+                return false;
+
             string sPassword = PasswordHash.CreateHash(sPass);
 
             CompteJoueur Account = new CompteJoueur()
@@ -42,7 +45,7 @@ namespace HugoLand.Controller
             };
             context.CompteJoueurs.Add(Account);
             context.SaveChanges();
-
+            return true;
         }
         /// <summary>
         /// Auteur:Mathew Lemonde
