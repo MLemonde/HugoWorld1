@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9a0b1a461656424c9216e48e8d5b032b" Name="Diagram1">
+        <EntityTypeShape EntityType="RPG_GameModel.Classe" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPG_GameModel.CompteJoueur" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPG_GameModel.EffetItem" Width="1.5" PointX="9.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPG_GameModel.Hero" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPG_GameModel.Item" Width="1.5" PointX="7.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPG_GameModel.Monde" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPG_GameModel.Monstre" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RPG_GameModel.ObjetMonde" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <AssociationConnector Association="RPG_GameModel.FK_Classe_Monde" ManuallyRouted="false" />
+        <AssociationConnector Association="RPG_GameModel.FK_Hero_Classe" ManuallyRouted="false" />
+        <AssociationConnector Association="RPG_GameModel.IsPartOfAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="RPG_GameModel.FK_EffetItem_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="RPG_GameModel.FK_Hero_Monde" ManuallyRouted="false" />
+        <AssociationConnector Association="RPG_GameModel.FK_Item_Monde" ManuallyRouted="false" />
+        <AssociationConnector Association="RPG_GameModel.FK_Monstre_Monde" ManuallyRouted="false" />
+        <AssociationConnector Association="RPG_GameModel.FK_ObjetMonde_Monde" ManuallyRouted="false" />
+        <AssociationConnector Association="RPG_GameModel.InventaireHero" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

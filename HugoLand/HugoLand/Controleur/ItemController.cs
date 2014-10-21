@@ -11,6 +11,10 @@ namespace HugoLand.Controller
     {
         HugoWorldEntities context = new HugoWorldEntities();
 
+        public ItemController(RpgGameEntities contextt)
+        {
+            context = contextt;
+        }
         /// <summary>
         /// Auteur Francis Lussier
         /// </summary>
@@ -56,7 +60,6 @@ namespace HugoLand.Controller
             Item item = context.Items.FirstOrNull(i => i.Id == itemId);
             if (item != null)
             {
-                
                 item.Quantite = quantite;                
                 context.SaveChanges();
             }
