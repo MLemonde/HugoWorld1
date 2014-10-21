@@ -74,14 +74,14 @@ namespace HugoLand
 
             #region CLASSE
             classeController.CreateClass("Paladin", "Guerriers nobles?", 10, 10, 10, 10, context.Mondes.First().Id);
-            classeController.CreateClass("Noob", "Guerrier noob?", 0, 0, 0, 0, context.Mondes.First().Id);
+            classeController.CreateClass("Noob", "Guerrier noob?", 2, 2, 2, 2, context.Mondes.First().Id);
             List<Classe> lstClass = classeController.GetListClasses(context.Mondes.First().Id);
 
 
 
             classeController.EditClassFromWorld(lstClass.First().Id, "newClassName", "newClassDescription", 20, 20, 20, 20, context.Mondes.First().Id);
             Console.WriteLine(context.Classes.First().Description);
-            classeController.DeleteClass(lstClass.First().Id);
+            //classeController.DeleteClass(lstClass.First().Id);
             Console.WriteLine(context.Classes.First().Description);
 
             #endregion
@@ -140,6 +140,8 @@ namespace HugoLand
             #region ITEM
             Console.WriteLine("Création d'items...");
             itemController.CreateItem(context.Mondes.First().Id, 0, 0, "item01", "itemDesc", 1, 1, 1, 1, 1, 1, 1, 1);
+            itemController.CreateItem(context.Mondes.First().Id, 0, 0, "item01", "itemDesc", 2, 1, 1, 1, 1, 1, 1, 1);
+
             itemController.CreateItem(context.Mondes.First().Id, 0, 0, "item02", "itemDesc", 100, 100, 100, 100, 100, 100, 100, 200);
 
             int itemId = context.Items.First().Id;
@@ -190,7 +192,6 @@ namespace HugoLand
             Console.WriteLine(context.Heroes.First().Items.First().Description);
             InventaireController.DeleteItemFromHero(context.Heroes.First().Id, context.Items.First().Id);
             //devrait rien afficher
-            Console.WriteLine(context.Heroes.First().Items.First().Description);
 
             #endregion
         }
