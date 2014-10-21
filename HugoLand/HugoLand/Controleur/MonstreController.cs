@@ -50,18 +50,16 @@ namespace HugoLand.Controller
         /// </summary>
         /// <param name="monsterid">id du Monstre a delete</param>
         /// <param name="Mapid">Id du monde</param>
-        public void DeleteMonster(int monsterid,int Mapid)
+        public void DeleteMonster(int monsterid)
         {
             var monster = context.Monstres.FirstOrNull(c => c.Id == monsterid);
             if (monster == null)
                 return;
 
-            var Monde = context.Mondes.FirstOrNull(c => c.Id == Mapid);
-            if (Monde == null)
-                return;
+         
 
+            monster.Monde.Monstres.Remove(monster);
             context.Monstres.Remove(monster);
-            Monde.Monstres.Remove(monster);
             context.SaveChanges();
         }
 

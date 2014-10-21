@@ -14,15 +14,23 @@ namespace HugoLand.Controller
         /// </summary>
         public void CreateEffetItem(int itemId, int typeEffet, int valeurEffet)
         {
+            
+
             using (RpgGameEntities context = new RpgGameEntities())
             {
-                context.EffetItems.Add(new EffetItem()
+                var item = context.Items.FirstOrNull(c => c.Id == itemId);
+                if (item == null)
+                    return;
+
+               EffetItem effet = new EffetItem()
                 {
                     ItemId = itemId,
                     TypeEffet = typeEffet,
                     ValeurEffet = valeurEffet,
-                });
-                context.SaveChanges();
+                };
+                 context.EffetItems.Add(effet);
+                 item.EffetItems.Add(effet);
+                 context.SaveChanges();
             }
         }
 
@@ -49,9 +57,12 @@ namespace HugoLand.Controller
         {
             using (RpgGameEntities context = new RpgGameEntities())
             {
+                
+
                 EffetItem effetItem = context.EffetItems.FirstOrNull(i => i.Id == effetItemId);
                 if (effetItem == null)
                     return;
+
                 effetItem.TypeEffet = typeEffet;
                 effetItem.ValeurEffet = valeurEffet;
 
