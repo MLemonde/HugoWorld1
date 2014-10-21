@@ -107,7 +107,31 @@ namespace HugoLand.Controller
 
             List<Classe> lstClass = monde.Classes.ToList();
 
+            foreach(var item in lstClass)
+            {
+                List<Hero> lsthero = item.Heroes.ToList();
+                foreach (var hero in lsthero)
+                    db.Heroes.Remove(hero);
+                db.Classes.Remove(item);
+            }
 
+            List<Item> lstItem = monde.Items.ToList();
+            foreach(var item in lstItem)
+            {
+                List<EffetItem> lsteffet = item.EffetItems.ToList();
+                foreach (var effet in lsteffet)
+                    db.EffetItems.Remove(effet);
+
+                db.Items.Remove(item);
+            }
+
+            List<Monstre> lstmonstre = monde.Monstres.ToList();
+            foreach (var item in lstmonstre)
+                db.Monstres.Remove(item);
+
+            List<ObjetMonde> lstob = monde.ObjetMondes.ToList();
+            foreach (var item in lstob)
+                db.ObjetMondes.Remove(item);
             db.Mondes.Remove(monde);
             db.SaveChanges();
         }
