@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HugoLand.Controller;
+using HugoLand.Controleur;
 
 namespace HugoLand
 {
@@ -14,7 +15,21 @@ namespace HugoLand
         {
             RpgGameEntities context = new RpgGameEntities();
 
-            MondeController mondeControleur = new MondeController();
+            MondeController mondeControleur = new MondeController(context);
+            CompteJoueurController compteJoueurController = new CompteJoueurController(context);
+            ClasseController classeController = new ClasseController(context);
+            ObjetMondeController objetMondeController = new ObjetMondeController(context);
+            MonstreController monstreController = new MonstreController(context);
+            ItemController itemController = new ItemController(context);
+            EffetItemController effetItemController = new EffetItemController(context);
+            HeroController heroController = new HeroController(context);
+            InventaireHeroController InventaireController = new InventaireHeroController(context);
+            
+
+
+
+
+
             #region MONDE
             Console.WriteLine("Création de mondes...");
             //mondeControleur.CreateMonde("100", "100", "monde1");
@@ -51,7 +66,6 @@ namespace HugoLand
 
             int mondeId = _lstmondes.First().Id;
 
-            CompteJoueurController compteJoueurController = new CompteJoueurController();
             #region
             if (!compteJoueurController.CreatePlayer("Joueur01", "PASSWORD", "email@email.com", "Mathew", "Lemonde", 0))
                 Console.WriteLine();
@@ -61,7 +75,6 @@ namespace HugoLand
             compteJoueurController.DeletePlayer("Joueur01");
             #endregion
 
-            ClasseController classeController = new ClasseController();
             #region CLASSE
             classeController.CreateClass("Paladin", "Guerriers nobles?", 10, 10, 10, 10, mondeId);
             classeController.CreateClass("Noob", "Guerrier noob?", 0, 0, 0, 0, mondeId);
@@ -79,7 +92,6 @@ namespace HugoLand
             int classID = lstClass.First().Id;
             int compteId = context.CompteJoueurs.First().Id;
 
-            //HeroController heroController = new HeroController();
             //#region
             //heroController.CreateHero(_lstmondes.First().Id,compteId, classID, 0, 0, 20, 20, 20, 20, 20, 200, 300);
             //heroController.CreateHero(_lstmondes.First().Id,compteId, classID, 0, 0, 30, 30, 30, 30, 30, 400, 300);
@@ -91,7 +103,6 @@ namespace HugoLand
            
 
 
-            ObjetMondeController objetMondeController = new ObjetMondeController();
             #region
             Console.WriteLine("\najout d'un nouveau object dans le premier monde");
             objetMondeController.CreateObjectMonde(0, 0, "Object01", 0, mondeId);
@@ -103,7 +114,6 @@ namespace HugoLand
             objetMondeController.DeleteObjectMonde(_lstmondes.First().ObjetMondes.First().Id, mondeId);
             #endregion
 
-            MonstreController monstreController = new MonstreController();
             #region
             monstreController.CreateMonster(mondeId);
             monstreController.EditMonster(_lstmondes.First().Monstres.First().Id, "Patate", 10, 10, 10, 10, 10, 10);
@@ -115,7 +125,6 @@ namespace HugoLand
 
             
 
-            ItemController itemController = new ItemController();
             #region
             Console.WriteLine("Création d'items...");
             itemController.CreateItem(mondeId, 0, 0, "item01", "itemDesc", 1, 1, 1, 1, 1, 1, 1, 1);
@@ -146,7 +155,6 @@ namespace HugoLand
             Console.WriteLine("\n\n");
             #endregion
 
-            EffetItemController effetItemController = new EffetItemController();
             #region
             effetItemController.CreateEffetItem(itemId, 0, 0);
             effetItemController.CreateEffetItem(itemId, 0, 1);

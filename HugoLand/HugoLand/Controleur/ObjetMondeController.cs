@@ -11,6 +11,11 @@ namespace HugoLand.Controller
     {
         RpgGameEntities db = new RpgGameEntities();
 
+
+        public ObjetMondeController(RpgGameEntities context)
+        {
+            db = context;
+        }
         /// <summary>
         /// Auteur : Marc-André Landry
         /// Create an object (ex: scenery, rock, water, etc) in the world

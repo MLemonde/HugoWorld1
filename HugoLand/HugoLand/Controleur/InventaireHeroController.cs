@@ -11,7 +11,10 @@ namespace HugoLand.Controleur
     {
         RpgGameEntities context = new RpgGameEntities();
 
-        
+        public InventaireHeroController(RpgGameEntities db)
+        {
+            context = db;
+        }
         /// <summary>
         /// Auteur : Mathew Lemonde
         /// </summary>

@@ -14,7 +14,10 @@ namespace HugoLand.Controller
     class CompteJoueurController
     {
         RpgGameEntities context = new RpgGameEntities();
-
+        public CompteJoueurController(RpgGameEntities contextt)
+        {
+            context = contextt;
+        }
 
         /// <summary>
         /// Auteur: Mathew Lemonde

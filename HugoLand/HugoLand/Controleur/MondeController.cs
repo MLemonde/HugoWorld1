@@ -11,6 +11,10 @@ namespace HugoLand.Controller
     {
         RpgGameEntities db = new RpgGameEntities();
 
+        public MondeController(RpgGameEntities context)
+        {
+            db = context;
+        }
         /// <summary>
         /// Auteur: Marc-André Landry
         /// Create a new world

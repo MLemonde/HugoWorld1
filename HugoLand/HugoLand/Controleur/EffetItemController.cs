@@ -9,6 +9,12 @@ namespace HugoLand.Controller
 {
     class EffetItemController
     {
+        RpgGameEntities context = new RpgGameEntities();
+
+        public EffetItemController(RpgGameEntities contextt)
+        {
+            context = contextt;
+        }
         /// <summary>
         /// Auteur Francis
         /// </summary>
@@ -16,8 +22,7 @@ namespace HugoLand.Controller
         {
             
 
-            using (RpgGameEntities context = new RpgGameEntities())
-            {
+            
                 var item = context.Items.FirstOrNull(c => c.Id == itemId);
                 if (item == null)
                     return;
@@ -31,7 +36,7 @@ namespace HugoLand.Controller
                  context.EffetItems.Add(effet);
                  item.EffetItems.Add(effet);
                  context.SaveChanges();
-            }
+            
         }
 
         /// <summary>
@@ -39,15 +44,14 @@ namespace HugoLand.Controller
         /// </summary>
         public void DeleteEffetItem(int effetItemId)
         {
-            using (RpgGameEntities context = new RpgGameEntities())
-            {
+           
                 EffetItem effetItem = context.EffetItems.FirstOrNull(i => i.Id == effetItemId);
                 if (effetItem == null)
                     return;
                 effetItem.Item.EffetItems.Remove(effetItem);
                 context.EffetItems.Remove(effetItem);
                 context.SaveChanges();
-            }
+            
         }
 
         /// <summary>
@@ -55,8 +59,7 @@ namespace HugoLand.Controller
         /// </summary>
         public void EditEffetItem(int effetItemId, int typeEffet, int valeurEffet)
         {
-            using (RpgGameEntities context = new RpgGameEntities())
-            {
+            
                 
 
                 EffetItem effetItem = context.EffetItems.FirstOrNull(i => i.Id == effetItemId);
@@ -67,7 +70,7 @@ namespace HugoLand.Controller
                 effetItem.ValeurEffet = valeurEffet;
 
                 context.SaveChanges();
-            }
+            
         }
     }
 }

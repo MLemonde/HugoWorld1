@@ -15,6 +15,10 @@ namespace HugoLand.Controller
         /// </summary>
         RpgGameEntities context = new RpgGameEntities();
 
+        public MonstreController(RpgGameEntities db)
+        {
+            context = db;
+        }
         /// <summary>
         /// Auteur: Mathew Lemonde
         /// 

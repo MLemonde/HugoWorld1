@@ -11,6 +11,10 @@ namespace HugoLand.Controller
     {
         RpgGameEntities context = new RpgGameEntities();
 
+        public HeroController(RpgGameEntities db)
+        {
+            context = db;
+        }
         /// <summary>
         /// Auteur Francis Lussier
         /// </summary>

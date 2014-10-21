@@ -10,6 +10,12 @@ namespace HugoLand.Controller
     class ClasseController
     {
         RpgGameEntities db = new RpgGameEntities();
+
+        public ClasseController(RpgGameEntities context)
+        {
+            db = context;
+        }
+
         /// <summary>
         /// Auteur : Marc-André Landry
         /// </summary>
