@@ -11,7 +11,11 @@ namespace HugoLand.Controller
     {
         RpgGameEntities context = new RpgGameEntities();
 
-        public void CreateItem(int mondeId, int _x, int _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, int ValeurArgent, decimal valeurArgent)
+
+        /// <summary>
+        /// Auteur Francis Lussier
+        /// </summary>
+        public void CreateItem(int mondeId, int _x, int _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, decimal valeurArgent)
         {
             context.Items.Add(new Item()
                 {
@@ -32,6 +36,9 @@ namespace HugoLand.Controller
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Auteur Francis Lussier
+        /// </summary>
         public void DeleteItem(int itemId)
         {
             Item item = context.Items.FirstOrNull(i => i.Id == itemId);
@@ -43,22 +50,8 @@ namespace HugoLand.Controller
         }
         
         /// <summary>
-        /// 
+        /// Auteur Francis Lussier
         /// </summary>
-        /// <param name="itemId"></param>
-        /// <param name="mondeId"></param>
-        /// <param name="_x"></param>
-        /// <param name="_y"></param>
-        /// <param name="nom"></param>
-        /// <param name="description"></param>
-        /// <param name="poids"></param>
-        /// <param name="quantite"></param>
-        /// <param name="reqDexterite"></param>
-        /// <param name="reqEndurance"></param>
-        /// <param name="reqForce"></param>
-        /// <param name="reqIntelligence"></param>
-        /// <param name="reqNiveau"></param>
-        /// <param name="valeurArgent"></param>
         public void EditItem(int itemId, int mondeId, int _x, int _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, decimal valeurArgent)
         {
             Item item = context.Items.FirstOrNull(i => i.Id == itemId);
