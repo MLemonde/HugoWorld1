@@ -11,7 +11,6 @@ namespace HugoLand.Controller
     {
         RpgGameEntities context = new RpgGameEntities();
 
-
         /// <summary>
         /// Auteur Francis Lussier
         /// </summary>
@@ -74,6 +73,5 @@ namespace HugoLand.Controller
                 context.SaveChanges();
             }
         }
-        
     }
 }
