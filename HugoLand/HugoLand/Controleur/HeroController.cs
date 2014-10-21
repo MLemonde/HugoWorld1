@@ -5,19 +5,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HugoLand.Controleur
+namespace HugoLand.Controller
 {
     class HeroController
     {
         RpgGameEntities context = new RpgGameEntities();
 
-        public void CreateHero(CompteJoueur compte, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent)
+        /// <summary>
+        /// Auteur Francis Lussier
+        /// </summary>
+        public void CreateHero(int compteId, int classeId, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent)
         {
+            Classe classe = context.Classes.FirstOrNull(c => c.Id == classeId);
+            CompteJoueur compte = context.CompteJoueurs.FirstOrNull(c => c.Id == compteId);
+            if (classe == null || compte == null)
+                return;
+            
             Hero hero = new Hero()
             {
                 Argent = argent,
-                //Classe = classe,
-                CompteJoueur = compte,
+                ClasseId = classeId,
+                CompteJoueurId = compteId,
                 Experience = experience,
                 Niveau = niveau,
                 StatBaseDex = dex,
@@ -32,11 +40,16 @@ namespace HugoLand.Controleur
             context.SaveChanges();
         }
 
-        public void EditHero(int ID, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent)
+        /// <summary>
+        /// Auteur Francis Lussier
+        /// </summary>
+        public void EditHero(int HeroId, int classeId, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent)
         {
-            Hero hero = context.Heroes.FirstOrNull(h => h.Id == ID);
-            if (hero != null)
+            Hero hero = context.Heroes.FirstOrNull(h => h.Id == HeroId);
+            Classe classe = context.Classes.FirstOrNull(c => c.Id == classeId);
+            if (classe != null && hero != null)
             {
+                hero.ClasseId = classeId;
                 hero.x = X;
                 hero.y = Y;
                 hero.Niveau = niveau;
@@ -51,9 +64,12 @@ namespace HugoLand.Controleur
             }
         }
 
-        public void DeleteHero(int ID)
+        /// <summary>
+        /// Auteur Francis Lussier
+        /// </summary>
+        public void DeleteHero(int HeroId)
         {
-            Hero hero = context.Heroes.FirstOrNull(h => h.Id == ID);
+            Hero hero = context.Heroes.FirstOrNull(h => h.Id == HeroId);
             if (hero != null)
             {
                 hero.Monde.Heroes.Remove(hero);
@@ -65,9 +81,16 @@ namespace HugoLand.Controleur
             }
         }
 
-        public List<Hero> GetListHero(CompteJoueur compte)
+        /// <summary>
+        /// Auteur Francis Lussier
+        /// </summary>
+        public List<Hero> GetListHero(int compteId)
         {
-            return compte.Heroes.ToList();
+            CompteJoueur compte = context.CompteJoueurs.FirstOrNull(c => c.Id == compteId);
+            if (compte != null)
+                return compte.Heroes.ToList();
+            else
+                return new List<Hero>();
         }
     }
 }

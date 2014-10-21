@@ -74,7 +74,7 @@ namespace HugoLand
             objetMondeController.EditObjectMondeDescription(_lstmondes.First().ObjetMondes.First().Id, "ObjDescriptionModifiee");
 
             Console.WriteLine("\nsupression de cet object dans le premier monde");
-            objetMondeController.DeleteObjectMonde(_lstmondes.First().ObjetMondes.First().Id);
+            objetMondeController.DeleteObjectMonde(_lstmondes.First().ObjetMondes.First().Id, mondeId);
             #endregion
 
             MonstreController monstreController = new MonstreController();
@@ -86,10 +86,20 @@ namespace HugoLand
 
             CompteJoueurController compteJoueurController = new CompteJoueurController();
             #region
-            compteJoueurController.CreatePlayer("Joueur01", "PASSWORD", "email@email.com", "Mathew", "Lemonde", 0);
-            compteJoueurController.CreatePlayer("Joueur02", "PASSWORD", "email2@email.com", "Mathew2", "Lemonde2", 0);
-            //compteJoueurController.EditPlayer("Joueur01", "newEmail@hotmail.com", "Francis", "Lussier", 1);
-            //compteJoueurController.DeletePlayer("Joueur01");
+            if(!compteJoueurController.CreatePlayer("Joueur01", "PASSWORD", "email@email.com", "Mathew", "Lemonde", 0))
+                Console.WriteLine();
+            if (!compteJoueurController.CreatePlayer("Joueur02", "PASSWORD", "email2@email.com", "Mathew2", "Lemonde2", 0))
+                Console.WriteLine();
+            compteJoueurController.EditPlayer("Joueur01", "newEmail@hotmail.com", "Francis", "Lussier", 1);
+            compteJoueurController.DeletePlayer("Joueur01");
+            #endregion
+
+            int compteId = context.CompteJoueurs.First().Id;
+
+            HeroController heroController = new HeroController();
+            #region
+            heroController.CreateHero(compteId, classID, 0, 0, 20, 20, 20, 20, 20, 200, 300);
+            heroController.CreateHero(compteId, classID, 0, 0, 30, 30, 30, 30, 30, 400, 300);
             #endregion
 
             ItemController itemController = new ItemController();

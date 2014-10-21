@@ -45,18 +45,15 @@ namespace HugoLand.Controller
         /// </summary>
         /// <param name="iID">The ID of the object you want to destroy</param>
         /// <param name="mondeid">Id du monde</param>
-        public void DeleteObjectMonde(int iID,int mondeid)
+        public void DeleteObjectMonde(int objectMondeId,int mondeid)
         {
-            var Monde = db.Mondes.FirstOrNull(c => c.Id == mondeid);
-            if (Monde == null)
-                return;
-
-            ObjetMonde objMonde = db.ObjetMondes.Find(iID);
-            if (objMonde == null)
+            Monde monde = db.Mondes.FirstOrNull(c => c.Id == mondeid);
+            ObjetMonde objMonde = db.ObjetMondes.FirstOrNull(o => o.Id == objectMondeId);
+            if (objMonde == null || monde == null)
                 return;
             
             db.ObjetMondes.Remove(objMonde);
-            Monde.ObjetMondes.Remove(objMonde);
+            monde.ObjetMondes.Remove(objMonde);
             db.SaveChanges();
         }
 
@@ -68,9 +65,9 @@ namespace HugoLand.Controller
         /// </summary>
         /// <param name="iID">Id de l'objet</param>
         /// <param name="sDescription">Nouvelle description</param>
-        public void EditObjectMondeDescription(int iID, string sDescription)
+        public void EditObjectMondeDescription(int objectMondeId, string sDescription)
         {
-            ObjetMonde objMonde = db.ObjetMondes.Find(iID);
+            ObjetMonde objMonde = db.ObjetMondes.Find(objectMondeId);
             if (objMonde == null)
                 return;
             else
