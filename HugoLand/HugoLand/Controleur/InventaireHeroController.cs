@@ -11,24 +11,67 @@ namespace HugoLand.Controleur
     {
         RpgGameEntities context = new RpgGameEntities();
 
-        public void AddItemToHero(Hero hero, Item item)
+        
+        /// <summary>
+        /// Auteur : Mathew Lemonde
+        /// </summary>
+        /// <param name="heroid"></param>
+        /// <param name="itemid"></param>
+        /// <returns>False si inventaire plein </returns>
+        public bool AddItemToHero(int heroid, int itemid)
         {
-            for (int x = 0; x < 10; x++)
+
+            var hero = context.Heroes.FirstOrNull(c => c.Id == heroid);
+            if (hero == null)
+                return false;
+
+            var Item = context.Items.FirstOrNull(c => c.Id == itemid);
+            if (Item == null)
+                return false;
+
+            decimal LimiteInventaire = (hero.StatBaseStr * (decimal)hero.Classe.StatPoidsStr) * 10;
+            decimal TotalPoids = 0;
+            decimal placeDispo = 0;
+            foreach (var item in hero.Items)
             {
-                for (int y = 0; y < 10; y++)
-                {
-                    if (hero.Items.FirstOrNull(i => i.x == x && i.y == y) == null)
-                    {
-                        hero.Items.Add(item);
-                        return;
-                    }
-                }
+                TotalPoids += item.Poids;
             }
+            placeDispo = LimiteInventaire - TotalPoids;
+
+            if (Item.Poids > placeDispo)
+                return false;
+
+            Item.x = 0;
+            Item.y = 0;
+            hero.Items.Add(Item);
+            context.SaveChanges();
+            return true;
+                  
+                      
+                
+            
         }
 
-        public void DeleteItemFromHero(Hero hero, Item item)
+        /// <summary>
+        /// Auteur: Mathew Lemonde
+        /// Oter un item de l'inventaire
+        /// </summary>
+        /// <param name="heroid"></param>
+        /// <param name="itemid"></param>
+        public void DeleteItemFromHero(int heroid, int itemid)
         {
+            var hero = context.Heroes.FirstOrNull(c => c.Id == heroid);
+            if (hero == null)
+                return;
 
+            var Item = context.Items.FirstOrNull(c => c.Id == itemid);
+            if (Item == null)
+                return;
+
+            hero.Items.Remove(Item);
+            Item.x = hero.x;
+            Item.y = hero.y;
+            context.SaveChanges();
         }
 
 
