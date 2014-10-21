@@ -9,75 +9,75 @@ namespace HugoLand.Controller
 {
     class ItemController
     {
-        
-        public void CreateItem(int _x, int _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, int ValeurArgent, decimal valeurArgent)
-        {
-            using (RpgGameEntities context = new RpgGameEntities())
-            {
-                context.Items.Add(new Item()
-                    {
-                        Description = description,
-                        //EffetItems,
-                        //Heroes,
-                        //Id,
-                        //Monde,
-                        //MondeId,
-                        //Niveau,
-                        Nom = nom,
-                        Poids = poids,
-                        Quantite = quantite,
-                        ReqDexterite = reqDexterite,
-                        ReqEndurance = reqEndurance,
-                        ReqForce = reqForce,
-                        ReqIntelligence = reqIntelligence,
-                        ReqNiveau = reqNiveau,
-                        ValeurArgent = valeurArgent,
-                        x = _x,
-                        y = _y
-                    });
-                context.SaveChanges();
-            }
-        }
+        RpgGameEntities context = new RpgGameEntities();
 
-        public void DeleteItem(int id)
+        public void CreateItem(int mondeId, int _x, int _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, int ValeurArgent, decimal valeurArgent)
         {
-            using (RpgGameEntities context = new RpgGameEntities())
-            {
-                context.Items.FirstOrNull(i => i.Id == id);
-                context.SaveChanges();
-            }
-        }
-        public void DeleteItem(string nom)
-        {
-            using (RpgGameEntities context = new RpgGameEntities())
-            {
-                Item item = context.Items.FirstOrNull(i => i.Nom == nom);
-                if (item != null)
+            context.Items.Add(new Item()
                 {
-                    context.Items.Remove(item);
+                    Description = description,
+                    MondeId = mondeId,
+                    Nom = nom,
+                    Poids = poids,
+                    Quantite = quantite,
+                    ReqDexterite = reqDexterite,
+                    ReqEndurance = reqEndurance,
+                    ReqForce = reqForce,
+                    ReqIntelligence = reqIntelligence,
+                    ReqNiveau = reqNiveau,
+                    ValeurArgent = valeurArgent,
+                    x = _x,
+                    y = _y
+                });
+            context.SaveChanges();
+        }
 
-                    while (item.Heroes.Count != 0)
-                    {
-                        item.Heroes.First().Items.Remove(item);
-                    }
-                    item.Monde.Items.Remove(item);
-                }
+        public void DeleteItem(int itemId)
+        {
+            Item item = context.Items.FirstOrNull(i => i.Id == itemId);
+            if (item != null)
+            {
+                context.Items.Remove(item);
                 context.SaveChanges();
             }
         }
-
-        public void EditItem(int ItemId, int _x, int _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, int ValeurArgent, decimal valeurArgent)
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <param name="mondeId"></param>
+        /// <param name="_x"></param>
+        /// <param name="_y"></param>
+        /// <param name="nom"></param>
+        /// <param name="description"></param>
+        /// <param name="poids"></param>
+        /// <param name="quantite"></param>
+        /// <param name="reqDexterite"></param>
+        /// <param name="reqEndurance"></param>
+        /// <param name="reqForce"></param>
+        /// <param name="reqIntelligence"></param>
+        /// <param name="reqNiveau"></param>
+        /// <param name="valeurArgent"></param>
+        public void EditItem(int itemId, int mondeId, int _x, int _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, decimal valeurArgent)
         {
-            using (RpgGameEntities context = new RpgGameEntities())
+            Item item = context.Items.FirstOrNull(i => i.Id == itemId);
+            if (item != null)
             {
-                context.SaveChanges();
-            }
-        }
+                item.Description = description;
+                item.MondeId = mondeId;
+                item.Nom = nom;
+                item.Poids = poids;
+                item.Quantite = quantite;
+                item.ReqDexterite = reqDexterite;
+                item.ReqEndurance = reqEndurance;
+                item.ReqForce = reqForce;
+                item.ReqIntelligence = reqIntelligence;
+                item.ReqNiveau = reqNiveau;
+                item.ValeurArgent = valeurArgent;
+                item.x = _x;
+                item.y = _y;
 
-        public void EditItem(string nom, int _x, int _y, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, int ValeurArgent, decimal valeurArgent)
-        {
-            using (RpgGameEntities context = new RpgGameEntities())
-            {
                 context.SaveChanges();
             }
         }

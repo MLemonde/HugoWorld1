@@ -12,9 +12,11 @@ namespace HugoLand
     {
         static void Main(string[] args)
         {
-            MondeController mondeControleur = new MondeController();
+            RpgGameEntities context = new RpgGameEntities();
 
-            Console.WriteLine("Création d'un monde...");
+            MondeController mondeControleur = new MondeController();
+            #region
+            Console.WriteLine("Création de mondes...");
             mondeControleur.CreateMonde("100", "100", "monde1");
             mondeControleur.CreateMonde("100", "100", "monde2");
             mondeControleur.CreateMonde("100", "100", "monde3");
@@ -24,7 +26,7 @@ namespace HugoLand
             
             List<Monde> _lstmondes = mondeControleur.GetListMonde();
 
-            Console.WriteLine("voici la liste des mondes");
+            Console.WriteLine("\nvoici la liste des mondes");
             foreach (Monde monde in _lstmondes)
             {
                 Console.WriteLine(monde.Description);
@@ -38,44 +40,88 @@ namespace HugoLand
             mondeControleur.DeleteMonde(_lstmondes.First().Id);
 
             Console.WriteLine("\nrevoici la listes de tous les mondes");
+            _lstmondes = mondeControleur.GetListMonde();
             foreach (Monde monde in _lstmondes)
             {
                 Console.WriteLine(monde.Description);
             }
 
             Console.WriteLine("\n\n");
+            #endregion
 
+            int mondeId = _lstmondes.First().Id;
 
-            
+            ClasseController classeController = new ClasseController();
+            #region
+            classeController.CreateClass("Paladin", "Guerriers nobles?", 10, 10, 10, 10, mondeId);
+            classeController.CreateClass("Noob", "Guerrier noob?", 0, 0, 0, 0, mondeId);
+            List<Classe> lstClass = classeController.GetListMap(mondeId);
+
+            classeController.FindClasseOfHero(0, mondeId);
+            classeController.EditClassFromWorld(lstClass.First().Id, "newClassName", "newClassDescription", 20, 20, 20, 20, mondeId);
+
+            classeController.DeleteClass(lstClass.First().Id);
+            #endregion
+
+            int classID = lstClass.First().Id;
+
             ObjetMondeController objetMondeController = new ObjetMondeController();
+            #region
             Console.WriteLine("\najout d'un nouveau object dans le premier monde");
-            objetMondeController.CreateObjectMonde(0, 0, "Object01", 0, _lstmondes.First().Id);
+            objetMondeController.CreateObjectMonde(0, 0, "Object01", 0, mondeId);
 
             Console.WriteLine("\nModification d'un objectMonde...");
             objetMondeController.EditObjectMondeDescription(_lstmondes.First().ObjetMondes.First().Id, "ObjDescriptionModifiee");
 
             Console.WriteLine("\nsupression de cet object dans le premier monde");
             objetMondeController.DeleteObjectMonde(_lstmondes.First().ObjetMondes.First().Id);
-
+            #endregion
 
             MonstreController monstreController = new MonstreController();
-            monstreController.CreateMonster(_lstmondes.First());
-            monstreController.EditMonster(_lstmondes.First().Monstres.First().Id, "PAtate", 10, 10, 10, 10, 10, 10);
-            monstreController.DeleteMonster(_lstmondes.First().Monstres.First(), _lstmondes.First());
-
+            #region
+            //monstreController.CreateMonster(mondeId);
+            //monstreController.EditMonster(_lstmondes.First().Monstres.First().Id, "Patate", 10, 10, 10, 10, 10, 10);
+            //monstreController.DeleteMonster(_lstmondes.First().Monstres.First().Id, mondeId);
+            #endregion
 
             CompteJoueurController compteJoueurController = new CompteJoueurController();
+            #region
             compteJoueurController.CreatePlayer("Joueur01", "PASSWORD", "email@email.com", "Mathew", "Lemonde", 0);
+            compteJoueurController.CreatePlayer("Joueur02", "PASSWORD", "email2@email.com", "Mathew2", "Lemonde2", 0);
             //compteJoueurController.EditPlayer("Joueur01", "newEmail@hotmail.com", "Francis", "Lussier", 1);
             //compteJoueurController.DeletePlayer("Joueur01");
-
+            #endregion
 
             ItemController itemController = new ItemController();
+            #region
+            Console.WriteLine("Création d'items...");
             itemController.CreateItem(0, 0, "item01", "itemDesc", 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            //itemController.EditItem("item01", 0, 0, "itemDescription", 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
+            itemController.CreateItem(0, 0, "item02", "itemDesc", 100, 100, 100, 100, 100, 100, 100, 100, 200);
 
+            int itemId = context.Items.First().Id;
 
-            
+            //LOOKUP
+            foreach (Item item in context.Items)
+                Console.WriteLine(item.ToString());
+
+            Console.WriteLine("Modification de l'item nommé \"item01\"");
+            itemController.EditItem(itemId, 0, 0, "itemDescription", 2, 2, 2, 2, 2, 2, 2, 2, 2);
+
+            //LOOKUP
+            foreach (Item item in context.Items)
+                Console.WriteLine(item.ToString());
+
+            Console.WriteLine("Modification de l'item nommé \"item02\"");
+
+            itemController.DeleteItem(itemId);
+
+            //LOOKUP
+            foreach (Item item in context.Items)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.WriteLine("\n\n");
+            #endregion
 
             Console.ReadKey();
         }
