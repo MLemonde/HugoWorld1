@@ -11,17 +11,17 @@ namespace HugoLand.Controleur
     {
         RpgGameEntities context = new RpgGameEntities();
 
-        public void CreateInventaireHero()
+        public void AddItemToHero(Hero hero, Item item)
         {
+            Item newitem = new Item()
+            {
+
+            };
+
 
         }
 
-        public void EditInventaireHero()
-        {
-
-        }
-
-        public void DeleteInventaireHero()
+        public void DeleteItemFromHero(Hero hero, Item item)
         {
 
         }
