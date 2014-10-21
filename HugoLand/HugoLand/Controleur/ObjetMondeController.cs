@@ -12,6 +12,7 @@ namespace HugoLand.Controller
         RpgGameEntities db = new RpgGameEntities();
 
         /// <summary>
+        /// Auteur : Marc-André Landry
         /// Create an object (ex: scenery, rock, water, etc) in the world
         /// </summary>
         /// <param name="iX">Where should your object be put m8? (x)</param>
@@ -21,6 +22,9 @@ namespace HugoLand.Controller
         /// <param name="iMondeId">The ID of your world</param>
         public void CreateObjectMonde(int iX, int iY, string sDescription, int iTypeObjet, int iMondeId)
         {
+            var Monde = db.Mondes.FirstOrNull(c => c.Id == iMondeId);
+            if (Monde == null)
+                return;
             ObjetMonde objMonde = new ObjetMonde()
             {
                 x = iX,
@@ -30,44 +34,40 @@ namespace HugoLand.Controller
                 MondeId = iMondeId
             };
             db.ObjetMondes.Add(objMonde);
+            Monde.ObjetMondes.Add(objMonde);
             db.SaveChanges();
         }
 
         /// <summary>
+        /// Auteur : Marc-André Landry
+        /// 
         /// Delete an object from the world by its ID
         /// </summary>
         /// <param name="iID">The ID of the object you want to destroy</param>
-        public void DeleteObjectMonde(int iID)
+        /// <param name="mondeid">Id du monde</param>
+        public void DeleteObjectMonde(int iID,int mondeid)
         {
+            var Monde = db.Mondes.FirstOrNull(c => c.Id == mondeid);
+            if (Monde == null)
+                return;
+
             ObjetMonde objMonde = db.ObjetMondes.Find(iID);
             if (objMonde == null)
                 return;
-            else
-                db.ObjetMondes.Remove(objMonde);
-
+            
+            db.ObjetMondes.Remove(objMonde);
+            Monde.ObjetMondes.Remove(objMonde);
             db.SaveChanges();
         }
 
+        
+
         /// <summary>
-        /// Delete an object from the world by its type
+        /// Auteur : Marc-André Landry
+        /// Modifi la description d'un object monde avec son ID
         /// </summary>
-        /// <param name="iTypeObject">The type of the objects</param>
-        //public void DeleteObjectMonde(int iTypeObject)
-        //{
-        //    var objetMondeID = (from p in db.ObjetMondes
-        //                        where p.TypeObjet.Equals(iTypeObject)
-        //                        select p.MondeId);
-
-        //    ObjetMonde objMonde = db.ObjetMondes.Find(objetMondeID);
-
-        //    if (objMonde == null)
-        //        return;
-        //    else
-        //        db.ObjetMondes.Remove(objMonde);
-
-        //    db.SaveChanges();
-        //}
-
+        /// <param name="iID">Id de l'objet</param>
+        /// <param name="sDescription">Nouvelle description</param>
         public void EditObjectMondeDescription(int iID, string sDescription)
         {
             ObjetMonde objMonde = db.ObjetMondes.Find(iID);
