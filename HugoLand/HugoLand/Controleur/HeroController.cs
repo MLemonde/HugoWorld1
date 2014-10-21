@@ -14,8 +14,12 @@ namespace HugoLand.Controller
         /// <summary>
         /// Auteur Francis Lussier
         /// </summary>
-        public void CreateHero(int compteId, int classeId, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent)
+        public void CreateHero(int MondeID,int compteId, int classeId, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent)
         {
+            var Monde = context.Mondes.FirstOrNull(c => c.Id == MondeID);
+            if (Monde == null)
+                return;
+
             Classe classe = context.Classes.FirstOrNull(c => c.Id == classeId);
             CompteJoueur compte = context.CompteJoueurs.FirstOrNull(c => c.Id == compteId);
             if (classe == null || compte == null)
@@ -23,6 +27,7 @@ namespace HugoLand.Controller
             
             Hero hero = new Hero()
             {
+                MondeId = MondeID,
                 Argent = argent,
                 ClasseId = classeId,
                 CompteJoueurId = compteId,

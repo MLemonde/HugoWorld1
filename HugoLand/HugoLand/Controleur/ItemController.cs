@@ -56,7 +56,6 @@ namespace HugoLand.Controller
             Item item = context.Items.FirstOrNull(i => i.Id == itemId);
             if (item != null)
             {
-                
                 item.Quantite = quantite;                
                 context.SaveChanges();
             }

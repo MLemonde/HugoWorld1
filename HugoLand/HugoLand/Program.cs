@@ -15,14 +15,14 @@ namespace HugoLand
             RpgGameEntities context = new RpgGameEntities();
 
             MondeController mondeControleur = new MondeController();
-            #region
+            #region MONDE
             Console.WriteLine("Création de mondes...");
-            mondeControleur.CreateMonde("100", "100", "monde1");
-            mondeControleur.CreateMonde("100", "100", "monde2");
-            mondeControleur.CreateMonde("100", "100", "monde3");
-            mondeControleur.CreateMonde("100", "100", "monde4");
-            mondeControleur.CreateMonde("100", "100", "monde5");
-            mondeControleur.CreateMonde("100", "100", "monde6");
+            //mondeControleur.CreateMonde("100", "100", "monde1");
+            //mondeControleur.CreateMonde("100", "100", "monde2");
+            //mondeControleur.CreateMonde("100", "100", "monde3");
+            //mondeControleur.CreateMonde("100", "100", "monde4");
+            //mondeControleur.CreateMonde("100", "100", "monde5");
+            //mondeControleur.CreateMonde("100", "100", "monde6");
             
             List<Monde> _lstmondes = mondeControleur.GetListMonde();
 
@@ -33,7 +33,7 @@ namespace HugoLand
             }
 
             Console.WriteLine("\nmodification du premier monde");
-            mondeControleur.EditMonde(_lstmondes.First().Id, "99","98", "Description");
+            mondeControleur.EditMonde(_lstmondes.First().Id, "Description","98", "99");
             Console.WriteLine(_lstmondes.First().Description);
 
             Console.WriteLine("\nsupression du premier monde");
@@ -51,19 +51,45 @@ namespace HugoLand
 
             int mondeId = _lstmondes.First().Id;
 
-            ClasseController classeController = new ClasseController();
+            CompteJoueurController compteJoueurController = new CompteJoueurController();
             #region
+            if (!compteJoueurController.CreatePlayer("Joueur01", "PASSWORD", "email@email.com", "Mathew", "Lemonde", 0))
+                Console.WriteLine();
+            if (!compteJoueurController.CreatePlayer("Joueur02", "PASSWORD", "email2@email.com", "Mathew2", "Lemonde2", 0))
+                Console.WriteLine();
+            compteJoueurController.EditPlayer("Joueur01", "newEmail@hotmail.com", "Francis", "Lussier", 1);
+            compteJoueurController.DeletePlayer("Joueur01");
+            #endregion
+
+            ClasseController classeController = new ClasseController();
+            #region CLASSE
             classeController.CreateClass("Paladin", "Guerriers nobles?", 10, 10, 10, 10, mondeId);
             classeController.CreateClass("Noob", "Guerrier noob?", 0, 0, 0, 0, mondeId);
-            List<Classe> lstClass = classeController.GetListMap(mondeId);
+            List<Classe> lstClass = classeController.GetListClasses(mondeId);
 
-            classeController.FindClasseOfHero(0, mondeId);
+           
+
             classeController.EditClassFromWorld(lstClass.First().Id, "newClassName", "newClassDescription", 20, 20, 20, 20, mondeId);
+            lstClass = classeController.GetListClasses(mondeId);
 
             classeController.DeleteClass(lstClass.First().Id);
             #endregion
+            lstClass = classeController.GetListClasses(mondeId);
 
             int classID = lstClass.First().Id;
+            int compteId = context.CompteJoueurs.First().Id;
+
+            //HeroController heroController = new HeroController();
+            //#region
+            //heroController.CreateHero(_lstmondes.First().Id,compteId, classID, 0, 0, 20, 20, 20, 20, 20, 200, 300);
+            //heroController.CreateHero(_lstmondes.First().Id,compteId, classID, 0, 0, 30, 30, 30, 30, 30, 400, 300);
+            
+            //Classe test = classeController.FindClasseOfHero(0, mondeId);
+            //Console.WriteLine(test.NomClasse);
+            //#endregion
+
+           
+
 
             ObjetMondeController objetMondeController = new ObjetMondeController();
             #region
@@ -81,26 +107,13 @@ namespace HugoLand
             #region
             monstreController.CreateMonster(mondeId);
             monstreController.EditMonster(_lstmondes.First().Monstres.First().Id, "Patate", 10, 10, 10, 10, 10, 10);
-            monstreController.DeleteMonster(_lstmondes.First().Monstres.First().Id, mondeId);
+            monstreController.DeleteMonster(_lstmondes.First().Monstres.First().Id);
             #endregion
 
-            CompteJoueurController compteJoueurController = new CompteJoueurController();
-            #region
-            if(!compteJoueurController.CreatePlayer("Joueur01", "PASSWORD", "email@email.com", "Mathew", "Lemonde", 0))
-                Console.WriteLine();
-            if (!compteJoueurController.CreatePlayer("Joueur02", "PASSWORD", "email2@email.com", "Mathew2", "Lemonde2", 0))
-                Console.WriteLine();
-            compteJoueurController.EditPlayer("Joueur01", "newEmail@hotmail.com", "Francis", "Lussier", 1);
-            compteJoueurController.DeletePlayer("Joueur01");
-            #endregion
 
-            int compteId = context.CompteJoueurs.First().Id;
 
-            HeroController heroController = new HeroController();
-            #region
-            heroController.CreateHero(compteId, classID, 0, 0, 20, 20, 20, 20, 20, 200, 300);
-            heroController.CreateHero(compteId, classID, 0, 0, 30, 30, 30, 30, 30, 400, 300);
-            #endregion
+
+            
 
             ItemController itemController = new ItemController();
             #region
@@ -112,14 +125,14 @@ namespace HugoLand
 
             //LOOKUP
             foreach (Item item in context.Items)
-                Console.WriteLine(item.ToString());
+                Console.WriteLine(item.Quantite.ToString());
 
             Console.WriteLine("Modification de l'item nommé \"item01\"");
             itemController.EditItem(itemId, 2);
 
             //LOOKUP
             foreach (Item item in context.Items)
-                Console.WriteLine(item.ToString());
+                Console.WriteLine(item.Quantite.ToString());
 
             Console.WriteLine("Modification de l'item nommé \"item02\"");
 
@@ -128,7 +141,7 @@ namespace HugoLand
             //LOOKUP
             foreach (Item item in context.Items)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine(item.Quantite);
             }
             Console.WriteLine("\n\n");
             #endregion
