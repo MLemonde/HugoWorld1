@@ -9,9 +9,7 @@ namespace HugoLand.Controller
 {
     class MondeController
     {
-        Entities db = new Entities();
-
-        #region MONDE
+        RpgGameEntities db = new RpgGameEntities();
 
         /// <summary>
         /// Create a new world
@@ -19,7 +17,7 @@ namespace HugoLand.Controller
         /// <param name="iLimiteX">Limit of the world (x)</param>
         /// <param name="iLimiteY">Limit of the world (y)</param>
         /// <param name="sDescription">A small description of your new world!</param>
-        public void CreateMap(string iLimiteX, string iLimiteY, string sDescription)
+        public void CreateMonde(string iLimiteX, string iLimiteY, string sDescription)
         {
             Monde monde = new Monde()
             {
@@ -38,7 +36,7 @@ namespace HugoLand.Controller
         /// <param name="sDescription">The new description of the world you wanna change</param>
         /// <param name="iLimiteX">The new limit of the world (x)</param>
         /// <param name="iLimiteY">The new limit of the world (y)</param>
-        public void EditMap(int iID, string sDescription, string iLimiteX, string iLimiteY)
+        public void EditMonde(int iID, string sDescription, string iLimiteX, string iLimiteY)
         {
             Monde monde = db.Mondes.Find(iID);
             if (monde == null)
@@ -57,7 +55,7 @@ namespace HugoLand.Controller
         /// </summary>
         /// <param name="iID">The ID of the world you wanna change</param>
         /// <param name="sDescription">The new description of the world</param>
-        public void EditMap(int iID, string sDescription)
+        public void EditMonde(int iID, string sDescription)
         {
             Monde monde = db.Mondes.Find(iID);
             if (monde == null)
@@ -74,7 +72,7 @@ namespace HugoLand.Controller
         /// <param name="iID">The ID of the world you wanna change</param>
         /// <param name="iLimiteX">The new limit of the world (x)</param>
         /// <param name="iLimiteY">The new limit of the world (y)</param>
-        public void EditMap(int iID, string iLimiteX, string iLimiteY)
+        public void EditMonde(int iID, string iLimiteX, string iLimiteY)
         {
             Monde monde = db.Mondes.Find(iID);
             if (monde == null)
@@ -91,7 +89,7 @@ namespace HugoLand.Controller
         /// Use this methode if you ever wanna delete the world
         /// </summary>
         /// <param name="iID">The ID of the world you wanna destroy</param>
-        public void DeleteMap(int iID)
+        public void DeleteMonde(int iID)
         {
             Monde monde = db.Mondes.Find(iID);
             if (monde == null)
@@ -101,11 +99,10 @@ namespace HugoLand.Controller
             db.SaveChanges();
         }
 
-        public List<Monde> GetListMap()
+        public List<Monde> GetListMonde()
         {
             return db.Mondes.ToList(); 
         }
 
-        #endregion
     }
 }

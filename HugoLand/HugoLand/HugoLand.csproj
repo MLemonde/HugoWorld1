@@ -64,10 +64,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controleur\CompteJoueurController.cs" />
+    <Compile Include="Controleur\HeroController.cs" />
+    <Compile Include="Controleur\InventaireHeroController.cs" />
     <Compile Include="Controleur\ItemController.cs" />
     <Compile Include="Controleur\MainControleur.cs" />
     <Compile Include="Controleur\MondeController.cs" />
     <Compile Include="Controleur\MonstreController.cs" />
+    <Compile Include="Controleur\ObjetMondeController.cs" />
     <Compile Include="Model\Classe.cs">
       <DependentUpon>HugoWorldModel.tt</DependentUpon>
     </Compile>

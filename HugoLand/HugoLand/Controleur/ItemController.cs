@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using HugoLand.Model;
 
-namespace HugoLand.Controleur
+namespace HugoLand.Controller
 {
     class ItemController
     {
         
-        public void CreateItem(int? _x, int? _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int redNiveau, int ValeurArgent, int reqNiveau, decimal? valeurArgent)
+        public void CreateItem(int _x, int _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, int ValeurArgent, decimal valeurArgent)
         {
             using (RpgGameEntities context = new RpgGameEntities())
             {
@@ -51,11 +51,30 @@ namespace HugoLand.Controleur
         {
             using (RpgGameEntities context = new RpgGameEntities())
             {
+                Item item = context.Items.FirstOrNull(i => i.Nom == nom);
+                if (item != null)
+                {
+                    context.Items.Remove(item);
 
+                    while (item.Heroes.Count != 0)
+                    {
+                        item.Heroes.First().Items.Remove(item);
+                    }
+                    item.Monde.Items.Remove(item);
+                }
                 context.SaveChanges();
             }
         }
-        public void EditItem(int ItemId)
+
+        public void EditItem(int ItemId, int _x, int _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, int ValeurArgent, decimal valeurArgent)
+        {
+            using (RpgGameEntities context = new RpgGameEntities())
+            {
+                context.SaveChanges();
+            }
+        }
+
+        public void EditItem(string nom, int _x, int _y, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, int ValeurArgent, decimal valeurArgent)
         {
             using (RpgGameEntities context = new RpgGameEntities())
             {

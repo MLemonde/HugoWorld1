@@ -9,7 +9,7 @@ namespace HugoLand.Controller
 {
     class ObjetMondeController
     {
-        Entities db = new Entities();
+        RpgGameEntities db = new RpgGameEntities();
 
         /// <summary>
         /// Create an object (ex: scenery, rock, water, etc) in the world
@@ -32,7 +32,7 @@ namespace HugoLand.Controller
             db.ObjetMondes.Add(objMonde);
             db.SaveChanges();
         }
-    
+
         /// <summary>
         /// Delete an object from the world by its ID
         /// </summary>
@@ -52,21 +52,21 @@ namespace HugoLand.Controller
         /// Delete an object from the world by its type
         /// </summary>
         /// <param name="iTypeObject">The type of the objects</param>
-        public void DeleteObjectMonde(int iTypeObject)
-        {
-            var objetMondeID = (from p in db.ObjetMondes
-                         where p.TypeObjet.Equals(iTypeObject)
-                         select p.MondeId);
+        //public void DeleteObjectMonde(int iTypeObject)
+        //{
+        //    var objetMondeID = (from p in db.ObjetMondes
+        //                        where p.TypeObjet.Equals(iTypeObject)
+        //                        select p.MondeId);
 
-            ObjetMonde objMonde = db.ObjetMondes.Find(objetMondeID);
+        //    ObjetMonde objMonde = db.ObjetMondes.Find(objetMondeID);
 
-            if (objMonde == null)
-                return;
-            else
-                db.ObjetMondes.Remove(objMonde);
+        //    if (objMonde == null)
+        //        return;
+        //    else
+        //        db.ObjetMondes.Remove(objMonde);
 
-            db.SaveChanges();
-        }
+        //    db.SaveChanges();
+        //}
 
         public void EditObjectMondeDescription(int iID, string sDescription)
         {
