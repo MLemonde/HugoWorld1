@@ -20,16 +20,17 @@ namespace HugoLand.Controller
         /// Auteur: Mathew Lemonde
         /// Description : Creer un nouveau compte
         /// </summary>
-        /// <param name="sUsername"></param>
-        /// <param name="sPass"></param>
-        /// <param name="sEmail"></param>
-        /// <param name="sFname"></param>
-        /// <param name="sLname"></param>
-        /// <param name="iType"></param>
+        /// <param name="sUsername">Nom d'Utilisateur</param>
+        /// <param name="sPass">Mot de passe</param>
+        /// <param name="sEmail">Adresse e-mail</param>
+        /// <param name="sFname">Prénom</param>
+        /// <param name="sLname">Nom de Famille</param>
+        /// <param name="iType"> Type de compte (int)  0=Util, 1=Admin</param>
         public void CreatePlayer(string sUsername,string sPass,string sEmail,string sFname,string sLname,int iType)
         {          
-            //TODO VRAI HASH
-            string sPassword = "soada11" + sPass + "neoi333`";
+           
+            string sPassword = PasswordHash.CreateHash(sPass);
+
             CompteJoueur Account = new CompteJoueur()
             {
                 Courriel = sEmail,
@@ -47,26 +48,53 @@ namespace HugoLand.Controller
         /// Auteur:Mathew Lemonde
         /// Description : Supprimer un compte
         /// </summary>
-        /// <param name="id"></param>
-        public void DeletePlayer(int id)
+        /// <param name="sUsername">Nom d'utilisateur</param>
+        public void DeletePlayer(string sUsername)
         {
-            CompteJoueur Account = context.CompteJoueurs.Find(id);
-            context.CompteJoueurs.Remove(Account);
+            var Account = context.CompteJoueurs.FirstOrNull(c => c.NomUtilisateur == sUsername);
+            if (Account == null)
+                return;
+
+                context.CompteJoueurs.Remove(Account);
+                context.SaveChanges();
+            
+        }
+
+        /// <summary>
+        /// Auteur: Mathew Lemonde
+        /// Description: Modifier un compte a partir du Username
+        /// </summary>
+        /// <param name="sUsername">Nom d'utilisateur</param>
+        /// <param name="sEmail">Adresse email</param>
+        /// <param name="sFname">Prénom</param>
+        /// <param name="sLname">Nom de Famille</param>
+        /// <param name="iType">Type de compte (int) 0=Util, 1=Admin</param>
+        public void EditPlayer(string sUsername,string sEmail,string sFname,string sLname,int iType)
+        {
+            var Account = context.CompteJoueurs.FirstOrNull(c => c.NomUtilisateur == sUsername);
+            if (Account == null)
+                return;
+
+            Account.Courriel = sEmail;
+            Account.Prenom = sFname;
+            Account.Nom = sLname;
+            Account.TypeUtilisateur = iType;
+
             context.SaveChanges();
         }
 
         /// <summary>
         /// Auteur: Mathew Lemonde
-        /// Description: Modifier un compte
+        /// Description: Modifier un compte a partir du ID
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="sEmail"></param>
-        /// <param name="sFname"></param>
-        /// <param name="sLname"></param>
-        /// <param name="iType"></param>
-        public void EditPlayer(int id,string sEmail,string sFname,string sLname,int iType)
+        /// <param name="id">id du Compte</param>
+        /// <param name="sEmail">Adresse email</param>
+        /// <param name="sFname">Prénom</param>
+        /// <param name="sLname">Nom de Famille</param>
+        /// <param name="iType">Type de compte (int) 0=Util, 1=Admin</param>
+        public void EditPlayer(int id, string sEmail, string sFname, string sLname, int iType)
         {
-            CompteJoueur Account = context.CompteJoueurs.Find(id);
+            var Account = context.CompteJoueurs.FirstOrNull(c => c.Id == id);
             if (Account == null)
                 return;
 
@@ -82,17 +110,18 @@ namespace HugoLand.Controller
         /// Auteur: Mathew Lemonde
         /// Description: Valider le login
         /// </summary>
-        /// <param name="sUsername"></param>
-        /// <param name="sPassword"></param>
+        /// <param name="sUsername">Nom d'utilisateur</param>
+        /// <param name="sPassword">Mot de passe</param>
         /// <returns></returns>
         public bool ValidatePlayer(string sUsername,string sPassword)
         {
-            var Account = context.CompteJoueurs.Include("NomUtilisateur").Where(c => c.NomUtilisateur == sUsername).ToList();
-            foreach (var uti in Account)
-            {
-                if (uti.Password == "soada11" + sPassword + "neoi333`")
-                    return true;
-            }
+            var Account = context.CompteJoueurs.FirstOrNull(c => c.NomUtilisateur == sUsername);
+            if (Account == null)
+                return false;
+            
+            if (PasswordHash.ValidatePassword(sPassword,Account.Password))
+            return true;
+            
             return false;
         }
     }

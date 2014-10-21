@@ -11,3 +11,4 @@ C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityF
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\fr\EntityFramework.resources.dll
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.exe
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.pdb
+H:\Session5\BD\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache
