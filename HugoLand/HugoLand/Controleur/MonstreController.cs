@@ -48,10 +48,14 @@ namespace HugoLand.Controller
         /// 
         /// Suppression d'un monstre
         /// </summary>
-        /// <param name="monster"></param>
+        /// <param name="monsterid">id du Monstre a delete</param>
         /// <param name="Mapid">Id du monde</param>
-        public void DeleteMonster(Monstre monster,int Mapid)
+        public void DeleteMonster(int monsterid,int Mapid)
         {
+            var monster = context.Monstres.FirstOrNull(c => c.Id == monsterid);
+            if (monster == null)
+                return;
+
             var Monde = context.Mondes.FirstOrNull(c => c.Id == Mapid);
             if (Monde == null)
                 return;
@@ -65,17 +69,17 @@ namespace HugoLand.Controller
         /// Auteur: Mathew Lemonde
         /// Modification d'un monstre
         /// </summary>
-        /// <param name="MonsterID"></param>
-        /// <param name="sNom"></param>
-        /// <param name="iLvl"></param>
-        /// <param name="ix"></param>
-        /// <param name="iy"></param>
-        /// <param name="iPv"></param>
-        /// <param name="iDmgMin"></param>
-        /// <param name="iDmgMax"></param>
+        /// <param name="MonsterID">Id du monstre</param>
+        /// <param name="sNom">Nom de Monstre</param>
+        /// <param name="iLvl">Level du monstre</param>
+        /// <param name="ix">Position en x du monstre</param>
+        /// <param name="iy">Position en y du monstre</param>
+        /// <param name="iPv">Point de vie du monstre</param>
+        /// <param name="iDmgMin">Damage minimum du monstre</param>
+        /// <param name="iDmgMax">Damage maximum du monstre</param>
         public void EditMonster(int MonsterID,string sNom,int iLvl,int ix,int iy, int iPv,int iDmgMin,int iDmgMax)
         {
-            Monstre monster = context.Monstres.Find(MonsterID);
+            var monster = context.Monstres.FirstOrNull(c => c.Id == MonsterID);
             if (monster == null)
                 return;
             else
