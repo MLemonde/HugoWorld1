@@ -14,37 +14,8 @@ namespace HugoLand
         {
             HugoWorldEntities context = new HugoWorldEntities();
 
-            Hero hero = new Hero()
-            {
-                y = 0,
-                x = 0,
-                StatBaseStr = 0,
-                StatBaseStam = 0,
-                StatBaseInt = 0,
-                StatBaseDex = 0,
-                Niveau = 0,
-                MondeId = context.Mondes.First().Id,
-                Experience = 100,
-                Argent = 200,
-                CompteJoueurId = context.CompteJoueurs.First().Id,
-                ClasseId = context.Classes.First().Id,
-                //Id = 100
-            };
-            //context.InsertHero(context.CompteJoueurs.First().Id, 0, 0, 0, 0, 0, 0, 0, 0, 0, context.Mondes.First().Id, context.Classes.First().Id);
-            //int id = context.Heroes.
-            context.Heroes.Add(hero);
-            context.SaveChanges();
-            hero = context.Heroes.FirstOrNull(h => h.Argent == hero.Argent);
-            hero.Argent = 2;
-            context.SaveChanges();
+            
 
-            Console.WriteLine();
-
-            context.Heroes.Remove(hero);
-            context.SaveChanges();
-
-            Console.WriteLine();
-            Console.WriteLine();
             MondeController mondeControleur = new MondeController(context);
             CompteJoueurController compteJoueurController = new CompteJoueurController(context);
             ClasseController classeController = new ClasseController(context);
@@ -156,7 +127,14 @@ namespace HugoLand
 
 
 
-
+            #region HERO
+            heroController.CreateHero(context.Mondes.First().Id, context.CompteJoueurs.First().Id, context.Classes.First().Id, 0, 1, 2, 3, 4, 5, 6, 7, 8);
+            Console.WriteLine(context.Heroes.First().Classe.NomClasse);
+            heroController.EditHero(context.Heroes.First().Id, context.Classes.First().Id, 10, 10, 100, 3, 3, 3, 3, 3, 3);
+            Console.WriteLine(context.Heroes.First().Niveau);
+            List<Hero> lsthero = heroController.GetListHero(context.CompteJoueurs.First().Id);
+            Console.WriteLine(lsthero.First().Niveau);
+            #endregion 
 
 
             #region ITEM
