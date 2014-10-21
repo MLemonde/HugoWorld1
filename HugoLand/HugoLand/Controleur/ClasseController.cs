@@ -9,7 +9,7 @@ namespace HugoLand.Controller
 {
     class ClasseController
     {
-        Entities db = new Entities();
+        RpgGameEntities db = new RpgGameEntities();
 
         public void CreateClass(string sNomClasse, string sDescription, float fStatPoidsStr, float fStatPoidsDex,
                                 float fStatPoidsInt, float fStatPoidsStam, int iMondeId)
