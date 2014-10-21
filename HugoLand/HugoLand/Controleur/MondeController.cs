@@ -9,7 +9,12 @@ namespace HugoLand.Controller
 {
     class MondeController
     {
-        HugoWorldEntities db = new HugoWorldEntities();
+        HugoWorldEntities db;
+
+        public MondeController(HugoWorldEntities context)
+        {
+            db = context;
+        }
 
         /// <summary>
         /// Auteur: Marc-André Landry

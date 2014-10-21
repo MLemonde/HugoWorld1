@@ -9,7 +9,12 @@ namespace HugoLand.Controller
 {
     class EffetItemController
     {
-        HugoWorldEntities context = new HugoWorldEntities();
+        HugoWorldEntities context;
+
+        public EffetItemController(HugoWorldEntities contextt)
+        {
+            context = contextt;
+        }
 
         /// <summary>
         /// Auteur Francis

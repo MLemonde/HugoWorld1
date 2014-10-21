@@ -13,8 +13,8 @@ namespace HugoLand.Controller
     /// </summary>
     class CompteJoueurController
     {
-        RpgGameEntities context = new RpgGameEntities();
-        public CompteJoueurController(RpgGameEntities contextt)
+        HugoWorldEntities context;
+        public CompteJoueurController(HugoWorldEntities contextt)
         {
             context = contextt;
         }

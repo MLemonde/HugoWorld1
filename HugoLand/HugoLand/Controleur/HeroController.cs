@@ -9,9 +9,9 @@ namespace HugoLand.Controller
 {
     class HeroController
     {
-        HugoWorldEntities context = new HugoWorldEntities();
+        HugoWorldEntities context;
 
-        public HeroController(RpgGameEntities db)
+        public HeroController(HugoWorldEntities db)
         {
             context = db;
         }
