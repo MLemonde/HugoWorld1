@@ -105,7 +105,7 @@ namespace HugoLand
                 Console.WriteLine(item.ToString());
 
             Console.WriteLine("Modification de l'item nommé \"item01\"");
-            itemController.EditItem(itemId, mondeId, 0, 0, "item04", "itemDescription", 2, 2, 2, 2, 2, 2, 2, 2);
+            itemController.EditItem(itemId, 2);
 
             //LOOKUP
             foreach (Item item in context.Items)
