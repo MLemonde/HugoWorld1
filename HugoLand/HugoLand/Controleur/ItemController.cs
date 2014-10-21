@@ -51,25 +51,13 @@ namespace HugoLand.Controller
         /// <summary>
         /// Auteur Francis Lussier
         /// </summary>
-        public void EditItem(int itemId, int mondeId, int _x, int _y, string nom, string description, decimal poids, int quantite, int reqDexterite, int reqEndurance, int reqForce, int reqIntelligence, int reqNiveau, decimal valeurArgent)
+        public void EditItem(int itemId, int quantite)
         {
             Item item = context.Items.FirstOrNull(i => i.Id == itemId);
             if (item != null)
             {
-                item.Description = description;
-                item.MondeId = mondeId;
-                item.Nom = nom;
-                item.Poids = poids;
-                item.Quantite = quantite;
-                item.ReqDexterite = reqDexterite;
-                item.ReqEndurance = reqEndurance;
-                item.ReqForce = reqForce;
-                item.ReqIntelligence = reqIntelligence;
-                item.ReqNiveau = reqNiveau;
-                item.ValeurArgent = valeurArgent;
-                item.x = _x;
-                item.y = _y;
-
+                
+                item.Quantite = quantite;                
                 context.SaveChanges();
             }
         }
