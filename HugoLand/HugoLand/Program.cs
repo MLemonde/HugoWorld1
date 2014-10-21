@@ -79,9 +79,9 @@ namespace HugoLand
 
             MonstreController monstreController = new MonstreController();
             #region
-            //monstreController.CreateMonster(mondeId);
-            //monstreController.EditMonster(_lstmondes.First().Monstres.First().Id, "Patate", 10, 10, 10, 10, 10, 10);
-            //monstreController.DeleteMonster(_lstmondes.First().Monstres.First().Id, mondeId);
+            monstreController.CreateMonster(mondeId);
+            monstreController.EditMonster(_lstmondes.First().Monstres.First().Id, "Patate", 10, 10, 10, 10, 10, 10);
+            monstreController.DeleteMonster(_lstmondes.First().Monstres.First().Id, mondeId);
             #endregion
 
             CompteJoueurController compteJoueurController = new CompteJoueurController();
@@ -95,8 +95,8 @@ namespace HugoLand
             ItemController itemController = new ItemController();
             #region
             Console.WriteLine("Création d'items...");
-            itemController.CreateItem(0, 0, "item01", "itemDesc", 1, 1, 1, 1, 1, 1, 1, 1, 1);
-            itemController.CreateItem(0, 0, "item02", "itemDesc", 100, 100, 100, 100, 100, 100, 100, 100, 200);
+            itemController.CreateItem(mondeId, 0, 0, "item01", "itemDesc", 1, 1, 1, 1, 1, 1, 1, 1);
+            itemController.CreateItem(mondeId, 0, 0, "item02", "itemDesc", 100, 100, 100, 100, 100, 100, 100, 200);
 
             int itemId = context.Items.First().Id;
 
@@ -105,7 +105,7 @@ namespace HugoLand
                 Console.WriteLine(item.ToString());
 
             Console.WriteLine("Modification de l'item nommé \"item01\"");
-            itemController.EditItem(itemId, 0, 0, "itemDescription", 2, 2, 2, 2, 2, 2, 2, 2, 2);
+            itemController.EditItem(itemId, mondeId, 0, 0, "item04", "itemDescription", 2, 2, 2, 2, 2, 2, 2, 2);
 
             //LOOKUP
             foreach (Item item in context.Items)
@@ -121,6 +121,18 @@ namespace HugoLand
                 Console.WriteLine(item.ToString());
             }
             Console.WriteLine("\n\n");
+            #endregion
+
+            EffetItemController effetItemController = new EffetItemController();
+            #region
+            effetItemController.CreateEffetItem(itemId, 0, 0);
+            effetItemController.CreateEffetItem(itemId, 0, 1);
+            effetItemController.CreateEffetItem(itemId, 0, 2);
+
+            int effetItemId = context.EffetItems.First().Id;
+
+            effetItemController.EditEffetItem(effetItemId, 1, 1);
+            effetItemController.DeleteEffetItem(effetItemId);
             #endregion
 
             Console.ReadKey();
