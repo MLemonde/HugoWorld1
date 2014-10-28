@@ -178,6 +178,12 @@ namespace HugoLandEditeur
             bounding.Y = (y * csteApplication.TILE_HEIGHT_IN_MAP * m_Zoom) - 3;
         }
 
+        /// <summary>
+        /// Add tile to map and draw it
+        /// </summary>
+        /// <param name="xindex"></param>
+        /// <param name="yindex"></param>
+        /// <param name="TileID"></param>
         public void PlotTile(int xindex, int yindex, int TileID)
         {
             if (xindex < 0 || yindex < 0 || yindex >= m_Height || xindex >= m_Width)
@@ -187,28 +193,7 @@ namespace HugoLandEditeur
 
         }
 
-        public int Save(String strFilename)
-        {
-            //int i,j;
-
-            //FileStream file = new FileStream(strFilename, FileMode.Create, FileAccess.Write);
-            //StreamWriter sw = new StreamWriter(file);
-
-            //sw.WriteLine("ID: {0}",MAPFILE_ID.ToString());
-            //sw.WriteLine("WIDTH: {0}",m_Width.ToString());
-            //sw.WriteLine("HEIGHT: {0}",m_Height.ToString());
-            //sw.WriteLine("DATA:");
-
-            //for (i=0; i<m_Height; i++)
-            //{
-            //    for (j=0; j<m_Width; j++)
-            //        sw.Write("{0},", m_Tiles[i,j]);
-            //    sw.WriteLine();
-            //}
-            //sw.Close();
-
-            return 0;
-        }
+       
 
         public int Load(String strFilename)
         {

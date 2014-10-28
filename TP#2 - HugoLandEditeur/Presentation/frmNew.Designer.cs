@@ -36,13 +36,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(frmNew));
             this.lblWidth = new System.Windows.Forms.Label();
             this.lblHeight = new System.Windows.Forms.Label();
             this.txtWidth = new System.Windows.Forms.TextBox();
             this.txtHeight = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtDesc = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblWidth
@@ -65,6 +66,7 @@
             // 
             this.txtWidth.Location = new System.Drawing.Point(103, 16);
             this.txtWidth.Name = "txtWidth";
+            this.txtWidth.Size = new System.Drawing.Size(100, 20);
             this.txtWidth.TabIndex = 2;
             this.txtWidth.Text = "32";
             this.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -74,6 +76,7 @@
             // 
             this.txtHeight.Location = new System.Drawing.Point(103, 40);
             this.txtHeight.Name = "txtHeight";
+            this.txtHeight.Size = new System.Drawing.Size(100, 20);
             this.txtHeight.TabIndex = 3;
             this.txtHeight.Text = "32";
             this.txtHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -81,8 +84,9 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(32, 80);
+            this.btnOK.Location = new System.Drawing.Point(13, 110);
             this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
             this.btnOK.Text = "OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -90,18 +94,37 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(112, 80);
+            this.btnCancel.Location = new System.Drawing.Point(128, 110);
             this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 63);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Description:";
+            // 
+            // txtDesc
+            // 
+            this.txtDesc.Location = new System.Drawing.Point(103, 66);
+            this.txtDesc.Name = "txtDesc";
+            this.txtDesc.Size = new System.Drawing.Size(100, 20);
+            this.txtDesc.TabIndex = 7;
             // 
             // frmNew
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(218, 120);
+            this.ClientSize = new System.Drawing.Size(218, 145);
+            this.Controls.Add(this.txtDesc);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtHeight);
@@ -115,8 +138,12 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create New Map";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
         #endregion
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtDesc;
     }
 }

@@ -22,6 +22,8 @@ namespace HugoLandEditeur
             m_Height = 32;
         }
 
+        public string Desc { get; set; }
+
         // Width
         public int MapWidth
         {
@@ -84,6 +86,7 @@ namespace HugoLandEditeur
             {
                 m_Width = width;
                 m_Height = height;
+                Desc = txtDesc.Text;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

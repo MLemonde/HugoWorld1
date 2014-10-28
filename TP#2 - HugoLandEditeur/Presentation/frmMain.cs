@@ -15,7 +15,6 @@ namespace HugoLandEditeur
 {
     public partial class frmMain : Form
     {
-
         static HugoLand.Model.HugoWorldEntities context = new HugoLand.Model.HugoWorldEntities();
         MondeController mondeControleur = new MondeController(context);
         CompteJoueurController compteJoueurController = new CompteJoueurController(context);
@@ -429,6 +428,8 @@ namespace HugoLandEditeur
         {
             //hUGO : mODIFIER ICI POUR AVOIR le tile et le type
             m_Map.PlotTile(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
+            
+            
 
             m_bRefresh = true;
         }
@@ -456,6 +457,7 @@ namespace HugoLandEditeur
         private void picTiles_Click(object sender, System.EventArgs e)
         {
             m_ActiveTileID = m_TileLibrary.TileToTileID(m_ActiveTileXIndex, m_ActiveTileYIndex);
+           
             picActiveTile.Refresh();
         }
 
@@ -579,25 +581,7 @@ namespace HugoLandEditeur
         \* -------------------------------------------------------------- */
         private void m_SaveMap()
         {
-            //DialogResult result;
-
-            //dlgSaveMap.Title = "Save Map";
-            //dlgSaveMap.Filter = "Map File (*.map)|*.map";
-
-            //result = dlgSaveMap.ShowDialog();
-            //if (result == DialogResult.OK)
-            //{
-            //    this.Cursor = Cursors.WaitCursor;
-            //    try
-            //    {
-            //        m_Map.Save(dlgSaveMap.FileName);
-            //    }
-            //    catch
-            //    {
-            //        Console.WriteLine("Error Saving...");
-            //    }
-            //    this.Cursor = Cursors.Default;
-            //}
+                                                                                    
         }
 
         /* -------------------------------------------------------------- *\
@@ -626,6 +610,10 @@ namespace HugoLandEditeur
                     bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, 32);
                     if (bResult)
                     {
+
+                        
+                        AddMaptoModel(f.MapWidth,f.MapHeight,f.Desc);
+
                         m_bOpen = true;
                         m_bRefresh = true;
                         m_bResize = true;
@@ -641,6 +629,17 @@ namespace HugoLandEditeur
             }
         }
 
+        /// <summary>
+        /// Mathew Lemonde
+        /// Permet de creer la map dans la BD
+        /// </summary>
+        /// <param name="x">Limite x</param>
+        /// <param name="y">Limite y</param>
+        /// <param name="sdesc">Description</param>
+        private void AddMaptoModel(int x, int y,string sdesc)
+        {
+            mondeControleur.CreateMonde(x.ToString(), y.ToString(), sdesc);
+        }
         /* -------------------------------------------------------------- *\
             m_MenuLogic()
 			
