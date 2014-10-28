@@ -29,6 +29,7 @@ namespace HugoLand.Controller
         /// <param name="sFname">Prénom</param>
         /// <param name="sLname">Nom de Famille</param>
         /// <param name="iType"> Type de compte (int)  0=Util, 1=Admin</param>
+       /// <returns>false si deja pris</returns>
         public bool CreatePlayer(string sUsername,string sPass,string sEmail,string sFname,string sLname,int iType)
         {
             var account = context.CompteJoueurs.FirstOrNull(c => c.NomUtilisateur == sUsername);

@@ -1,4 +1,5 @@
 ﻿using HugoLand.Controller;
+using HugoLandEditeur.Presentation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,6 +81,9 @@ namespace HugoLandEditeur
             if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
                 Application.Exit();
 
+
+
+
             m_Map = new CMap();
             m_TileLibrary = new CTileLibrary();
             m_Map.TileLibrary = m_TileLibrary;
@@ -146,6 +150,18 @@ namespace HugoLandEditeur
         Menus
     \* -------------------------------------------------------------- */
         #region Menu Code
+        /// <summary>
+        /// Auteur: Mathew Lemonde
+        /// Ouvre une fenêtre pour ajouter un nouveau admin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mnuCreateNewUser_Click(object sender, EventArgs e)
+        {
+            frmAdmin f = new frmAdmin(compteJoueurController, context);
+            f.ShowDialog(this);
+        }
+
         private void mnuFileExit_Click(object sender, System.EventArgs e)
         {
             Application.Exit();
@@ -208,6 +224,11 @@ namespace HugoLandEditeur
                 m_SaveMap();
             if (e.Button == tbbOpen)
                 LoadMap();
+                if(e.Button == tbbHelp)
+                {
+                    frmAbout f = new frmAbout();
+                    f.ShowDialog(this);
+                }
             else if (e.Button == tbbNew)
                 NewMap();
         }
@@ -632,7 +653,6 @@ namespace HugoLandEditeur
             bEnabled = m_bOpen;
             mnuFileSave.Enabled = bEnabled;
             mnuFileClose.Enabled = bEnabled;
-            mnuCreateNewUser.Enabled = bEnabled;
             mnuZoom.Enabled = bEnabled;
             tbbSave.Enabled = bEnabled;
         }
@@ -676,9 +696,10 @@ namespace HugoLandEditeur
             picTiles.Focus();
         }
 
-        private void mnuCreateNewUser_Click(object sender, EventArgs e)
-        {
+       
 
-        }
+       
+
+       
     }
 }

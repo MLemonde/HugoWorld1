@@ -219,7 +219,6 @@ namespace HugoLandEditeur
             this.menuItem1,
             this.mnuCreateNewUser});
             this.mnuSettings.Text = "&Settings";
-            this.mnuSettings.Visible = false;
             // 
             // mnuZoom
             // 
@@ -270,7 +269,7 @@ namespace HugoLandEditeur
             // mnuCreateNewUser
             // 
             this.mnuCreateNewUser.Index = 2;
-            this.mnuCreateNewUser.Text = "Create a new user";
+            this.mnuCreateNewUser.Text = "Create a new admin";
             this.mnuCreateNewUser.Click += new System.EventHandler(this.mnuCreateNewUser_Click);
             // 
             // mnuHelp

@@ -42,7 +42,7 @@ namespace HugoLandEditeur.Presentation
         {
             if (CompteController.ValidatePlayer(txtUserName.Text, txtPassword.Text))
             {
-
+                //Va chercher le compte puis verifie le type (admin =1 user = 0)
                 var account = context.CompteJoueurs.FirstOrNull(c => c.NomUtilisateur == txtUserName.Text);
 
                 if (account.TypeUtilisateur == 1)
