@@ -75,10 +75,10 @@ namespace HugoLandEditeur
         private void frmMain_Load(object sender, System.EventArgs e)
         {
             //LOGIN
-            Presentation.frmLogin login = new Presentation.frmLogin(compteJoueurController, context);
-            login.ShowDialog();
-            if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
-                Application.Exit();
+          // Presentation.frmLogin login = new Presentation.frmLogin(compteJoueurController, context);
+          // login.ShowDialog();
+          // if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
+          //     Application.Exit();
 
 
 
@@ -428,7 +428,7 @@ namespace HugoLandEditeur
         {
             //hUGO : mODIFIER ICI POUR AVOIR le tile et le type
             m_Map.PlotTile(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
-            
+        //   m_TileLibrary.ObjMonde[m_ActiveTileID] .TypeObjet;
             
 
             m_bRefresh = true;
@@ -457,7 +457,7 @@ namespace HugoLandEditeur
         private void picTiles_Click(object sender, System.EventArgs e)
         {
             m_ActiveTileID = m_TileLibrary.TileToTileID(m_ActiveTileXIndex, m_ActiveTileYIndex);
-           
+            var test = m_TileLibrary.ObjMonde.Where(c => c.Value.TileID == m_ActiveTileID);
             picActiveTile.Refresh();
         }
 

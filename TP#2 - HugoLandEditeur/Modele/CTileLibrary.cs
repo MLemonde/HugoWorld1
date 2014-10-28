@@ -127,14 +127,27 @@ namespace HugoLandEditeur
             using (StreamReader stream = new StreamReader(tileDescriptionFile))
             {
                 string line;
+              // int x = 0;
+              // int y = 0;
+              // int ID;
                 while ((line = stream.ReadLine()) != null)
                 {
+                    
                     //separate out the elements of the 
                     string[] elements = line.Split(',');
 
+                    //if (x < m_Width)
+                    //   ID = (y * 32 + x);
+                    //else
+                    //{
+                    //    y++;
+                    //    x = 0;
+                    //    ID = (y * 32 + x);
+                    //}
                     Tile objMonde;
                     objMonde = new Tile(elements);
                     _ObjMonde.Add(objMonde.Name, objMonde);
+               //     x++;
                 }
             }
         }
