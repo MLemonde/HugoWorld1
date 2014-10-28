@@ -12,3 +12,13 @@ C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLan
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.pdb
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.pdb
 C:\Users\Francis\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache
+I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
+I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.exe
+I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.pdb
+I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe
+I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.pdb
+I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.dll
+I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.dll
+I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.xml
+I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.xml
+I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache

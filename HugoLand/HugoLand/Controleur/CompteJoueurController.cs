@@ -11,7 +11,7 @@ namespace HugoLand.Controller
     /// Auteur: Mathew Lemonde
     /// Description : Controlleur de Compte joueur
     /// </summary>
-    class CompteJoueurController
+    public class CompteJoueurController
     {
         HugoWorldEntities context;
         public CompteJoueurController(HugoWorldEntities contextt)

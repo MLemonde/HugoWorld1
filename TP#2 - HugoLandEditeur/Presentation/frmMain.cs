@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HugoLand.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,17 @@ namespace HugoLandEditeur
 {
     public partial class frmMain : Form
     {
+
+        static HugoLand.Model.HugoWorldEntities context = new HugoLand.Model.HugoWorldEntities();
+        MondeController mondeControleur = new MondeController(context);
+        CompteJoueurController compteJoueurController = new CompteJoueurController(context);
+        ClasseController classeController = new ClasseController(context);
+        ObjetMondeController objetMondeController = new ObjetMondeController(context);
+        MonstreController monstreController = new MonstreController(context);
+        ItemController itemController = new ItemController(context);
+        EffetItemController effetItemController = new EffetItemController(context);
+        HeroController heroController = new HeroController(context);
+        InventaireHeroController InventaireController = new InventaireHeroController(context);
         private CMap m_Map;
         private CTileLibrary m_TileLibrary;
         private int m_XSel;
@@ -59,10 +71,14 @@ namespace HugoLandEditeur
         /* -------------------------------------------------------------- *\
         frmMain_Load()			
         - Main Form Initialization		
-        \* -------------------------------------------------------------- */
+    \* -------------------------------------------------------------- */
         private void frmMain_Load(object sender, System.EventArgs e)
         {
-
+            //LOGIN
+            Presentation.frmLogin login = new Presentation.frmLogin(compteJoueurController, context);
+            login.ShowDialog();
+            if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
+                Application.Exit();
 
             m_Map = new CMap();
             m_TileLibrary = new CTileLibrary();
@@ -123,15 +139,8 @@ namespace HugoLandEditeur
 
             tbMain.Controls.Add(lblZoom);
             tbMain.Controls.Add(comboBox1);
-
-            #region password
-            Presentation.frmLogIn login = new Presentation.frmLogIn();
-            login.ShowDialog();
-            login.TopMost = true;
-            login.Close();
-
-            #endregion
         }
+
 
         /* -------------------------------------------------------------- *\
         Menus

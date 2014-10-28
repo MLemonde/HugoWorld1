@@ -26,8 +26,9 @@ namespace HugoLand
             HeroController heroController = new HeroController(context);
             InventaireHeroController InventaireController = new InventaireHeroController(context);
 
+            compteJoueurController.CreatePlayer("Mathew", "test", "mathew_lemonde@hotmail.com", "Mathew", "Lemonde", 1);
 
-
+            #region Test
 
 
             #region MONDE
@@ -193,6 +194,7 @@ namespace HugoLand
             InventaireController.DeleteItemFromHero(context.Heroes.First().Id, context.Items.First().Id);
             //devrait rien afficher
 
+            #endregion
             #endregion
         }
     }

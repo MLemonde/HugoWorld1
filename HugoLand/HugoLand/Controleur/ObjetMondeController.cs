@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HugoLand.Controller
 {
-    class ObjetMondeController
+    public class ObjetMondeController
     {
         HugoWorldEntities db;
 

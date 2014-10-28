@@ -7,7 +7,7 @@ using HugoLand.Model;
 
 namespace HugoLand.Controller
 {
-    class ItemController
+    public class ItemController
     {
         HugoWorldEntities context;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HugoLand.Controller
 {
-    class HeroController
+     public class HeroController
     {
         HugoWorldEntities context;
 

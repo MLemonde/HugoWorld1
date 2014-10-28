@@ -13,7 +13,7 @@ namespace HugoLandEditeur
 
 
         private int m_Count;			// number of tiles
-        private Bitmap m_TileSource;	// to be loaded from external File or resource...
+        private Bitmap m_TileSource;		// to be loaded from external File or resource...
         private int m_Width;
         private int m_Height;
         private Dictionary<string, Tile> _ObjMonde = new Dictionary<string, Tile>();

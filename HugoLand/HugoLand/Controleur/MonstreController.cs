@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HugoLand.Controller
 {
-    class MonstreController
+    public class MonstreController
     {
         /// <summary>
         /// Auteur: Mathew Lemonde
