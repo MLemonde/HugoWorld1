@@ -75,10 +75,10 @@ namespace HugoLandEditeur
         private void frmMain_Load(object sender, System.EventArgs e)
         {
             //LOGIN
-          // Presentation.frmLogin login = new Presentation.frmLogin(compteJoueurController, context);
-          // login.ShowDialog();
-          // if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
-          //     Application.Exit();
+         //  Presentation.frmLogin login = new Presentation.frmLogin(compteJoueurController, context);
+         //  login.ShowDialog();
+         //  if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
+         //      Application.Exit();
 
 
 
@@ -142,6 +142,8 @@ namespace HugoLandEditeur
 
             tbMain.Controls.Add(lblZoom);
             tbMain.Controls.Add(comboBox1);
+
+            
         }
 
 
@@ -418,20 +420,47 @@ namespace HugoLandEditeur
             }
         }
 
-        /* -------------------------------------------------------------- *\
-            picMap_Click()
-			
-            - Plots the ActiveTile from the tile library to the selected
-              tile location on the map.
-        \* -------------------------------------------------------------- */
+       /// <summary>
+       /// Mathew Lemonde
+       /// Dessine le tile et l'ajoute a la map
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
         private void picMap_Click(object sender, System.EventArgs e)
-        {
-            //hUGO : mODIFIER ICI POUR AVOIR le tile et le type
-            m_Map.PlotTile(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
-        //   m_TileLibrary.ObjMonde[m_ActiveTileID] .TypeObjet;
+        {            
+            var test = m_TileLibrary.ObjMonde.Where(c => c.Value.X_Image + c.Value.Y_Image * 32 == m_ActiveTileID);            
+            
+            if(test.Count() == 0)
+            {
+                Console.WriteLine("non trouvé");
+            }
+            else
+            {
+                AddObjectToMap(test.First().Value);
+                m_Map.PlotTile(m_ActiveXIndex, m_ActiveYIndex, m_ActiveTileID);
+                m_bRefresh = true;
+            }
             
 
-            m_bRefresh = true;
+        }
+
+        /// <summary>
+        /// Rajoute l'objet , selon son type, sur la map
+        /// </summary>
+        private void AddObjectToMap(Tile tile)
+        {
+            if( tile.TypeObjet == TypeTile.ObjetMonde)
+            {
+                objetMondeController.CreateObjectMonde(m_ActiveXIndex, m_ActiveYIndex, tile.Name, (int)tile.TypeObjet, 1);
+            }
+            else if (tile.TypeObjet == TypeTile.Monstre)
+            {
+
+            }
+            else if (tile.TypeObjet == TypeTile.Item)
+            {
+
+            }
         }
 
         /* -------------------------------------------------------------- *\
@@ -608,6 +637,7 @@ namespace HugoLandEditeur
                 try
                 {
                     bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, 32);
+                  
                     if (bResult)
                     {
 

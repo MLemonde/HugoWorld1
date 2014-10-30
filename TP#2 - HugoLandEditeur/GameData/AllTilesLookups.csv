@@ -66,7 +66,7 @@ Troll,7,Character,gamedata\AllTiles.bmp,10,7,Y,3,Open,10,Monstre
 Armour,1,Armour,gamedata\AllTiles.bmp,7,5,Y,1,Open,,Item
 Attack,2,Attack,gamedata\AllTiles.bmp,8,5,Y,1,Open,,Item
 Treasure1,3,Treasure,gamedata\AllTiles.bmp,10,4,Y,1,Open,,Item
-Treasure2,4,Treasure,gamedata\AllTiles.bmp,7,6,Y,1,Open,,Item
+Treasure2,4,Treasure,gamedata\AllTiles.bmp,8,6,Y,1,Open,,Item
 KeyBrown,5,Key,gamedata\AllTiles.bmp,7,4,Y,1,Open,Brown,Item
 KeyGreen,6,Key,gamedata\AllTiles.bmp,8,4,Y,1,Open,Green,Item
 KeyRed,7,Key,gamedata\AllTiles.bmp,9,4,Y,1,Open,Red,Item
