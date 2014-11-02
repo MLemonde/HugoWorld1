@@ -336,7 +336,7 @@ namespace HugoLandEditeur
                 m_BackBuffer = new Bitmap(m_Width * csteApplication.TILE_WIDTH_IN_MAP, m_Height * csteApplication.TILE_HEIGHT_IN_MAP);
                 m_BackBufferDC = Graphics.FromImage(m_BackBuffer);
 
-                //Refresh();
+                Refresh();
             }
             catch
             {

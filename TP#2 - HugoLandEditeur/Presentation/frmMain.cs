@@ -572,6 +572,7 @@ namespace HugoLandEditeur
             Monde CurrentWorld = mondelist.Where(c => c.Id == frm.MondeID).First();
 
             bResult = m_Map.CreateNew(int.Parse(CurrentWorld.LimiteX), int.Parse(CurrentWorld.LimiteY), 32);
+            m_Map.ID = frm.MondeID;
             m_Map.Tiles = new int[int.Parse(CurrentWorld.LimiteX), int.Parse(CurrentWorld.LimiteY)];
             if (!bResult)
                 return;
@@ -591,9 +592,9 @@ namespace HugoLandEditeur
                             Tile tile = m_TileLibrary.ObjMonde[it.Description];
                             m_Map.Tiles[i, j] = tile.X_Image + tile.Y_Image * 32;
                         }
-                        
+
                     }
-                    if (ObjList.Count() != 0)
+                    else if (ObjList.Count() != 0)
                     {
                         foreach (var ob in ObjList)
                         {
@@ -601,7 +602,7 @@ namespace HugoLandEditeur
                             m_Map.Tiles[i, j] = tile.X_Image + tile.Y_Image * 32;
                         }
                     }
-                    if (MonsterList.Count() != 0)
+                    else if (MonsterList.Count() != 0)
                     {
                         foreach (var Mo in MonsterList)
                         {
@@ -609,19 +610,19 @@ namespace HugoLandEditeur
                             m_Map.Tiles[i, j] = tile.X_Image + tile.Y_Image * 32;
                         }
                     }
+                    else
+                        m_Map.Tiles[i, j] = 32;
 
                     m_bOpen = true;
-                  //  m_bRefresh = true;
                     picMap.Visible = true;
-                    m_Map.Load();
-                  //  m_MenuLogic();
-
-
-                    
-                    
+                   
                 }
+           
+            m_Map.Load();
+            m_MenuLogic();
 
-
+            m_ResizeMap();
+            
             this.Cursor = Cursors.Default;
 
 
@@ -658,6 +659,10 @@ namespace HugoLandEditeur
                                 if (tile.Name != "Grass")
                                 {
                                     objetMondeController.CreateObjectMonde(j, i, tile.Name, (int)TypeTile.ObjetMonde, m_Map.ID);
+                                    bnew = true;
+                                }
+                                else
+                                {
                                     bnew = true;
                                 }
                             }

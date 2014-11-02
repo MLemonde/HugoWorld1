@@ -131,5 +131,26 @@ namespace HugoLand.Controller
             
             return false;
         }
+        /// <summary>
+        /// Auteur: Mathew Lemonde
+        /// Description: Valider le login d'un admin
+        /// </summary>
+        /// <param name="sUsername">Nom d'utilisateur</param>
+        /// <param name="sPassword">Mot de passe</param>
+        /// <returns></returns>
+        public bool ValidateAdmin(string sUsername, string sPassword)
+        {
+            var Account = context.CompteJoueurs.FirstOrNull(c => c.NomUtilisateur == sUsername);
+            if (Account == null)
+                return false;
+
+            if (Account.TypeUtilisateur != 1)
+                return false;
+
+            if (PasswordHash.ValidatePassword(sPassword, Account.Password))
+                return true;
+
+            return false;
+        }
     }
 }

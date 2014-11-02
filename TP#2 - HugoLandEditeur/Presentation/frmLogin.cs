@@ -40,20 +40,11 @@ namespace HugoLandEditeur.Presentation
         /// <param name="e"></param>
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (CompteController.ValidatePlayer(txtUserName.Text, txtPassword.Text))
-            {
-                //Va chercher le compte puis verifie le type (admin =1 user = 0)
-                var account = context.CompteJoueurs.FirstOrNull(c => c.NomUtilisateur == txtUserName.Text);
-
-                if (account.TypeUtilisateur == 1)
-                {
+            if (CompteController.ValidateAdmin(txtUserName.Text, txtPassword.Text))
+            {               
                     DialogResult = System.Windows.Forms.DialogResult.OK;
                     this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Vous n'êtes pas admin", "Erreur", MessageBoxButtons.OK);
-                }
+                
             }
             else
             {
