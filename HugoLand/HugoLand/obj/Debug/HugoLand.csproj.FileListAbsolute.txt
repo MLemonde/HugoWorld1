@@ -22,3 +22,12 @@ I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.
 I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.xml
 I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.xml
 I:\Session5\BD\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache
+D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.exe
+D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config
+D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe
+D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.pdb
+D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.dll
+D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.dll
+D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.xml
+D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.xml
+D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.pdb

@@ -114,8 +114,8 @@ namespace HugoLand
             #endregion
 
             #region MONSTRE
-            monstreController.CreateMonster(context.Mondes.First().Id);
-            monstreController.CreateMonster(context.Mondes.First().Id);
+           // monstreController.CreateMonster(context.Mondes.First().Id);
+          //  monstreController.CreateMonster(context.Mondes.First().Id);
 
             Console.WriteLine(context.Mondes.First().Monstres.First().Niveau);
             monstreController.EditMonster(_lstmondes.First().Monstres.First().Id, "Patate", 10, 10, 10, 10, 10, 10);

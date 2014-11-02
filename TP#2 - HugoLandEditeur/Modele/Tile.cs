@@ -30,7 +30,7 @@ namespace HugoLandEditeur
         public string Name { get; set; }
         public int IndexTypeObjet { get; set; }
         public TypeTile TypeObjet { get; set; }
-        public int TileID { get; set; }
+        
 
         public Tile(string[] tileData)
         {
@@ -72,8 +72,6 @@ namespace HugoLandEditeur
                         break;
                 }
 
-                //Attribuer un iD
-             //   TileID = ID;
             }
             catch (Exception ex)
             {

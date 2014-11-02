@@ -25,7 +25,7 @@ namespace HugoLand.Controller
         /// Creation d'un Monstre avec valeur aléatoires
         /// </summary>
         /// <param name="Mondeid">Id du monde</param>
-        public void CreateMonster(int Mondeid)
+        public void CreateMonster(int Mondeid,int x, int y, int HP,string sname)
         {
             var Monde = context.Mondes.FirstOrNull(c => c.Id == Mondeid);
             if (Monde == null)
@@ -35,11 +35,14 @@ namespace HugoLand.Controller
             Monstre monster = new Monstre()
             {
                 MondeId = Monde.Id,
-                Nom = "Monster",
+                Nom = sname,
+                //TODO
                 Niveau = _rand.Next(0,101),
-                x= _rand.Next(0,int.Parse(Monde.LimiteX)),
-                y = _rand.Next(0, int.Parse(Monde.LimiteY)),
-                StatPV = _rand.Next(0,400),
+                x= x,
+                y = y,
+                StatPV = HP,
+
+                //DMG SELON LE MONSTRE TODO
                 StatDmgMax = _rand.Next(DmgMin,400)
             };
             context.Monstres.Add(monster);

@@ -15,7 +15,7 @@ namespace HugoLandEditeur
         private int m_Width;			// map width (tiles)
         private int m_Height;			// map height (tiles)
         private int m_DefaultTileID;	// default tile id for outside normal bounds
-        private int[,] m_Tiles;			// logical 2-D array for map building
+        private int[,] m_Tiles;			// logical 2-D array for map building 
         private Bitmap m_BackBuffer;		// Back Buffer for plotting graphical map data.. We will not store in picture box.
         private Graphics m_BackBufferDC;
         private int m_OffsetX;
@@ -23,10 +23,23 @@ namespace HugoLandEditeur
         private int m_nTilesVert;
         private int m_nTilesHoriz;
         private int m_Zoom;
+        private int m_ID;
 
+        public int ID
+        {
+            get { return m_ID; }
+            set { m_ID = value; }
+        }
 
+        public int[,] Tiles
+        {
+            get { return m_Tiles; }
+            set { m_Tiles = value; }
+        }
 
         private CTileLibrary m_TileLibrary;		// Reference to a Tile Library
+
+        
 
         // Map Width (in Tiles)
         public int Width
@@ -195,7 +208,7 @@ namespace HugoLandEditeur
 
        
 
-        public int Load(String strFilename)
+        public int Load()
         {
             //int i;
 
@@ -262,12 +275,9 @@ namespace HugoLandEditeur
             //if (height < 8 || height > MAP_MAX_HEIGHT)
             //    return -1;
 
-            //// Build Backbuffer
-            //m_Width = width;
-            //m_Height = height;
-            //m_Tiles = new int[m_Height,m_Width];
-            //m_BackBuffer = new Bitmap(m_Width * TILE_WIDTH_IN_MAP, m_Height * TILE_HEIGHT_IN_MAP);
-            //m_BackBufferDC = Graphics.FromImage(m_BackBuffer);
+            
+            m_BackBuffer = new Bitmap(m_Width * 16, m_Height * 16);
+            m_BackBufferDC = Graphics.FromImage(m_BackBuffer);
 
             //while(sr.Peek() >= 0)
             //{
@@ -297,7 +307,7 @@ namespace HugoLandEditeur
             //}			
             //sr.Close();
 
-            //Refresh();
+            Refresh();
 
             return 0;
         }
@@ -326,7 +336,7 @@ namespace HugoLandEditeur
                 m_BackBuffer = new Bitmap(m_Width * csteApplication.TILE_WIDTH_IN_MAP, m_Height * csteApplication.TILE_HEIGHT_IN_MAP);
                 m_BackBufferDC = Graphics.FromImage(m_BackBuffer);
 
-                Refresh();
+                //Refresh();
             }
             catch
             {
