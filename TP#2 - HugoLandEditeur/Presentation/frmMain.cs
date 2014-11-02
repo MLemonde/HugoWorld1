@@ -558,6 +558,10 @@ namespace HugoLandEditeur
         }
         #endregion
 
+        /// <summary>
+        /// Auteur: Mathew Lemonde et Francis Lussier
+        /// Ouvre un form, et load la map selectionner
+        /// </summary>
         private void LoadMap()
         {
             bool bResult = false;
@@ -611,7 +615,7 @@ namespace HugoLandEditeur
                         }
                     }
                     else
-                        m_Map.Tiles[i, j] = 32;
+                        m_Map.Tiles[i, j] = 72;
 
                     m_bOpen = true;
                     picMap.Visible = true;
@@ -729,7 +733,7 @@ namespace HugoLandEditeur
                 this.Cursor = Cursors.WaitCursor;
                 try
                 {
-                    bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, 32);
+                    bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, 72);
                   
                     if (bResult)
                     {
@@ -819,6 +823,11 @@ namespace HugoLandEditeur
             m_Zoom = myItem.Value;
             m_bResize = true;
             picTiles.Focus();
+        }
+
+        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            picTiles.Left = -e.NewValue;
         }
 
        

@@ -131,6 +131,7 @@ namespace HugoLandEditeur
             this.dlgSaveMap = new System.Windows.Forms.SaveFileDialog();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.lblZoom = new System.Windows.Forms.Label();
+            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             ((System.ComponentModel.ISupportInitialize)(this.picEditArea)).BeginInit();
             this.panelTools.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picActiveTile)).BeginInit();
@@ -382,6 +383,7 @@ namespace HugoLandEditeur
             // 
             // panelTiles
             // 
+            this.panelTiles.Controls.Add(this.hScrollBar1);
             this.panelTiles.Controls.Add(this.picTiles);
             this.panelTiles.Controls.Add(this.vscTiles);
             this.panelTiles.Controls.Add(this.picEditSel);
@@ -409,7 +411,7 @@ namespace HugoLandEditeur
             this.vscTiles.Dock = System.Windows.Forms.DockStyle.Right;
             this.vscTiles.LargeChange = 15;
             this.vscTiles.Location = new System.Drawing.Point(820, 0);
-            this.vscTiles.Maximum = 395;
+            this.vscTiles.Maximum = 1950;
             this.vscTiles.Name = "vscTiles";
             this.vscTiles.Size = new System.Drawing.Size(17, 134);
             this.vscTiles.SmallChange = 5;
@@ -488,6 +490,17 @@ namespace HugoLandEditeur
             this.lblZoom.Text = "Zoom:";
             this.lblZoom.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // hScrollBar1
+            // 
+            this.hScrollBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.hScrollBar1.Location = new System.Drawing.Point(0, 116);
+            this.hScrollBar1.Maximum = 800;
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(820, 18);
+            this.hScrollBar1.TabIndex = 11;
+            this.hScrollBar1.Value = 100;
+            this.hScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar1_Scroll);
+            // 
             // frmMain
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -521,5 +534,6 @@ namespace HugoLandEditeur
 
         private System.Windows.Forms.ToolBarButton toolBarButton1;
         private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.HScrollBar hScrollBar1;
     }
 }
