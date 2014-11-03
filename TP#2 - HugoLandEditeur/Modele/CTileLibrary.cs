@@ -67,6 +67,8 @@ namespace HugoLandEditeur
 
 		public void Draw(Graphics pGraphics, Rectangle destRect)
 		{
+                
+            m_TileSource.MakeTransparent(Color.FromArgb(255, 0, 255));
             Rectangle srcRect = new Rectangle(0, 0, (m_Width - 1) * csteApplication.TILE_WIDTH_IN_IMAGE, (m_Height - 1) * csteApplication.TILE_HEIGHT_IN_IMAGE);
             Rectangle destRect2 = new Rectangle(0, 0, (m_Width - 1) * csteApplication.TILE_WIDTH_IN_IMAGE, (m_Height - 1) * csteApplication.TILE_HEIGHT_IN_IMAGE);
 			pGraphics.DrawImage(m_TileSource, destRect2, srcRect, GraphicsUnit.Pixel);

@@ -17,6 +17,7 @@ namespace HugoLandEditeur
     public partial class frmMain : Form
     {
         static HugoLand.Model.HugoWorldEntities context = new HugoLand.Model.HugoWorldEntities();
+        private Monde CurrentWorld;
         MondeController mondeControleur = new MondeController(context);
         CompteJoueurController compteJoueurController = new CompteJoueurController(context);
         ClasseController classeController = new ClasseController(context);
@@ -42,8 +43,9 @@ namespace HugoLandEditeur
         private int m_ActiveYIndex;
         private int m_ActiveTileID;
         private int m_ActiveTileXIndex;
-        private int m_ActiveTileYIndex;		
-
+        private int m_ActiveTileYIndex;
+        private frmNew _frmnew;
+        private int defaulttileid = 1;
         /// <summary>
         /// Summary description for Form1.
         /// </summary>
@@ -140,11 +142,9 @@ namespace HugoLandEditeur
 
             lblZoom.Left = 180;
             lblZoom.Top = 2;
-
             tbMain.Controls.Add(lblZoom);
             tbMain.Controls.Add(comboBox1);
 
-            
         }
 
 
@@ -232,7 +232,7 @@ namespace HugoLandEditeur
                     f.ShowDialog(this);
                 }
             else if (e.Button == tbbNew)
-                NewMap();
+                NewMap(true);
         }
 
         #endregion
@@ -429,7 +429,7 @@ namespace HugoLandEditeur
        /// <param name="e"></param>
         private void picMap_Click(object sender, System.EventArgs e)
         {        
-            //Requete pour rien, verif dictionnary
+            
             var test = m_TileLibrary.ObjMonde.Where(c => c.Value.X_Image + c.Value.Y_Image * 32 == m_ActiveTileID);            
             
             if(test.Count() == 0)
@@ -564,27 +564,24 @@ namespace HugoLandEditeur
         /// </summary>
         private void LoadMap()
         {
-            bool bResult = false;
             frmLoad frm = new frmLoad(mondeControleur, context);
             frm.ShowDialog(this);
             if (frm.DialogResult != System.Windows.Forms.DialogResult.OK)
                 return;
 
-
-
             List<Monde> mondelist = mondeControleur.GetListMonde();
-            Monde CurrentWorld = mondelist.Where(c => c.Id == frm.MondeID).First();
+            CurrentWorld = mondelist.Where(c => c.Id == frm.MondeID).First();
 
-            bResult = m_Map.CreateNew(int.Parse(CurrentWorld.LimiteX), int.Parse(CurrentWorld.LimiteY), 32);
             m_Map.ID = frm.MondeID;
-            m_Map.Tiles = new int[int.Parse(CurrentWorld.LimiteX), int.Parse(CurrentWorld.LimiteY)];
-            if (!bResult)
-                return;
-                this.Cursor = Cursors.WaitCursor;
+
+            this.Cursor = Cursors.WaitCursor;
+            NewMap(false);
 
             for (int i = 0; i < m_Map.Height; i++)
                 for (int j = 0; j < m_Map.Width; j++)
                 {
+                    
+
                     var Itemlist = CurrentWorld.Items.Where(c => c.x == j && c.y == i).ToList();
                     var ObjList = CurrentWorld.ObjetMondes.Where(c => c.x == j && c.y == i).ToList();
                     var MonsterList = CurrentWorld.Monstres.Where(c => c.x == j && c.y == i).ToList();
@@ -594,7 +591,7 @@ namespace HugoLandEditeur
                         foreach (var it in Itemlist)
                         {
                             Tile tile = m_TileLibrary.ObjMonde[it.Description];
-                            m_Map.Tiles[i, j] = tile.X_Image + tile.Y_Image * 32;
+                            m_Map.PlotTile(j, i, tile.X_Image + tile.Y_Image * 32);
                         }
 
                     }
@@ -602,8 +599,9 @@ namespace HugoLandEditeur
                     {
                         foreach (var ob in ObjList)
                         {
-                            Tile tile = m_TileLibrary.ObjMonde[ob.Description];
-                            m_Map.Tiles[i, j] = tile.X_Image + tile.Y_Image * 32;
+                            Tile tile = m_TileLibrary.ObjMonde[ob.Description];                            
+                            m_Map.PlotTile(j,i, tile.X_Image + tile.Y_Image *32);
+                          
                         }
                     }
                     else if (MonsterList.Count() != 0)
@@ -611,18 +609,14 @@ namespace HugoLandEditeur
                         foreach (var Mo in MonsterList)
                         {
                             Tile tile = m_TileLibrary.ObjMonde[Mo.Nom];
-                            m_Map.Tiles[i, j] = tile.X_Image + tile.Y_Image * 32;
+                            m_Map.PlotTile(j, i, tile.X_Image + tile.Y_Image * 32);
                         }
                     }
-                    else
-                        m_Map.Tiles[i, j] = 72;
 
-                    m_bOpen = true;
-                    picMap.Visible = true;
-                   
                 }
-           
-            m_Map.Load();
+
+            m_bOpen = true;
+            picMap.Visible = true;           
             m_MenuLogic();
 
             m_ResizeMap();
@@ -643,9 +637,8 @@ namespace HugoLandEditeur
         private void m_SaveMap()
         {
 
-            bool bnew;
-            List<Monde> mondelist = mondeControleur.GetListMonde();
-            Monde CurrentWorld = mondelist.Where(c => c.Id == m_Map.ID).First();
+            bool bnew;            
+            Monde CurrentWorld = mondeControleur.GetListMonde().Find(c => c.Id == m_Map.ID);
 
             for (int i = 0; i < m_Map.Height; i++)
                 for (int j = 0; j < m_Map.Width; j++)
@@ -690,16 +683,21 @@ namespace HugoLandEditeur
                                 if(Itemlist.Count() != 0)
                                 {
                                     foreach (var it in Itemlist)
+                                    {
+                                        var i1 = m_TileLibrary.ObjMonde[it.Nom];
+                                        if(!i1.IsTransparent)
                                         itemController.DeleteItem(it.Id);
+                                    }
                                 }
                                 if(ObjList.Count() != 0)
                                 {
-                                    foreach (var ob in ObjList)
+                                    foreach (var ob in ObjList)                          
                                         objetMondeController.DeleteObjectMonde(ob.Id, m_Map.ID);
+                                    
                                 }
                                 if(MonsterList.Count() != 0)
                                 {
-                                    foreach (var Mo in MonsterList)
+                                    foreach (var Mo in MonsterList)                                    
                                         monstreController.DeleteMonster(Mo.Id);
                                 }
                             }
@@ -709,37 +707,49 @@ namespace HugoLandEditeur
                 }
                           
         }
+        private bool NewmapFrm()
+        {
+            DialogResult result;
+            
 
+            _frmnew = new frmNew();
+            _frmnew.MapWidth = m_Map.Width;
+            _frmnew.MapHeight = m_Map.Height;
+            
+            result = _frmnew.ShowDialog(this);
+            if (result == DialogResult.OK)
+            {
+                return true;
+            }
+
+            return false;
+        }
         /* -------------------------------------------------------------- *\
             m_NewMap()
 			
             - Creates a new map of the selected size.
         \* -------------------------------------------------------------- */
-        private void NewMap()
+        private void NewMap(bool bnew)
         {
-            frmNew f;
-            DialogResult result;
             bool bResult;
 
-            f = new frmNew();
-            f.MapWidth = m_Map.Width;
-            f.MapHeight = m_Map.Height;
-
-            result = f.ShowDialog(this);
-            if (result == DialogResult.OK)
-            {
                 m_bOpen = false;
                 picMap.Visible = false;
                 this.Cursor = Cursors.WaitCursor;
+                if(!bnew || NewmapFrm())
+                {
                 try
                 {
-                    bResult = m_Map.CreateNew(f.MapWidth, f.MapHeight, 72);
-                  
+                    if (!bnew)
+                        bResult = m_Map.CreateNew(int.Parse(CurrentWorld.LimiteX), int.Parse(CurrentWorld.LimiteY), defaulttileid);
+                    else
+                        bResult = m_Map.CreateNew(_frmnew.Width, _frmnew.Height, defaulttileid);
+
                     if (bResult)
                     {
 
-                        
-                        AddMaptoModel(f.MapWidth,f.MapHeight,f.Desc);
+                        if(bnew)
+                            AddMaptoModel(_frmnew.MapWidth, _frmnew.MapHeight, _frmnew.Desc);
 
                         m_bOpen = true;
                         m_bRefresh = true;
@@ -791,7 +801,7 @@ namespace HugoLandEditeur
         \* -------------------------------------------------------------- */
         private void mnuFileNew_Click(object sender, System.EventArgs e)
         {
-            NewMap();
+            NewMap(true);
         }
 
         private void picTiles_MouseLeave(object sender, System.EventArgs e)

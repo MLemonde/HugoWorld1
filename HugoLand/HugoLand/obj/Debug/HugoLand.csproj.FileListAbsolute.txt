@@ -31,3 +31,4 @@ D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.
 D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.xml
 D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.xml
 D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.pdb
+D:\Session5\BD\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache
