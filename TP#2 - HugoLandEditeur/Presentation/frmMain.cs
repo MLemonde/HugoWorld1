@@ -78,10 +78,10 @@ namespace HugoLandEditeur
         private void frmMain_Load(object sender, System.EventArgs e)
         {
             //LOGIN
-         //  Presentation.frmLogin login = new Presentation.frmLogin(compteJoueurController, context);
-         //  login.ShowDialog();
-         //  if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
-         //      Application.Exit();
+         Presentation.frmLogin login = new Presentation.frmLogin(compteJoueurController, context);
+         login.ShowDialog();
+         if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
+             Application.Exit();
 
 
 
@@ -422,7 +422,7 @@ namespace HugoLandEditeur
         }
 
        /// <summary>
-       /// Mathew Lemonde
+       /// 
        /// Dessine le tile et l'ajoute a la map
        /// </summary>
        /// <param name="sender"></param>
@@ -559,8 +559,8 @@ namespace HugoLandEditeur
         #endregion
 
         /// <summary>
-        /// Auteur: Mathew Lemonde et Francis Lussier
-        /// Ouvre un form, et load la map selectionner
+        /// 
+        /// Ouvre un form, et load la map selectionnée
         /// </summary>
         private void LoadMap()
         {
@@ -586,30 +586,37 @@ namespace HugoLandEditeur
                     var ObjList = CurrentWorld.ObjetMondes.Where(c => c.x == j && c.y == i).ToList();
                     var MonsterList = CurrentWorld.Monstres.Where(c => c.x == j && c.y == i).ToList();
 
+                   
+                    if (ObjList.Count() != 0)
+                    {
+                        foreach (var ob in ObjList)
+                        {
+                            Tile tile = m_TileLibrary.ObjMonde[ob.Description];                            
+                            m_Map.PlotTile(j,i, tile.X_Image + tile.Y_Image *32);
+                            picMap.Refresh();
+
+                          
+                        }
+                    }
                     if (Itemlist.Count() != 0)
                     {
                         foreach (var it in Itemlist)
                         {
                             Tile tile = m_TileLibrary.ObjMonde[it.Description];
                             m_Map.PlotTile(j, i, tile.X_Image + tile.Y_Image * 32);
+                            picMap.Refresh();
                         }
 
                     }
-                    else if (ObjList.Count() != 0)
-                    {
-                        foreach (var ob in ObjList)
-                        {
-                            Tile tile = m_TileLibrary.ObjMonde[ob.Description];                            
-                            m_Map.PlotTile(j,i, tile.X_Image + tile.Y_Image *32);
-                          
-                        }
-                    }
-                    else if (MonsterList.Count() != 0)
+                    if (MonsterList.Count() != 0)
                     {
                         foreach (var Mo in MonsterList)
                         {
                             Tile tile = m_TileLibrary.ObjMonde[Mo.Nom];
                             m_Map.PlotTile(j, i, tile.X_Image + tile.Y_Image * 32);
+                            picMap.Refresh();
+
+
                         }
                     }
 
@@ -631,7 +638,7 @@ namespace HugoLandEditeur
         }
 
        /// <summary>
-       /// Auteur : Frank et Mathew
+       /// 
        /// Ajoute les objet de la map dans la BD
        /// </summary>
         private void m_SaveMap()
@@ -648,65 +655,88 @@ namespace HugoLandEditeur
                     var ObjList = CurrentWorld.ObjetMondes.Where(c => c.x == j && c.y == i).ToList();
                     var MonsterList = CurrentWorld.Monstres.Where(c => c.x == j && c.y == i).ToList();
 
-                    Tile tile = m_TileLibrary.ObjMonde.Where(c => c.Value.X_Image + c.Value.Y_Image * 32  == m_Map.Tiles[i, j]).First().Value;
-                    switch (tile.TypeObjet)
+                    var tile = m_TileLibrary.ObjMonde.Where(c => c.Value.X_Image + c.Value.Y_Image * 32 == m_Map.Tiles[i, j]).ToList();
+                    foreach (var ti in tile)
                     {
-                        case TypeTile.ObjetMonde:
-                            {
-                                if (tile.Name != "Grass")
+                        switch (ti.Value.TypeObjet)
+                        {
+                            case TypeTile.ObjetMonde:
                                 {
-                                    objetMondeController.CreateObjectMonde(j, i, tile.Name, (int)TypeTile.ObjetMonde, m_Map.ID);
-                                    bnew = true;
-                                }
-                                else
-                                {
-                                    bnew = true;
-                                }
-                            }
-                            break;
-                        case TypeTile.Monstre:
-                            {
-                                monstreController.CreateMonster(m_Map.ID, j, i, tile.Health, tile.Name);
-                                bnew = true;
-                            }
-                            break;
-                        case TypeTile.Item:
-                            {
-                                itemController.CreateItem(m_Map.ID, j, i, tile.Name, tile.Name, 0, 1, 0, 0, 0, 0, 0, 0);
-                                bnew = true;
-                            }
-                            break;
-                    }
-
-                            if(bnew)
-                            {
-                                if(Itemlist.Count() != 0)
-                                {
-                                    foreach (var it in Itemlist)
+                                    if (ti.Value.Name != "Grass")
                                     {
-                                        var i1 = m_TileLibrary.ObjMonde[it.Nom];
-                                        if(!i1.IsTransparent)
-                                        itemController.DeleteItem(it.Id);
+                                        objetMondeController.CreateObjectMonde(j, i, ti.Value.Name, (int)TypeTile.ObjetMonde, m_Map.ID);
+                                        bnew = true;
+                                    }
+                                    else
+                                    {
+                                        bnew = true;
                                     }
                                 }
-                                if(ObjList.Count() != 0)
+                                break;
+                            case TypeTile.Monstre:
                                 {
-                                    foreach (var ob in ObjList)                          
-                                        objetMondeController.DeleteObjectMonde(ob.Id, m_Map.ID);
-                                    
+                                    monstreController.CreateMonster(m_Map.ID, j, i, ti.Value.Health, ti.Value.Name);
+                                    bnew = true;
                                 }
-                                if(MonsterList.Count() != 0)
+                                break;
+                            case TypeTile.Item:
                                 {
-                                    foreach (var Mo in MonsterList)                                    
-                                        monstreController.DeleteMonster(Mo.Id);
+                                    itemController.CreateItem(m_Map.ID, j, i, ti.Value.Name, ti.Value.Name, 0, 1, 0, 0, 0, 0, 0, 0);
+                                    bnew = true;
+                                }
+                                break;
+                        }
+
+                        if (bnew)
+                        {
+                            if (Itemlist.Count() != 0)
+                            {
+                                foreach (var it in Itemlist)
+                                {
+
+                                    itemController.DeleteItem(it.Id);
                                 }
                             }
-                    
+                            if (ObjList.Count() != 0)
+                            {
+                                int a = 0;
 
-                   
+                                foreach (var ob in ObjList)
+                                {
+                                    var o1 = m_TileLibrary.ObjMonde[ob.Description];                                       
+
+                                    if (a + 2 < ObjList.Count)
+                                    {
+                                        a++;
+                                        objetMondeController.DeleteObjectMonde(ob.Id, m_Map.ID);
+                                    }
+                                    else
+                                    {
+                                        if (!o1.IsTransparent)
+                                            objetMondeController.DeleteObjectMonde(ob.Id, m_Map.ID);
+
+                                    }
+                                }
+
+                            }
+                            if (MonsterList.Count() != 0)
+                            {
+                                foreach (var Mo in MonsterList)
+                                    monstreController.DeleteMonster(Mo.Id);
+                            }
+                        }
+
+
+
+                    }
                 }
                           
         }
+
+        /// <summary>
+        /// Ouvre le form pour creer une map
+        /// </summary>
+        /// <returns></returns>
         private bool NewmapFrm()
         {
             DialogResult result;
@@ -724,11 +754,11 @@ namespace HugoLandEditeur
 
             return false;
         }
-        /* -------------------------------------------------------------- *\
-            m_NewMap()
-			
-            - Creates a new map of the selected size.
-        \* -------------------------------------------------------------- */
+       
+        /// <summary>
+        /// Creer une map dans le programme
+        /// </summary>
+        /// <param name="bnew">Nouvelle map (bd) ou load</param>
         private void NewMap(bool bnew)
         {
             bool bResult;
@@ -767,7 +797,7 @@ namespace HugoLandEditeur
         }
 
         /// <summary>
-        /// Mathew Lemonde
+        ///
         /// Permet de creer la map dans la BD
         /// </summary>
         /// <param name="x">Limite x</param>
@@ -780,6 +810,7 @@ namespace HugoLandEditeur
             m_Map.ID = mondelist.Last().Id;
             
         }
+
         /* -------------------------------------------------------------- *\
             m_MenuLogic()
 			

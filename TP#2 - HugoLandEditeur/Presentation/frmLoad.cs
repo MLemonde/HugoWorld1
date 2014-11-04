@@ -27,6 +27,11 @@ namespace HugoLandEditeur.Presentation
             dataGridView1.DataSource = lstmondes;
         }
 
+        /// <summary>
+        /// Supprime le monde selectionné
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count == 1)
@@ -44,9 +49,26 @@ namespace HugoLandEditeur.Presentation
             
         }
 
+        /// <summary>
+        /// Load le monde selectionner
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOk_Click(object sender, EventArgs e)
         {
-            MondeID = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
+            if(dataGridView1.SelectedRows.Count != 0)
+                try
+                {
+                    MondeID = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            
+            
+              
+            
         }
     }
 }

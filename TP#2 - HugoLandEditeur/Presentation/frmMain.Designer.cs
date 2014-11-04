@@ -432,6 +432,7 @@ namespace HugoLandEditeur
             this.vscMap.Dock = System.Windows.Forms.DockStyle.Right;
             this.vscMap.LargeChange = 5;
             this.vscMap.Location = new System.Drawing.Point(959, 28);
+            this.vscMap.Maximum = 300;
             this.vscMap.Name = "vscMap";
             this.vscMap.Size = new System.Drawing.Size(17, 409);
             this.vscMap.TabIndex = 6;

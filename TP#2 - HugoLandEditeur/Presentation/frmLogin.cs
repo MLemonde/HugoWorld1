@@ -20,7 +20,7 @@ namespace HugoLandEditeur.Presentation
         private HugoLand.Controller.CompteJoueurController CompteController;
         private HugoLand.Model.HugoWorldEntities context;
         /// <summary>
-        /// Auteur : Mathew Lemonde
+        /// 
         /// Description : Contructeur, doit recevoir le controller pour les compte 
         /// </summary>
         /// <param name="Controller">Controller serveur pour les compte</param>
@@ -33,7 +33,7 @@ namespace HugoLandEditeur.Presentation
         }
 
         /// <summary>
-        /// Auteur : Mathew Lemonde
+        /// 
         /// Click du bouton OK, vérifi le login et le statu du User
         /// </summary>
         /// <param name="sender"></param>
@@ -58,7 +58,7 @@ namespace HugoLandEditeur.Presentation
         }
 
         /// <summary>
-        /// Auteur: Marc-André Landry
+        /// 
         /// Description : Ferme l'application au click du bouton fermer
         /// </summary>
         /// <param name="sender"></param>
