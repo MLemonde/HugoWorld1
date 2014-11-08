@@ -68,6 +68,10 @@ namespace HugoLandEditeur
 
         public frmMain()
         {
+            Presentation.frmLogin login = new Presentation.frmLogin(compteJoueurController, context);
+            login.ShowDialog();
+            if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
+                Application.Exit();
             InitializeComponent();
         }
 
@@ -78,10 +82,7 @@ namespace HugoLandEditeur
         private void frmMain_Load(object sender, System.EventArgs e)
         {
             //LOGIN
-         Presentation.frmLogin login = new Presentation.frmLogin(compteJoueurController, context);
-         login.ShowDialog();
-         if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
-             Application.Exit();
+        
 
 
 
