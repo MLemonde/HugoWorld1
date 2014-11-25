@@ -103,6 +103,12 @@
   <wsdl:message name="ICompteJoueurController_ValidatePlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidatePlayerResponse" />
   </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_GetUserID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserID" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_GetUserID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserIDResponse" />
+  </wsdl:message>
   <wsdl:message name="ICompteJoueurController_ValidateAdmin_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidateAdmin" />
   </wsdl:message>
@@ -291,6 +297,10 @@
     <wsdl:operation name="ValidatePlayer">
       <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidatePlayer" message="tns:ICompteJoueurController_ValidatePlayer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidatePlayerResponse" message="tns:ICompteJoueurController_ValidatePlayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserID">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/GetUserID" message="tns:ICompteJoueurController_GetUserID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICompteJoueurController/GetUserIDResponse" message="tns:ICompteJoueurController_GetUserID_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidateAdmin">
       <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidateAdmin" message="tns:ICompteJoueurController_ValidateAdmin_InputMessage" />
@@ -530,6 +540,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidatePlayer">
       <soap:operation soapAction="http://tempuri.org/ICompteJoueurController/ValidatePlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserID">
+      <soap:operation soapAction="http://tempuri.org/ICompteJoueurController/GetUserID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

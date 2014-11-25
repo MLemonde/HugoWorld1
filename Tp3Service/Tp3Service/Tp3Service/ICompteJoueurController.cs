@@ -68,6 +68,16 @@ namespace Tp3Service
         bool ValidatePlayer(string sUsername, string sPassword);
 
         /// <summary>
+        /// Auteur: MAL
+        /// Description: Recevoir le ID de l'utilisateur qui vient de se connecter
+        /// </summary>
+        /// <param name="sUsername">Nom d'utilisateur</param>
+        /// <param name="sPassword">Mot de passe</param>
+        /// <returns></returns>
+        [OperationContract]
+        int? GetUserID(string sUsername, string sPassword);
+
+        /// <summary>
         /// Auteur: Mathew Lemonde
         /// Description: Valider le login d'un admin
         /// </summary>

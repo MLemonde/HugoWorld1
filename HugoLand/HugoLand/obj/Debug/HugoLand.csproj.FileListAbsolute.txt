@@ -42,3 +42,12 @@ D:\Session5\BD\TpHugoWorld\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramewor
 D:\Session5\BD\TpHugoWorld\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache
 D:\Session5\BD\TpHugoWorld\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.exe
 D:\Session5\BD\TpHugoWorld\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.pdb
+C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.exe
+C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\HugoLand.pdb
+C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.dll
+C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.xml
+C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache
+C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.exe
+C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.pdb

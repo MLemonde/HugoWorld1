@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Area.cs" />
     <Compile Include="BitmapCache.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="Service References\HugoWorldServiceRef\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,6 +84,12 @@
     </Compile>
     <Compile Include="GameObject.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="Vue\FrmManageHeroes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\FrmManageHeroes.Designer.cs">
+      <DependentUpon>FrmManageHeroes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vue\help.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +103,12 @@
     <EmbeddedResource Include="Vue\Crusader.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Crusader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vue\FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vue\FrmManageHeroes.resx">
+      <DependentUpon>FrmManageHeroes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vue\help.resx">
       <SubType>Designer</SubType>
@@ -124,6 +137,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Vue\FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Vue\Sounds.cs" />
     <Compile Include="BLL\Sprite.cs" />

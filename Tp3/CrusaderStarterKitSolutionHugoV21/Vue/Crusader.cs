@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using HugoWorldServiceRef;
 
 namespace HugoWorld
 {
@@ -16,8 +17,19 @@ namespace HugoWorld
         private long _frameCounter;
         private GameState _gameState;
 
+
+
         public HugoWorld()
         {
+            // Login
+            Vue.FrmLogin login = new Vue.FrmLogin();
+            login.ShowDialog();
+            if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
+                Application.Exit();
+
+            Vue.FrmManageHeroes manageHeroes = new Vue.FrmManageHeroes();
+            manageHeroes.ShowDialog();
+
             //Setup the form
             InitializeComponent();
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);

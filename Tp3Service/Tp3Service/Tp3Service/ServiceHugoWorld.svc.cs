@@ -363,6 +363,23 @@ namespace Tp3Service
         }
 
         /// <summary>
+        /// Auteur : MAL
+        /// Description : get ID of the User
+        /// </summary>
+        /// <param name="sUsername"></param>
+        /// <param name="sPassword"></param>
+        /// <returns></returns>
+        int? ICompteJoueurController.GetUserID(string sUsername, string sPassword)
+        {
+            var Account = context.CompteJoueurs.FirstOrNull(c => c.NomUtilisateur == sUsername);
+            if (Account == null)
+                return Account.Id;
+
+            else
+                return null;
+        }
+
+        /// <summary>
         /// Auteur: Mathew Lemonde
         /// Description: Valider le login d'un admin
         /// </summary>
