@@ -1,0 +1,484 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+
+
+<!--TO READ THIS HELP FILE, RIGHT-CLICK ON THE FILE NAME IN THE
+    SOLUTION EXPLORER WINDOW AND SELECT "VIEW IN BROWSER"-->
+    
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Crusaders Starter Kit</title>
+<style>
+<!--
+BODY         { background: url('Images/top-vc.gif') repeat-x; font-family: Verdana; font-size: 67% }
+.maindiv     { background: url('Images/side-vc.gif') repeat-y; padding-left: 55px; padding-top: 5px; position: relative; height: 50px }
+P            { margin-top: 0; margin-bottom: 6px; line-height:130% }
+H1           { margin-top: 20px; margin-bottom: 12px; font-size:190% }
+H2           { color: #585F56; left: -55px; position: relative; margin-top: 21px; margin-bottom: 9px; font-size:170% }
+H3           { margin-top: 21px; margin-bottom: 9px; font-size: 140%;  font-weight: bold}
+H4           { margin-top: 18px; margin-bottom: 9px; font-size: 140%; font-weight: bold}
+OL           { margin-top: 0; margin-bottom: 9px; line-height:130%}
+UL           { margin-top: 0; margin-bottom: 9px; line-height:130%}
+LI           { margin-top: 0; margin-bottom: 6px }
+BLOCKQUOTE   { margin-left: 20px }
+TABLE        { padding: 4px; BACKGROUND: #f8f7ef; BORDER: #DDDCD6 1px solid; BORDER-COLLAPSE: collapse; margin-bottom: 9px; }
+TR           { vertical-align: top} 
+TD           { padding: 4px; font-family: Verdana; font-size: 67%; line-height: 130%} 
+.contents    { line-height: 150% }
+DIV.CodeBlock   { font-family: "Courier New"; font-size: 100%; margin-bottom: 6px; BACKGROUND: #f8f7ef; BORDER: #eeede6 1px solid; padding: 10px; }
+.CodeInline  { font-family: "Courier New" }
+.ProcedureLabel {margin-top: 12px; font-style: italic; font-weight: bold; color: #0D4CC3 } 
+.FileNameCol { padding: 6px; BACKGROUND: #eeede6; width=220px; font-weight: bold}
+-->
+</style>
+</head>
+
+<body topmargin="0" leftmargin="0" rightmargin="20">
+<div class="maindiv">
+
+<a name="top">
+
+<!-- MAIN CONTENT BEGINS -->
+
+</a>
+
+<p><a name="top">Microsoft C# Starter Kit </a> </p>
+<h1><a name="top">Starter Kit: Crusader</a></h1>
+
+        <p>
+            &nbsp;</p>
+<p class="contents"><font color="#003300"><b><a name="top">Contents:</a></b></font></p>
+<p class="contents"><font color="#003300">
+<a href="#Introduction">Introduction</a><br>
+<a href="#GettingStarted">Getting Started</a><br />
+    <a href="#Files">Files</a><br>
+<a href="#Concepts">Game Development Concepts</a><br>
+<a href="#Extending">Extending the game</a><br>
+<a href="#ForMoreInformation">For More Information</a><br>
+</font></p>
+
+<h2><A href="#top"><IMG src="Images\topjump-vc.gif" border=0></A><a name="Introduction">Introduction</a></h2>
+<p><img border="0" src="Images\crusader.png" width="265" height="197" alt="TinyTennis" align="right" style="margin-left: 15px; margin-bottom: 10px"></p>
+<p>
+    Welcome to the Upgrade your Game series of tutorials. There will be 3 tutorials
+    each covering writing a simple computer game using Visual Studio Express products.
+    Though the games are simple, each one will teach some game development techniques
+    and each will build on the last to improve your skills. The skills can be applied
+    to more complex games including 3D games using <a href="http://msdn.microsoft.com/directx/">
+        Microsoft DirectX</a>.</p>
+    <p>
+        Not all games are real time action games. Role playing games (RPGs) are generally slower paced with more thinking and usally no penalty if you turn your attention
+        to something else for a few moments. Many, many, many years ago, <a href="http://en.wikipedia.org/wiki/Dungeon_%28computer_game%29">
+            sometime in the 1970s</a> RPGs were played using text or graphics made up from
+        text. Since this is not the 1970s we can do a little better than that using the
+        sprites from the previous games.</p>
+    <p>
+        For the third and final game I will be creating a tile based role playing game.
+        These days role playing games have as good graphics and special effects as any first
+        person shooter. But the origins of graphical role playing games are tile based games
+        like the early <a href="http://en.wikipedia.org/wiki/Final_Fantasy_VI">Final Fantasy</a>
+        and <a href="http://en.wikipedia.org/wiki/Ultima">Ultima</a> games. Since this is
+        a beginner series with limited code I cannot create
+        even games as complex as those
+        early works, however I can give you most of the techniques you will need to put
+        together similar looking games. After that its really just up to your imagination.</p>
+
+<p><b>Note:</b> This documentation assumes that you have a basic knowledge of programming
+ concepts and the Visual C# environment. You can learn more about these topics in the product documentation
+ by clicking <b>Help</b> on the Main Menu, and selecting <b>Contents</b>, <b>Index</b>, or <b>Search</b>. You can also access Help by 
+ positioning the mouse cursor on language keywords or user interface elements such as windows
+ or dialog boxes, and pressing <b>F1</b>.</p>
+				
+			
+
+
+<h2><A href="#top"><IMG src="Images\topjump-vc.gif" border=0></A><a name="GettingStarted">Getting Started</a></h2>
+
+<h3>Building and running Crusader</h3>
+
+<p>Once your project is loaded into the Visual C# environment, you can 
+compile and run the program in one step. </p>
+
+<p class="ProcedureLabel">To build and run Crusader</p>
+
+<ul>
+	<li>Press F5 to <b>build</b> and start the game under the <b>debugger</b>.</li>
+</ul>
+
+<p>The game launches and you can control the hero using the <strong>arrow keys</strong>
+    and <strong>P</strong> to use magic potions. Find the keys to open the doors and
+    kill the wizard who has captured the princess.</p>
+    <p>
+        &nbsp;</p>
+        <h2><a href="#top">
+            <img border="0" src="Images\topjump-vc.gif" /></a><a name="Files">Files</a>&nbsp;</h2>
+
+        <table>
+            <tr>
+                <td style="width: 100px">
+                    <strong>File</strong></td>
+                <td>
+                    <strong>Use</strong></td>
+            </tr>
+            <tr>
+                <td style="width: 100px">
+                    Area.cs</td>
+                <td>
+                    Represents an 8x8 area of the world. Each area store a set of tiles and current
+                    state of any dynamic objects. In addition it stores conenctiviy information about
+                    which areas surround it.</td>
+            </tr>
+            <tr>
+                <td style="width: 100px">
+                    BitmapCache.cs</td>
+                <td>
+                    A static class that stores bitmaps in a cache. This is used by the sprite class
+                    to save on memory and loading time by reuseing bitmaps.</td>
+            </tr>
+            <tr>
+                <td style="width: 100px">
+                    Crusader.cs</td>
+                <td>
+                    The main display form. Other than UI initialization and keyboard events little game
+                    play code is performed in here. Most code calls into GameState</td>
+            </tr>
+            <tr>
+                <td style="width: 100px">
+                    GameObject.cs</td>
+                <td>
+                    Abstract base class that represents an object that requires updating and drawing
+                    once per frame</td>
+            </tr>
+            <tr>
+                <td style="width: 100px">
+                    GameState.cs</td>
+                <td>
+                    Stores the current state of the game and controls all gameplay</td>
+            </tr>
+            <tr>
+                <td style="width: 100px">
+                    MapTile.cs</td>
+                <td>
+                    Stores an individual tile. Each tile has a background sprite and an optional foreground,
+                    transparent, sprite. In addition for dynamic sprites like monsters we store the
+                    current stte of tht monster. e.g. Health</td>
+            </tr>
+            <tr>
+                <td style="width: 100px">
+                    Sounds.cs</td>
+                <td>
+                    A static class that plays any of the game sounds.</td>
+            </tr>
+            <tr>
+                <td style="width: 100px">
+                    Tile.cs</td>
+                <td>
+                    Represents a tile from the data file.</td>
+            </tr>
+            <tr>
+                <td style="width: 100px">
+                    World.cs</td>
+                <td>
+                    The world is a collection of Areas. This class handles reading of the the tile and
+                    map files and any gameplay related to the world.</td>
+            </tr>
+        </table>
+
+<h2><A href="#top"><IMG src="Images\topjump-vc.gif" border=0></A><a name="Concepts">Game Development Concepts </a></h2>
+    <p>
+        If you are new to 2d game development then check out the <a href="2dprimer_cs.htm">2d
+            Game Develoment primer</a>.</p>
+    <h3>
+        Tile based
+        Games</h3>
+    <p>
+        Tile based games get their name from the way the graphics are built up. Instead
+        of having a single graphic for each area in the game the area is built up from
+        several small tiles. So there is a tile for grass, another with a tree and another
+        with a brick wall. By combining these squares like a patchwork quilt you can make
+        a huge number of different looking levels from a small number of graphics. Take
+        a look at the <strong>tiles.bmp </strong>in the <strong>GameData folder</strong>
+        for an idea what the tiles look like for this game.</p>
+    <p>
+        For this game I asked the artist to cover 3 themes:</p>
+    <ol>
+        <li>Outdoor - grass, trees and paths</li>
+        <li>Castles - walls, floor and decorations</li>
+        <li>Dungeon - different walls and floor</li>
+    </ol>
+    <p>
+        For the paths I asked him to create all the sections needed to make paths that connect
+        in any direction. This means there are 11 different combinations for each one. In addition he
+			created 3 doors of differing colors with both open and closed positions.
+        The doors are themed to fit into the castle wall.
+    </p>
+    <p>
+        You will also see that this file also includes tiles for all of the in game objects. These are not drawn as 
+        part of the tile based background but instead are layered
+        over the top of the tiles depending on
+        the location of the item in the game.</p>
+    <h1>
+    </h1>
+    <p>
+    </p>
+    <p>
+    </p>
+    <h3>
+        Extracting sprites and animation from sprite sheets</h3>
+    <p>
+        Its far more efficient to load all of the graphics in one go rather then having
+        many different files as I did in Space Blitz. As you have already seen the graphics
+        for this game are all in one file. Well actually they are in two. I asked the artist
+        to put the multiframe animations in a second file so that we could control the layout
+        without having to fit them around the other tiles. Take a look at <strong>animations.bmp</strong>
+        if you are interested.</p>
+    <p>
+        The sprite class currently loads its own bitmap given a file name which is not really
+        very efficient either - in Space Blitz you loaded the same bitmap multiple times
+        each time it was used. To improve this I added a constructor that takes an already
+        loaded bitmap and just stores the reference to it.
+        Now multiple sprites can
+share the same bitmap. This doesn't make sense for sprites that you want to change like
+        to bases in Space Blitz but those are the exception to the rule.</p>
+    <p>
+        So how does the Sprite know which bit of the large bitmap it should draw? In the
+        same constructor you pass a Rectangle structure that describes the top, left, height
+        and width of the region you wish to extract. When the sprite is drawn it uses this
+        to draw only the relevant part. The function also takes the number of frames of
+        animation within that rectangle and automatically subdivides the rectangles to extract
+        the correct frame into the _frames collection</p>
+        <div class="codeblock">
+  <div style="font-family: Courier New; font-size: 10pt; color: black;">
+<pre style="margin: 0px;"><span style="color: blue;">public</span> Sprite(<span style="color: teal;">GameState</span> gameState, <span style="color: blue;">float</span> x, <span style="color: blue;">float</span> y, <span style="color: teal;">Bitmap</span> bitmap, <span style="color: teal;">Rectangle</span> rectangle, <span style="color: blue;">int</span> numberAnimationFrames)</pre>
+<pre style="margin: 0px;">{</pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">for</span> (<span style="color: blue;">int</span> i = 0; i &lt; numberAnimationFrames; i++)</pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; {</pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _frames.Add(bitmap);</pre>
+<pre style="margin: 0px;">&nbsp;</pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: green;">//Set the location and use the height and width from the 1st frame</span></pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; initialize(gameState, x, y, rectangle.Width / numberAnimationFrames, rectangle.Height);</pre>
+<pre style="margin: 0px;">&nbsp;</pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _rectangle.Add(<span style="color: blue;">new</span> <span style="color: teal;">Rectangle</span>(rectangle.X + i * rectangle.Width / numberAnimationFrames, rectangle.Y, </pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; rectangle.Width / numberAnimationFrames, rectangle.Height));</pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; }</pre>
+<pre style="margin: 0px;">}</pre>
+<pre style="margin: 0px;">&nbsp;</pre>
+<pre style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">override</span> <span style="color: blue;">void</span> Draw(<span style="color: teal;">Graphics</span> graphics)</pre>
+<pre style="margin: 0px;">{</pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; graphics.DrawImage(_frames[CurrentFrame], outputRect,</pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _rectangle[CurrentFrame].X, _rectangle[CurrentFrame].Y, </pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _rectangle[CurrentFrame].Width, _rectangle[CurrentFrame].Height, </pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: teal;">GraphicsUnit</span>.Pixel);</pre>
+<pre style="margin: 0px;">}</pre>
+</div>
+      
+        </div>
+    <p>
+        &nbsp;</p>
+    <h3>
+    </h3>
+    <h3>
+        Using color key to make sprites transparent</h3>
+    <p>
+        If the game objects were drawn over the top of the tiles in the same way that all
+        of the other sprites are drawn they would look like this:</p>
+    <p>
+        <img src="images/CrusaderWrong.png" />&nbsp;</p>
+    <p>
+        In Space Blitz all of the aliens were actually being drawn inside a black box (try
+        changing the form background color and running the game). Since the game background
+        was black you could not see this. That was fine for Space Blitz but is obviously
+        not suitable for Crusader. The technique used is called Color Key and is the same
+        one used in movies to put actors in front of a green screen into a sci-fi setting.
+        Its more often called <a href="http://en.wikipedia.org/wiki/Chroma_key">chroma key</a>.
+        The general idea is that you do not draw a pixel where it is a certain color. I
+        requested the artist choose an RGB color that he was not using in the artwork and
+        set the backgrounds to that color. He chose (75, 75, 75) which is the dark grey
+        you see in the image above. When you ask GDI to draw the shape you tell it which
+        color to remove and all the magic is done for you giving this corrected image:</p>
+    <p>
+        <img src="images/CrusaderRight.png" />&nbsp;</p>
+    <p>
+        The code is just a few lines of modification to the sprite drawing routine. _colorKey
+        is Color.ToArgb(75, 75, 75).</p>
+        <div class="codeblock">
+        <div style="font-family: Courier New; font-size: 10pt; color: black; ">
+<pre style="margin: 0px;"><span style="color: green;">//Set the color key for this sprite;</span></pre>
+<pre style="margin: 0px;">_attributes= <span style="color: blue;">new</span> <span style="color: teal;">ImageAttributes</span>();</pre>
+<pre style="margin: 0px;">_attributes.SetColorKey(_colorKey, _colorKey);</pre>
+<pre style="margin: 0px;">&nbsp;....</pre>
+<pre style="margin: 0px;">graphics.DrawImage(_frames[CurrentFrame], outputRect,</pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _rectangle[CurrentFrame].X, _rectangle[CurrentFrame].Y,</pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _rectangle[CurrentFrame].Width, _rectangle[CurrentFrame].Height, </pre>
+<pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: teal;">GraphicsUnit</span>.Pixel, _attributes);</pre>
+</div>
+
+        </div>
+    <p>
+        &nbsp;</p>
+    <h3>
+        Data Driven Map Architecture</h3>
+    <p>
+        Describing what goes where in a game like this makes much more sense to be in a
+        data file than inside the code. This means that some aspects of the game are very
+        easy for you to change without even recompiling.</p>
+    <p>
+        There are 2 data files that drive most of the look and feel of the game. Things like
+        how the doors open, how the monsters fight and what happens when you pick things
+        up are, for this sample, hard coded in the code. But there's no reason why you couldn't
+        change the data files to make them even more descriptive and then drive the game
+        from the new files. You will be able to debate file formats and how they are laid
+        out forever, so find something that works for your game and stick to it. To keep
+        down the amount of code there error checking is minimal. For a game that is deigned
+        to be modded by the end users this is something that would have to be improved.
+    </p>
+    <p>
+        <strong><span style="text-decoration: underline">Tilelookups.csv</span></strong></p>
+    <p>
+        This file describes all of the tiles and sprites in the game. Its a comma delimited
+        format that contains the following information:</p>
+    <p>
+        Name: text name of the item</p>
+    <p>
+        Shortcut: an abbreviated lookup. This value must be unique and for background tiles
+        must be a single character</p>
+    <p>
+        Path to bitmap: which bitmap this tile comes from</p>
+    <p>
+        X: the x count into the tile sheet. 1 is the 1st column. Assumes that the tiles
+        are all the same size.</p>
+    <p>
+        Y: the y count into the tile sheet. 1 is the 1st row. Assumes that the tiles are
+        all the same size.</p>
+    <p>
+        Transparent: Y or N (not case sensitive). if Y the (75, 75, 75) will be color keyed
+        out.</p>
+    <p>
+        Number of Frames: How many frames of animation. The frames must be laid out from
+        left to right with X,Y being frame 0</p>
+    <p>
+        Traversable: Open or Block (not case sensitive). If Block then the hero cannot pass.</p>
+    <p>
+        Special: For doors and keys this is the color, for characters is is the default
+        health.</p>
+    <p>
+        <span style="text-decoration: underline">Example</span></p>
+    <pre>        DoorGreenOpen,G,Door,gamedata\tiles.bmp,5,1,N,1,Open,Green</pre>
+    <p>
+        <span style="text-decoration: underline"><strong>Map.txt</strong></span></p>
+    <p>
+        <span>This file describes the set if 8x8 areas that make up the world. There is a single
+            blank line between each area.</span></p>
+    <p>
+        line1: Name of the area - must be unique</p>
+    <p>
+        line2: Which area you move to when you go North or -</p>
+    <p>
+        <span>line3: Which area you move to when you go East or -</span></p>
+    <p>
+        <span>line4: Which area you move to when you go South or -</span></p>
+    <p>
+        <span>line5: Which area you move to when you go West or -</span></p>
+    <p>
+        lines6-13: an 8x8 grid made up of the shortcut characters from tilelookups.csv</p>
+    <p>
+        lines 13 onwards: x,y,shortcut. A list of objects and their x,y position in the
+        area. x and y are zero based.</p>
+    <p>
+        final blank line:</p>
+    <p>
+        <span style="text-decoration: underline">Example</span></p>
+    <pre>start
+-
+forest1
+-
+-
+>>>>>>>>
+>.>.....
+>...^...
+>....ccc
+^.^.....
+^^......
+>..>....
+>>^>>>>>
+1,1,kbr
+1,6,pot
+3,1,arm
+4,1,att
+4,6,tro
+5,6,tro
+6,6,tro
+</pre>
+    <h3>
+        Character Development and Game Play</h3>
+    <p>
+        One thing that distinguishes RPGs from other kinds of games is that usually the story
+        is very relevant to the plot rather than being a poor excuse for why the character
+        is about to do something very unlikely. In addition you usually take the character
+        from a low start point to some high point in the game by changing or improving the
+        way that character works. Different games call them different things but you have
+        probably heard of games with levels, hit points, strength, agility and many more.
+        The more advanced the game gets the more of these there are to track and the more
+        effect they have in different parts of the game.
+    </p>
+    <p>
+        Given the limited space for these games I chose to have a very simple, but often
+        heard, story. The princess has been captured by the forces of evil (in this case
+        a wizard since that's what the artist drew) and it is your job to rescue her. The
+        story plays plays out in 3 settings: an outdoor area, a dungeon and a castle and
+        each has a distinct look and type of monster to fight.
+    </p>
+    <p>
+        The characters attributes are:</p>
+    <ul>
+        <li>health, which should stay above 0 and are replenished by food items</li>
+        <li>experience, which is earned by killing monsters and gives attack and armour bonuses
+            at certain levels</li>
+        <li>attack rating - increases your damage and ability to hit</li>
+        <li>armour rating - decreases the ability of others to hit you</li>
+        <li>potions - each potion does damage to all visible monsters</li>
+        <li>keys - which ones are you holding</li>
+    </ul>
+    <p>
+        All of these attributes and the code to manipulate them can be found in the GameState
+        or the World classes. There is too much to list here but spend some time looking
+        through to see how the world works. Searching for 'Health' for example will show
+        you all the places that the health points are increased or decreased.</p>
+
+<h2><a href="#top"><img src="Images\topjump-vc.gif" border=0></A>Extending Crusader</h2>
+    <ul>
+        <li>Since most of the game is data driven open up the maps in notepad and make some
+            of your own </li>
+        <li>Change all of the graphics to make a space themed game </li>
+ 
+    <li>Game too hard or too easy? Change the rules of the game in the code. Give each monster
+        its own attack and armour rating. Let the monsters attack back with magic.&nbsp;</li><li>Make the monsters move toward you. You should be able to reuse some of the
+      hero animation code but you will need to implement some <a href="http://en.wikipedia.org/wiki/Pathfinding">
+          path finding algorithms</a> to avoid obstacles.</li></ul>
+    <h2><a href="#top"><IMG src="Images\topjump-vc.gif" border=0></A><a name="ForMoreInformation">For 
+More Information</a></h2>
+
+<h3>Online Resources</h3>
+
+<ul>
+	<li>Discuss this Starter Kit in <a href="http://channel9.msdn.com/ShowForum.aspx?ForumID=16">
+        Channel9's TechOff forum</a></li>
+    <li><a href="http://go.microsoft.com/fwlink/?linkid=30034">Provide 
+	feedback on this documentation</a> </li>
+	<li><a href="http://msdn.microsoft.com/coding4fun/gamedevelopment/default.aspx">Game
+        Development on Coding4Fun</a>&nbsp;<a href="http://go.microsoft.com/fwlink/?linkid=29939"></a></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>
+<a href="http://www.microsoft.com/info/cpyright.mspx">
+© Microsoft Corporation and/or its suppliers. All rights reserved. Terms of Use.</a>
+</p>
+
+<!-- DONT EDIT BELOW THIS LINE  -->
+<p>&nbsp;</p>
+    </DIV>
+</body>
+</html>

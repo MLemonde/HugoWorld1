@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Tp3Service" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Tp3Service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfClasse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Classe" nillable="true" type="tns:Classe" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClasse" nillable="true" type="tns:ArrayOfClasse" />
+  <xs:complexType name="Classe">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Heroes" nillable="true" type="tns:ArrayOfHero" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Monde" nillable="true" type="tns:Monde" />
+      <xs:element minOccurs="0" name="MondeId" type="xs:int" />
+      <xs:element minOccurs="0" name="NomClasse" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StatPoidsDex" type="xs:float" />
+      <xs:element minOccurs="0" name="StatPoidsInt" type="xs:float" />
+      <xs:element minOccurs="0" name="StatPoidsStam" type="xs:float" />
+      <xs:element minOccurs="0" name="StatPoidsStr" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Classe" nillable="true" type="tns:Classe" />
+  <xs:complexType name="ArrayOfHero">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Hero" nillable="true" type="tns:Hero" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfHero" nillable="true" type="tns:ArrayOfHero" />
+  <xs:complexType name="Hero">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Argent" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Classe" nillable="true" type="tns:Classe" />
+      <xs:element minOccurs="0" name="ClasseId" type="xs:int" />
+      <xs:element minOccurs="0" name="CompteJoueur" nillable="true" type="tns:CompteJoueur" />
+      <xs:element minOccurs="0" name="CompteJoueurId" type="xs:int" />
+      <xs:element minOccurs="0" name="Experience" type="xs:long" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfItem" />
+      <xs:element minOccurs="0" name="Monde" nillable="true" type="tns:Monde" />
+      <xs:element minOccurs="0" name="MondeId" type="xs:int" />
+      <xs:element minOccurs="0" name="Niveau" type="xs:int" />
+      <xs:element minOccurs="0" name="StatBaseDex" type="xs:int" />
+      <xs:element minOccurs="0" name="StatBaseInt" type="xs:int" />
+      <xs:element minOccurs="0" name="StatBaseStam" type="xs:int" />
+      <xs:element minOccurs="0" name="StatBaseStr" type="xs:int" />
+      <xs:element minOccurs="0" name="x" type="xs:int" />
+      <xs:element minOccurs="0" name="y" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Hero" nillable="true" type="tns:Hero" />
+  <xs:complexType name="CompteJoueur">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Courriel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Heroes" nillable="true" type="tns:ArrayOfHero" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Nom" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NomUtilisateur" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Prenom" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeUtilisateur" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CompteJoueur" nillable="true" type="tns:CompteJoueur" />
+  <xs:complexType name="ArrayOfItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="tns:Item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfItem" nillable="true" type="tns:ArrayOfItem" />
+  <xs:complexType name="Item">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EffetItems" nillable="true" type="tns:ArrayOfEffetItem" />
+      <xs:element minOccurs="0" name="Heroes" nillable="true" type="tns:ArrayOfHero" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Monde" nillable="true" type="tns:Monde" />
+      <xs:element minOccurs="0" name="MondeId" type="xs:int" />
+      <xs:element minOccurs="0" name="Niveau" type="xs:int" />
+      <xs:element minOccurs="0" name="Nom" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Poids" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Quantite" type="xs:int" />
+      <xs:element minOccurs="0" name="ReqDexterite" type="xs:int" />
+      <xs:element minOccurs="0" name="ReqEndurance" type="xs:int" />
+      <xs:element minOccurs="0" name="ReqForce" type="xs:int" />
+      <xs:element minOccurs="0" name="ReqIntelligence" type="xs:int" />
+      <xs:element minOccurs="0" name="ReqNiveau" type="xs:int" />
+      <xs:element minOccurs="0" name="ValeurArgent" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="x" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="y" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Item" nillable="true" type="tns:Item" />
+  <xs:complexType name="ArrayOfEffetItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EffetItem" nillable="true" type="tns:EffetItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEffetItem" nillable="true" type="tns:ArrayOfEffetItem" />
+  <xs:complexType name="EffetItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Item" nillable="true" type="tns:Item" />
+      <xs:element minOccurs="0" name="ItemId" type="xs:int" />
+      <xs:element minOccurs="0" name="TypeEffet" type="xs:int" />
+      <xs:element minOccurs="0" name="ValeurEffet" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EffetItem" nillable="true" type="tns:EffetItem" />
+  <xs:complexType name="Monde">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Classes" nillable="true" type="tns:ArrayOfClasse" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Heroes" nillable="true" type="tns:ArrayOfHero" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfItem" />
+      <xs:element minOccurs="0" name="LimiteX" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LimiteY" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Monstres" nillable="true" type="tns:ArrayOfMonstre" />
+      <xs:element minOccurs="0" name="ObjetMondes" nillable="true" type="tns:ArrayOfObjetMonde" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Monde" nillable="true" type="tns:Monde" />
+  <xs:complexType name="ArrayOfMonstre">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Monstre" nillable="true" type="tns:Monstre" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMonstre" nillable="true" type="tns:ArrayOfMonstre" />
+  <xs:complexType name="Monstre">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Monde" nillable="true" type="tns:Monde" />
+      <xs:element minOccurs="0" name="MondeId" type="xs:int" />
+      <xs:element minOccurs="0" name="Niveau" type="xs:int" />
+      <xs:element minOccurs="0" name="Nom" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StatDmgMax" type="xs:float" />
+      <xs:element minOccurs="0" name="StatDmgMin" type="xs:float" />
+      <xs:element minOccurs="0" name="StatPV" type="xs:int" />
+      <xs:element minOccurs="0" name="x" type="xs:int" />
+      <xs:element minOccurs="0" name="y" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Monstre" nillable="true" type="tns:Monstre" />
+  <xs:complexType name="ArrayOfObjetMonde">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ObjetMonde" nillable="true" type="tns:ObjetMonde" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfObjetMonde" nillable="true" type="tns:ArrayOfObjetMonde" />
+  <xs:complexType name="ObjetMonde">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Monde" nillable="true" type="tns:Monde" />
+      <xs:element minOccurs="0" name="MondeId" type="xs:int" />
+      <xs:element minOccurs="0" name="TypeObjet" type="xs:int" />
+      <xs:element minOccurs="0" name="x" type="xs:int" />
+      <xs:element minOccurs="0" name="y" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ObjetMonde" nillable="true" type="tns:ObjetMonde" />
+  <xs:complexType name="ArrayOfMonde">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Monde" nillable="true" type="tns:Monde" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMonde" nillable="true" type="tns:ArrayOfMonde" />
+  <xs:complexType name="Elements">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="Elements" nillable="true" type="tns:Elements" />
+</xs:schema>

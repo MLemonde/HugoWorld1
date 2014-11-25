@@ -1,0 +1,72 @@
+<VSTemplate Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Crusader Starter Kit</Name>
+    <Description>Starter Kit for the Crusader game</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Crusader</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Crusader.csproj" File="Crusader.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="false" TargetFileName="app.ico">app.ico</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Area.cs">Area.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="BitmapCache.cs">BitmapCache.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Crusader.cs">Crusader.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Crusader.Designer.cs">Crusader.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Crusader.resx">Crusader.resx</ProjectItem>
+      <Folder Name="Documentation" TargetFolderName="Documentation">
+        <ProjectItem ReplaceParameters="true" TargetFileName="2dprimer_cs.htm">2dprimer_cs.htm</ProjectItem>
+        <ProjectItem ReplaceParameters="true" OpenInWebBrowser="true" OpenOrder="1" TargetFileName="Crusaders_cs.htm">Crusaders_cs.htm</ProjectItem>
+        <Folder Name="images" TargetFolderName="images">
+          <ProjectItem ReplaceParameters="false" TargetFileName="Crusader.png">Crusader.png</ProjectItem>
+          <ProjectItem ReplaceParameters="false" TargetFileName="CrusaderRight.png">CrusaderRight.png</ProjectItem>
+          <ProjectItem ReplaceParameters="false" TargetFileName="CrusaderWrong.png">CrusaderWrong.png</ProjectItem>
+          <ProjectItem ReplaceParameters="false" TargetFileName="primer_position.png">primer_position.png</ProjectItem>
+          <ProjectItem ReplaceParameters="false" TargetFileName="primer_vector.png">primer_vector.png</ProjectItem>
+          <ProjectItem ReplaceParameters="false" TargetFileName="side-vc.gif">side-vc.gif</ProjectItem>
+          <ProjectItem ReplaceParameters="false" TargetFileName="top-vc.gif">top-vc.gif</ProjectItem>
+          <ProjectItem ReplaceParameters="false" TargetFileName="topjump-vc.gif">topjump-vc.gif</ProjectItem>
+        </Folder>
+      </Folder>
+      <ProjectItem ReplaceParameters="false" TargetFileName="Eula.rtf">Eula.rtf</ProjectItem>
+      <Folder Name="GameData" TargetFolderName="GameData">
+        <ProjectItem ReplaceParameters="false" TargetFileName="Animations.bmp">Animations.bmp</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="eat.wav">eat.wav</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="fight.wav">fight.wav</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="kiss.wav">kiss.wav</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="magic.wav">magic.wav</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Map.txt">Map.txt</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="pickup.wav">pickup.wav</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="start.wav">start.wav</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="TileLookups.csv">TileLookups.csv</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Tiles.bmp">Tiles.bmp</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="GameObject.cs">GameObject.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="GameState.cs">GameState.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="help.cs">help.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="help.Designer.cs">help.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="help.resx">help.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="MapTile.cs">MapTile.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Program.cs">Program.cs</ProjectItem>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.resx">Resources.resx</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.Designer.cs">Resources.Designer.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Settings.settings">Settings.settings</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Settings.Designer.cs">Settings.Designer.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="false" TargetFileName="small.ico">small.ico</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Sounds.cs">Sounds.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Sprite.cs">Sprite.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Tile.cs">Tile.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="World.cs">World.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

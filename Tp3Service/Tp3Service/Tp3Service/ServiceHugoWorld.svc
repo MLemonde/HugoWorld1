@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Tp3Service.ServiceHugoWorld" CodeBehind="ServiceHugoWorld.svc.cs" %>

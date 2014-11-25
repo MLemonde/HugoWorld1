@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="98744ed4-c763-4a51-bc0c-1f7a6a2c64e2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:49588/ServiceHugoWorld.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ServiceHugoWorld1.xsd" MetadataType="Schema" ID="84db3b44-3c5d-423c-b998-b3e796234ace" SourceId="1" SourceUrl="http://localhost:49588/ServiceHugoWorld.svc?xsd=xsd1" />
+    <MetadataFile FileName="ServiceHugoWorld.wsdl" MetadataType="Wsdl" ID="fc1f8c78-2abc-4ee6-aaa7-f18cbf440510" SourceId="1" SourceUrl="http://localhost:49588/ServiceHugoWorld.svc?wsdl" />
+    <MetadataFile FileName="ServiceHugoWorld2.xsd" MetadataType="Schema" ID="535aeaa5-4b8c-4ea8-beec-94bde978694b" SourceId="1" SourceUrl="http://localhost:49588/ServiceHugoWorld.svc?xsd=xsd2" />
+    <MetadataFile FileName="ServiceHugoWorld.disco" MetadataType="Disco" ID="242db6da-f4fb-4cae-986f-ff66f8085af3" SourceId="1" SourceUrl="http://localhost:49588/ServiceHugoWorld.svc?disco" />
+    <MetadataFile FileName="ServiceHugoWorld3.xsd" MetadataType="Schema" ID="8c33cc90-ee4e-4973-a868-80f33fced020" SourceId="1" SourceUrl="http://localhost:49588/ServiceHugoWorld.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:49588/ServiceHugoWorld.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Tp3Service" />
+  <xs:element name="CreateClass">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sNomClasse" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sDescription" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fStatPoidsStr" type="xs:float" />
+        <xs:element minOccurs="0" name="fStatPoidsDex" type="xs:float" />
+        <xs:element minOccurs="0" name="fStatPoidsInt" type="xs:float" />
+        <xs:element minOccurs="0" name="fStatPoidsStam" type="xs:float" />
+        <xs:element minOccurs="0" name="iMondeId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateClassResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteClass">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iClassID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteClassResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditClassFromWorld">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iClasseID" type="xs:int" />
+        <xs:element minOccurs="0" name="sNomClasse" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sDescription" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fStatPoidsStr" type="xs:float" />
+        <xs:element minOccurs="0" name="fStatPoidsDex" type="xs:float" />
+        <xs:element minOccurs="0" name="fStatPoidsInt" type="xs:float" />
+        <xs:element minOccurs="0" name="fStatPoidsStam" type="xs:float" />
+        <xs:element minOccurs="0" name="iMondeID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditClassFromWorldResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListClasses">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="mondeID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListClassesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetListClassesResult" nillable="true" type="q1:ArrayOfClasse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FindClasseOfHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iHeroID" type="xs:int" />
+        <xs:element minOccurs="0" name="iMondeID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FindClasseOfHeroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="FindClasseOfHeroResult" nillable="true" type="q2:Classe" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateMonde">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iLimiteX" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iLimiteY" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sDescription" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateMondeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMonde1">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iID" type="xs:int" />
+        <xs:element minOccurs="0" name="sDescription" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iLimiteX" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iLimiteY" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMonde1Response">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMonde2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iID" type="xs:int" />
+        <xs:element minOccurs="0" name="sDescription" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMonde2Response">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMonde3">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iID" type="xs:int" />
+        <xs:element minOccurs="0" name="iLimiteX" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iLimiteY" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMonde3Response">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteMonde">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteMondeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListMonde">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListMondeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetListMondeResult" nillable="true" type="q3:ArrayOfMonde" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreatePlayer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sPass" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sEmail" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sFname" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sLname" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iType" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreatePlayerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CreatePlayerResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePlayer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sUsername" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePlayerResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditPlayer1">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sEmail" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sFname" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sLname" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iType" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditPlayer1Response">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditPlayer2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+        <xs:element minOccurs="0" name="sEmail" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sFname" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sLname" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iType" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditPlayer2Response">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidatePlayer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sPassword" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidatePlayerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidatePlayerResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateAdmin">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sPassword" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateAdminResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidateAdminResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MondeID" type="xs:int" />
+        <xs:element minOccurs="0" name="compteId" type="xs:int" />
+        <xs:element minOccurs="0" name="classeId" type="xs:int" />
+        <xs:element minOccurs="0" name="X" type="xs:int" />
+        <xs:element minOccurs="0" name="Y" type="xs:int" />
+        <xs:element minOccurs="0" name="niveau" type="xs:int" />
+        <xs:element minOccurs="0" name="dex" type="xs:int" />
+        <xs:element minOccurs="0" name="str" type="xs:int" />
+        <xs:element minOccurs="0" name="stamina" type="xs:int" />
+        <xs:element minOccurs="0" name="Int" type="xs:int" />
+        <xs:element minOccurs="0" name="experience" type="xs:long" />
+        <xs:element minOccurs="0" name="argent" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateHeroResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HeroId" type="xs:int" />
+        <xs:element minOccurs="0" name="classeId" type="xs:int" />
+        <xs:element minOccurs="0" name="X" type="xs:int" />
+        <xs:element minOccurs="0" name="Y" type="xs:int" />
+        <xs:element minOccurs="0" name="niveau" type="xs:int" />
+        <xs:element minOccurs="0" name="dex" type="xs:int" />
+        <xs:element minOccurs="0" name="str" type="xs:int" />
+        <xs:element minOccurs="0" name="stamina" type="xs:int" />
+        <xs:element minOccurs="0" name="Int" type="xs:int" />
+        <xs:element minOccurs="0" name="experience" type="xs:long" />
+        <xs:element minOccurs="0" name="argent" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditHeroResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HeroId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteHeroResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="compteId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListHeroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetListHeroResult" nillable="true" type="q4:ArrayOfHero" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetElementsArroundHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HeroId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetElementsArroundHeroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetElementsArroundHeroResult" nillable="true" type="q5:Elements" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateMonster">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Mondeid" type="xs:int" />
+        <xs:element minOccurs="0" name="x" type="xs:int" />
+        <xs:element minOccurs="0" name="y" type="xs:int" />
+        <xs:element minOccurs="0" name="HP" type="xs:int" />
+        <xs:element minOccurs="0" name="sname" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateMonsterResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteMonster">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="monsterid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteMonsterResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMonster">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MonsterID" type="xs:int" />
+        <xs:element minOccurs="0" name="sNom" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iLvl" type="xs:int" />
+        <xs:element minOccurs="0" name="ix" type="xs:int" />
+        <xs:element minOccurs="0" name="iy" type="xs:int" />
+        <xs:element minOccurs="0" name="iPv" type="xs:int" />
+        <xs:element minOccurs="0" name="iDmgMin" type="xs:int" />
+        <xs:element minOccurs="0" name="iDmgMax" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMonsterResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateEffetItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemId" type="xs:int" />
+        <xs:element minOccurs="0" name="typeEffet" type="xs:int" />
+        <xs:element minOccurs="0" name="valeurEffet" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateEffetItemResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteEffetItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="effetItemId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteEffetItemResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditEffetItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="effetItemId" type="xs:int" />
+        <xs:element minOccurs="0" name="typeEffet" type="xs:int" />
+        <xs:element minOccurs="0" name="valeurEffet" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditEffetItemResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddItemToHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="heroid" type="xs:int" />
+        <xs:element minOccurs="0" name="itemid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddItemToHeroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddItemToHeroResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteItemFromHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="heroid" type="xs:int" />
+        <xs:element minOccurs="0" name="itemid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteItemFromHeroResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="mondeId" type="xs:int" />
+        <xs:element minOccurs="0" name="x" type="xs:int" />
+        <xs:element minOccurs="0" name="y" type="xs:int" />
+        <xs:element minOccurs="0" name="nom" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="poids" type="xs:decimal" />
+        <xs:element minOccurs="0" name="quantite" type="xs:int" />
+        <xs:element minOccurs="0" name="reqDexterite" type="xs:int" />
+        <xs:element minOccurs="0" name="reqEndurance" type="xs:int" />
+        <xs:element minOccurs="0" name="reqForce" type="xs:int" />
+        <xs:element minOccurs="0" name="reqIntelligence" type="xs:int" />
+        <xs:element minOccurs="0" name="reqNiveau" type="xs:int" />
+        <xs:element minOccurs="0" name="valeurArgent" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateItemResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteItemResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemId" type="xs:int" />
+        <xs:element minOccurs="0" name="quantite" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditItemResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateObjectMonde">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="iX" type="xs:int" />
+        <xs:element minOccurs="0" name="iY" type="xs:int" />
+        <xs:element minOccurs="0" name="sDescription" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iTypeObjet" type="xs:int" />
+        <xs:element minOccurs="0" name="iMondeId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateObjectMondeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteObjectMonde">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="objectMondeId" type="xs:int" />
+        <xs:element minOccurs="0" name="mondeid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteObjectMondeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditObjectMondeDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="objectMondeId" type="xs:int" />
+        <xs:element minOccurs="0" name="sDescription" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditObjectMondeDescriptionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

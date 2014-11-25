@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ServiceHugoWorld" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:49588/ServiceHugoWorld.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:49588/ServiceHugoWorld.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:49588/ServiceHugoWorld.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Tp3Service" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IClasseController_CreateClass_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateClass" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_CreateClass_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateClassResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_DeleteClass_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteClass" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_DeleteClass_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteClassResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_EditClassFromWorld_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditClassFromWorld" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_EditClassFromWorld_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditClassFromWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_GetListClasses_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListClasses" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_GetListClasses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListClassesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_FindClasseOfHero_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindClasseOfHero" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_FindClasseOfHero_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindClasseOfHeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_CreateMonde_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateMonde" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_CreateMonde_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateMondeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_EditMonde1_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditMonde1" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_EditMonde1_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditMonde1Response" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_EditMonde2_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditMonde2" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_EditMonde2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditMonde2Response" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_EditMonde3_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditMonde3" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_EditMonde3_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditMonde3Response" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_DeleteMonde_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMonde" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_DeleteMonde_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMondeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_GetListMonde_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListMonde" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_GetListMonde_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListMondeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_CreatePlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePlayer" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_CreatePlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_DeletePlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePlayer" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_DeletePlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_EditPlayer1_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditPlayer1" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_EditPlayer1_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditPlayer1Response" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_EditPlayer2_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditPlayer2" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_EditPlayer2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditPlayer2Response" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_ValidatePlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidatePlayer" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_ValidatePlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidatePlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_ValidateAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_ValidateAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_CreateHero_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateHero" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_CreateHero_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateHeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_EditHero_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditHero" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_EditHero_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditHeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_DeleteHero_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteHero" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_DeleteHero_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteHeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_GetListHero_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListHero" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_GetListHero_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListHeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_GetElementsArroundHero_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetElementsArroundHero" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_GetElementsArroundHero_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetElementsArroundHeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMonstreController_CreateMonster_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateMonster" />
+  </wsdl:message>
+  <wsdl:message name="IMonstreController_CreateMonster_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateMonsterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMonstreController_DeleteMonster_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMonster" />
+  </wsdl:message>
+  <wsdl:message name="IMonstreController_DeleteMonster_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMonsterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMonstreController_EditMonster_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditMonster" />
+  </wsdl:message>
+  <wsdl:message name="IMonstreController_EditMonster_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditMonsterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEffetItemController_CreateEffetItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEffetItem" />
+  </wsdl:message>
+  <wsdl:message name="IEffetItemController_CreateEffetItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateEffetItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEffetItemController_DeleteEffetItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEffetItem" />
+  </wsdl:message>
+  <wsdl:message name="IEffetItemController_DeleteEffetItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteEffetItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEffetItemController_EditEffetItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditEffetItem" />
+  </wsdl:message>
+  <wsdl:message name="IEffetItemController_EditEffetItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditEffetItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IInventaireHeroController_AddItemToHero_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddItemToHero" />
+  </wsdl:message>
+  <wsdl:message name="IInventaireHeroController_AddItemToHero_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddItemToHeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IInventaireHeroController_DeleteItemFromHero_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteItemFromHero" />
+  </wsdl:message>
+  <wsdl:message name="IInventaireHeroController_DeleteItemFromHero_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteItemFromHeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IItemController_CreateItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateItem" />
+  </wsdl:message>
+  <wsdl:message name="IItemController_CreateItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IItemController_DeleteItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteItem" />
+  </wsdl:message>
+  <wsdl:message name="IItemController_DeleteItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IItemController_EditItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditItem" />
+  </wsdl:message>
+  <wsdl:message name="IItemController_EditItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IObjectMondeController_CreateObjectMonde_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateObjectMonde" />
+  </wsdl:message>
+  <wsdl:message name="IObjectMondeController_CreateObjectMonde_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateObjectMondeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IObjectMondeController_DeleteObjectMonde_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteObjectMonde" />
+  </wsdl:message>
+  <wsdl:message name="IObjectMondeController_DeleteObjectMonde_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteObjectMondeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IObjectMondeController_EditObjectMondeDescription_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditObjectMondeDescription" />
+  </wsdl:message>
+  <wsdl:message name="IObjectMondeController_EditObjectMondeDescription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditObjectMondeDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IClasseController">
+    <wsdl:operation name="CreateClass">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClasseController/CreateClass" message="tns:IClasseController_CreateClass_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClasseController/CreateClassResponse" message="tns:IClasseController_CreateClass_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteClass">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClasseController/DeleteClass" message="tns:IClasseController_DeleteClass_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClasseController/DeleteClassResponse" message="tns:IClasseController_DeleteClass_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditClassFromWorld">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClasseController/EditClassFromWorld" message="tns:IClasseController_EditClassFromWorld_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClasseController/EditClassFromWorldResponse" message="tns:IClasseController_EditClassFromWorld_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListClasses">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClasseController/GetListClasses" message="tns:IClasseController_GetListClasses_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClasseController/GetListClassesResponse" message="tns:IClasseController_GetListClasses_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindClasseOfHero">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClasseController/FindClasseOfHero" message="tns:IClasseController_FindClasseOfHero_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClasseController/FindClasseOfHeroResponse" message="tns:IClasseController_FindClasseOfHero_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IMondeController">
+    <wsdl:operation name="CreateMonde">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMondeController/CreateMonde" message="tns:IMondeController_CreateMonde_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMondeController/CreateMondeResponse" message="tns:IMondeController_CreateMonde_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditMonde1">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMondeController/EditMonde1" message="tns:IMondeController_EditMonde1_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMondeController/EditMonde1Response" message="tns:IMondeController_EditMonde1_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditMonde2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMondeController/EditMonde2" message="tns:IMondeController_EditMonde2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMondeController/EditMonde2Response" message="tns:IMondeController_EditMonde2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditMonde3">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMondeController/EditMonde3" message="tns:IMondeController_EditMonde3_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMondeController/EditMonde3Response" message="tns:IMondeController_EditMonde3_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMonde">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMondeController/DeleteMonde" message="tns:IMondeController_DeleteMonde_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMondeController/DeleteMondeResponse" message="tns:IMondeController_DeleteMonde_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListMonde">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMondeController/GetListMonde" message="tns:IMondeController_GetListMonde_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMondeController/GetListMondeResponse" message="tns:IMondeController_GetListMonde_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ICompteJoueurController">
+    <wsdl:operation name="CreatePlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/CreatePlayer" message="tns:ICompteJoueurController_CreatePlayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICompteJoueurController/CreatePlayerResponse" message="tns:ICompteJoueurController_CreatePlayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/DeletePlayer" message="tns:ICompteJoueurController_DeletePlayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICompteJoueurController/DeletePlayerResponse" message="tns:ICompteJoueurController_DeletePlayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditPlayer1">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/EditPlayer1" message="tns:ICompteJoueurController_EditPlayer1_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICompteJoueurController/EditPlayer1Response" message="tns:ICompteJoueurController_EditPlayer1_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditPlayer2">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/EditPlayer2" message="tns:ICompteJoueurController_EditPlayer2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICompteJoueurController/EditPlayer2Response" message="tns:ICompteJoueurController_EditPlayer2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidatePlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidatePlayer" message="tns:ICompteJoueurController_ValidatePlayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidatePlayerResponse" message="tns:ICompteJoueurController_ValidatePlayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidateAdmin" message="tns:ICompteJoueurController_ValidateAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidateAdminResponse" message="tns:ICompteJoueurController_ValidateAdmin_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IHeroController">
+    <wsdl:operation name="CreateHero">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/CreateHero" message="tns:IHeroController_CreateHero_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/CreateHeroResponse" message="tns:IHeroController_CreateHero_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditHero">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/EditHero" message="tns:IHeroController_EditHero_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/EditHeroResponse" message="tns:IHeroController_EditHero_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteHero">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/DeleteHero" message="tns:IHeroController_DeleteHero_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/DeleteHeroResponse" message="tns:IHeroController_DeleteHero_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListHero">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/GetListHero" message="tns:IHeroController_GetListHero_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/GetListHeroResponse" message="tns:IHeroController_GetListHero_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetElementsArroundHero">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/GetElementsArroundHero" message="tns:IHeroController_GetElementsArroundHero_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/GetElementsArroundHeroResponse" message="tns:IHeroController_GetElementsArroundHero_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IMonstreController">
+    <wsdl:operation name="CreateMonster">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonstreController/CreateMonster" message="tns:IMonstreController_CreateMonster_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonstreController/CreateMonsterResponse" message="tns:IMonstreController_CreateMonster_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMonster">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonstreController/DeleteMonster" message="tns:IMonstreController_DeleteMonster_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonstreController/DeleteMonsterResponse" message="tns:IMonstreController_DeleteMonster_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditMonster">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonstreController/EditMonster" message="tns:IMonstreController_EditMonster_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonstreController/EditMonsterResponse" message="tns:IMonstreController_EditMonster_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IEffetItemController">
+    <wsdl:operation name="CreateEffetItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEffetItemController/CreateEffetItem" message="tns:IEffetItemController_CreateEffetItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEffetItemController/CreateEffetItemResponse" message="tns:IEffetItemController_CreateEffetItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEffetItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEffetItemController/DeleteEffetItem" message="tns:IEffetItemController_DeleteEffetItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEffetItemController/DeleteEffetItemResponse" message="tns:IEffetItemController_DeleteEffetItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditEffetItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEffetItemController/EditEffetItem" message="tns:IEffetItemController_EditEffetItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEffetItemController/EditEffetItemResponse" message="tns:IEffetItemController_EditEffetItem_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IInventaireHeroController">
+    <wsdl:operation name="AddItemToHero">
+      <wsdl:input wsaw:Action="http://tempuri.org/IInventaireHeroController/AddItemToHero" message="tns:IInventaireHeroController_AddItemToHero_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IInventaireHeroController/AddItemToHeroResponse" message="tns:IInventaireHeroController_AddItemToHero_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteItemFromHero">
+      <wsdl:input wsaw:Action="http://tempuri.org/IInventaireHeroController/DeleteItemFromHero" message="tns:IInventaireHeroController_DeleteItemFromHero_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IInventaireHeroController/DeleteItemFromHeroResponse" message="tns:IInventaireHeroController_DeleteItemFromHero_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IItemController">
+    <wsdl:operation name="CreateItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IItemController/CreateItem" message="tns:IItemController_CreateItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IItemController/CreateItemResponse" message="tns:IItemController_CreateItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IItemController/DeleteItem" message="tns:IItemController_DeleteItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IItemController/DeleteItemResponse" message="tns:IItemController_DeleteItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IItemController/EditItem" message="tns:IItemController_EditItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IItemController/EditItemResponse" message="tns:IItemController_EditItem_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IObjectMondeController">
+    <wsdl:operation name="CreateObjectMonde">
+      <wsdl:input wsaw:Action="http://tempuri.org/IObjectMondeController/CreateObjectMonde" message="tns:IObjectMondeController_CreateObjectMonde_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IObjectMondeController/CreateObjectMondeResponse" message="tns:IObjectMondeController_CreateObjectMonde_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteObjectMonde">
+      <wsdl:input wsaw:Action="http://tempuri.org/IObjectMondeController/DeleteObjectMonde" message="tns:IObjectMondeController_DeleteObjectMonde_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IObjectMondeController/DeleteObjectMondeResponse" message="tns:IObjectMondeController_DeleteObjectMonde_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditObjectMondeDescription">
+      <wsdl:input wsaw:Action="http://tempuri.org/IObjectMondeController/EditObjectMondeDescription" message="tns:IObjectMondeController_EditObjectMondeDescription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IObjectMondeController/EditObjectMondeDescriptionResponse" message="tns:IObjectMondeController_EditObjectMondeDescription_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IClasseController" type="tns:IClasseController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateClass">
+      <soap:operation soapAction="http://tempuri.org/IClasseController/CreateClass" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteClass">
+      <soap:operation soapAction="http://tempuri.org/IClasseController/DeleteClass" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditClassFromWorld">
+      <soap:operation soapAction="http://tempuri.org/IClasseController/EditClassFromWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListClasses">
+      <soap:operation soapAction="http://tempuri.org/IClasseController/GetListClasses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindClasseOfHero">
+      <soap:operation soapAction="http://tempuri.org/IClasseController/FindClasseOfHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IMondeController" type="tns:IMondeController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateMonde">
+      <soap:operation soapAction="http://tempuri.org/IMondeController/CreateMonde" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditMonde1">
+      <soap:operation soapAction="http://tempuri.org/IMondeController/EditMonde1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditMonde2">
+      <soap:operation soapAction="http://tempuri.org/IMondeController/EditMonde2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditMonde3">
+      <soap:operation soapAction="http://tempuri.org/IMondeController/EditMonde3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMonde">
+      <soap:operation soapAction="http://tempuri.org/IMondeController/DeleteMonde" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListMonde">
+      <soap:operation soapAction="http://tempuri.org/IMondeController/GetListMonde" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_ICompteJoueurController" type="tns:ICompteJoueurController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreatePlayer">
+      <soap:operation soapAction="http://tempuri.org/ICompteJoueurController/CreatePlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePlayer">
+      <soap:operation soapAction="http://tempuri.org/ICompteJoueurController/DeletePlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditPlayer1">
+      <soap:operation soapAction="http://tempuri.org/ICompteJoueurController/EditPlayer1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditPlayer2">
+      <soap:operation soapAction="http://tempuri.org/ICompteJoueurController/EditPlayer2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidatePlayer">
+      <soap:operation soapAction="http://tempuri.org/ICompteJoueurController/ValidatePlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateAdmin">
+      <soap:operation soapAction="http://tempuri.org/ICompteJoueurController/ValidateAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IHeroController" type="tns:IHeroController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateHero">
+      <soap:operation soapAction="http://tempuri.org/IHeroController/CreateHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditHero">
+      <soap:operation soapAction="http://tempuri.org/IHeroController/EditHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteHero">
+      <soap:operation soapAction="http://tempuri.org/IHeroController/DeleteHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListHero">
+      <soap:operation soapAction="http://tempuri.org/IHeroController/GetListHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetElementsArroundHero">
+      <soap:operation soapAction="http://tempuri.org/IHeroController/GetElementsArroundHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IMonstreController" type="tns:IMonstreController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateMonster">
+      <soap:operation soapAction="http://tempuri.org/IMonstreController/CreateMonster" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMonster">
+      <soap:operation soapAction="http://tempuri.org/IMonstreController/DeleteMonster" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditMonster">
+      <soap:operation soapAction="http://tempuri.org/IMonstreController/EditMonster" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IEffetItemController" type="tns:IEffetItemController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateEffetItem">
+      <soap:operation soapAction="http://tempuri.org/IEffetItemController/CreateEffetItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEffetItem">
+      <soap:operation soapAction="http://tempuri.org/IEffetItemController/DeleteEffetItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditEffetItem">
+      <soap:operation soapAction="http://tempuri.org/IEffetItemController/EditEffetItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IInventaireHeroController" type="tns:IInventaireHeroController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddItemToHero">
+      <soap:operation soapAction="http://tempuri.org/IInventaireHeroController/AddItemToHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteItemFromHero">
+      <soap:operation soapAction="http://tempuri.org/IInventaireHeroController/DeleteItemFromHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IItemController" type="tns:IItemController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateItem">
+      <soap:operation soapAction="http://tempuri.org/IItemController/CreateItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteItem">
+      <soap:operation soapAction="http://tempuri.org/IItemController/DeleteItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditItem">
+      <soap:operation soapAction="http://tempuri.org/IItemController/EditItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IObjectMondeController" type="tns:IObjectMondeController">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateObjectMonde">
+      <soap:operation soapAction="http://tempuri.org/IObjectMondeController/CreateObjectMonde" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteObjectMonde">
+      <soap:operation soapAction="http://tempuri.org/IObjectMondeController/DeleteObjectMonde" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditObjectMondeDescription">
+      <soap:operation soapAction="http://tempuri.org/IObjectMondeController/EditObjectMondeDescription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServiceHugoWorld">
+    <wsdl:port name="BasicHttpBinding_IClasseController" binding="tns:BasicHttpBinding_IClasseController">
+      <soap:address location="http://localhost:49588/ServiceHugoWorld.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IMondeController" binding="tns:BasicHttpBinding_IMondeController">
+      <soap:address location="http://localhost:49588/ServiceHugoWorld.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_ICompteJoueurController" binding="tns:BasicHttpBinding_ICompteJoueurController">
+      <soap:address location="http://localhost:49588/ServiceHugoWorld.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IHeroController" binding="tns:BasicHttpBinding_IHeroController">
+      <soap:address location="http://localhost:49588/ServiceHugoWorld.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IMonstreController" binding="tns:BasicHttpBinding_IMonstreController">
+      <soap:address location="http://localhost:49588/ServiceHugoWorld.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IEffetItemController" binding="tns:BasicHttpBinding_IEffetItemController">
+      <soap:address location="http://localhost:49588/ServiceHugoWorld.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IInventaireHeroController" binding="tns:BasicHttpBinding_IInventaireHeroController">
+      <soap:address location="http://localhost:49588/ServiceHugoWorld.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IItemController" binding="tns:BasicHttpBinding_IItemController">
+      <soap:address location="http://localhost:49588/ServiceHugoWorld.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IObjectMondeController" binding="tns:BasicHttpBinding_IObjectMondeController">
+      <soap:address location="http://localhost:49588/ServiceHugoWorld.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

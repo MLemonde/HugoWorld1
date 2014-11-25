@@ -1,0 +1,349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+
+
+<!--TO READ THIS HELP FILE, RIGHT-CLICK ON THE FILE NAME IN THE
+    SOLUTION EXPLORER WINDOW AND SELECT "VIEW IN BROWSER"-->
+    
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Starter Kit: 2D Game Primer</title>
+<style>
+<!--
+BODY         { background: url('Images/top-vc.gif') repeat-x; font-family: Verdana; font-size: 67% }
+.maindiv     { background: url('Images/side-vc.gif') repeat-y; padding-left: 55px; padding-top: 5px; position: relative; height: 50px }
+P            { margin-top: 0; margin-bottom: 6px; line-height:130% }
+H1           { margin-top: 20px; margin-bottom: 12px; font-size:190% }
+H2           { color: #585F56; left: -55px; position: relative; margin-top: 21px; margin-bottom: 9px; font-size:170% }
+H3           { margin-top: 21px; margin-bottom: 9px; font-size: 140%;  font-weight: bold}
+H4           { margin-top: 18px; margin-bottom: 9px; font-size: 140%; font-weight: bold}
+OL           { margin-top: 0; margin-bottom: 9px; line-height:130%}
+UL           { margin-top: 0; margin-bottom: 9px; line-height:130%}
+LI           { margin-top: 0; margin-bottom: 6px }
+BLOCKQUOTE   { margin-left: 20px }
+TABLE        { padding: 4px; BACKGROUND: #f8f7ef; BORDER: #DDDCD6 1px solid; BORDER-COLLAPSE: collapse; margin-bottom: 9px; }
+TR           { vertical-align: top} 
+TD           { padding: 4px; font-family: Verdana; font-size: 67%; line-height: 130%} 
+.contents    { line-height: 150% }
+DIV.CodeBlock   { font-family: "Courier New"; font-size: 100%; margin-bottom: 6px; BACKGROUND: #f8f7ef; BORDER: #eeede6 1px solid; padding: 10px; }
+.CodeInline  { font-family: "Courier New" }
+.ProcedureLabel {margin-top: 12px; font-style: italic; font-weight: bold; color: #0D4CC3 } 
+.FileNameCol { padding: 6px; BACKGROUND: #eeede6; width=220px; font-weight: bold}
+-->
+</style>
+</head>
+
+<body topmargin="0" leftmargin="0" rightmargin="20">
+<div class="maindiv" style="left: 0px">
+
+<a name="top">
+
+<!-- MAIN CONTENT BEGINS -->
+
+</a>
+
+<p><a name="top">Microsoft C# Starter Kit </a> </p>
+<h1><a name="top">Starter Kit: </a>2D Game Primer</h1>
+
+        <p>
+            &nbsp;</p>
+<p class="contents"><font color="#003300"><b><a name="top">Contents:</a></b></font></p>
+<p class="contents"><font color="#003300">
+<a href="#Introduction">Introduction</a><br>
+<a href="#Concepts">2D Game Development Concepts</a><br>
+<a href="#ForMoreInformation">For More Information</a><br>
+</font></p>
+
+<h2><A href="#top"><IMG src="Images\topjump-vc.gif" border=0></A><a name="Introduction">Introduction</a></h2>
+<p>
+    No matter how hard you try when programming games you have to start using math.
+    The simpler the game, the less math there is to learn and 2d games have simpler
+    math but you cannot avoid it. The top selling 3d games of today are full of 3d vector
+    math and complex simulations of physics. Fortunately you do not need to know all
+    of that for the simple games presented in this series.</p>
+    <p>
+        This 2D primer covers some of the fundamentals of simple math needed
+        for the 3 games
+        in the Upgrade Your Game series for the Visual Studio Express products.</p>
+
+<p><b>Note:</b> This documentation assumes that you have a basic knowledge of programming
+ concepts and the Visual C# environment. You can learn more about these topics in the product documentation
+ by clicking <b>Help</b> on the Main Menu, and selecting <b>Contents</b>, <b>Index</b>, or <b>Search</b>. You can also access Help by 
+ positioning the mouse cursor on language keywords or user interface elements such as windows
+ or dialog boxes, and pressing <b>F1</b>.</p>
+
+<h2><A href="#top"><IMG src="Images\topjump-vc.gif" border=0></A>2D <a name="Concepts">Game Development Concepts </a></h2>
+    <h3>
+        The Game Loop</h3>
+    <p>
+        Window Forms and ASP applications are often called event driven applications - they
+        sit doing nothing for most of the time waiting for an external stimulus from an
+        end user or another application with a button press or a web service request. This
+        works really well for that kind of application.
+    </p>
+    <p>
+        Games on the other hand are generally not sitting doing nothing all the time. Even
+        if the end user is not pressing a key or a button on the gamepad the game must animate
+        characters, perform AI functions, play sounds and many other things depending on
+        the game. You've probably done some of these background type tasks in Windows Forms
+        applications using Timer controls or background threads but in general these don't
+        scale to the computer game scenario where there are multiple animations and multiple
+        background tasks all happening at very different time intervals.</p>
+    <p>
+        The solution that most games use (and by most games I mean everything right up to
+        the top selling Xbox 360 titles) is usually called 'The game loop'. In pseudo code
+        it looks something like this:</p>
+    <pre>
+    While (game is running)
+        Check for input
+        Update all objects in the game 
+        Draw all objects in the game</pre>
+    <p>
+        This might explain to you one reason why games almost always use 100% of your CPU
+        even if they don't appear to be doing much. The faster your computer is the faster
+        this loop will run and the smoother the animation and the synchronisation will be.</p>
+    <p>
+        There is one slight problem with running a tight loop like that at least under windows.
+        If you don't allow Windows to check for and process windows messages and events
+        then your application will be marked as 'Not responding' by the operating system.
+        You may have seen this in your applications if you have a loop that runs for a long
+        time. You may also have solved it by putting a call to DoEvents into the loop which
+        allows windows to process the events. This can work reasonably well if you know
+        the loop will end eventually but in this case the loop is the entire game so you
+        need a better way.</p>
+    <p>
+        The method I have chosen to use for these games is NOT the most efficient way (for
+        a full discussion on this under Managed DirectX see the <a href="http://www.thezbuffer.com/articles/185.aspx">
+            MDX Game Loop FAQ</a>) but it is the simplest way to implement and none of the
+        games covered here need the more complex, but efficient, method.</p>
+    <div class="CodeBlock">
+        <div style="font-size: 10pt; color: black; font-family: Courier New">
+            <pre style="margin: 0px">
+<span style="color: blue">private</span> <span style="color: blue">void</span> TinyTennis_Paint(<span
+    style="color: blue">object</span> sender, <span style="color: teal">PaintEventArgs</span> e)</pre>
+            <pre style="margin: 0px">
+{</pre>
+            <pre style="margin: 0px">
+&nbsp; &nbsp; <span style="color: green">//Work out how long since we were last here
+    in seconds</span></pre>
+            <pre style="margin: 0px">
+&nbsp; &nbsp; <span style="color: blue">double</span> gameTime = _timer.ElapsedMilliseconds / 1000.0;</pre>
+            <pre style="margin: 0px">
+&nbsp; &nbsp; <span style="color: blue">double</span> elapsedTime = gameTime - _lastTime;</pre>
+            <pre style="margin: 0px">
+&nbsp; &nbsp; _lastTime = gameTime;</pre>
+            <pre style="margin: 0px">
+&nbsp; &nbsp; _frameCounter++;</pre>
+            <pre style="margin: 0px">
+&nbsp;</pre>
+            <pre style="margin: 0px">
+&nbsp; &nbsp; <span style="color: green">//Perform any animation</span></pre>
+            <pre style="margin: 0px">
+&nbsp;</pre>
+            <pre style="margin: 0px">
+&nbsp; &nbsp; <span style="color: green">//Draw the game objects</span></pre>
+            <pre style="margin: 0px">
+&nbsp;</pre>
+            <pre style="margin: 0px">
+&nbsp; &nbsp; <span style="color: green">//Force the next Paint()</span></pre>
+            <pre style="margin: 0px">
+&nbsp; &nbsp; <span style="color: blue">this</span>.Invalidate();</pre>
+            <pre style="margin: 0px">
+}</pre>
+        </div>
+    </div>
+    <h3>
+        Sprites</h3>
+    <p>
+        <a href="http://en.wikipedia.org/wiki/Sprite_%28computer_graphics%29">Sprites</a>
+        are 2 dimensional images that appear in a video game. Sometimes they are static
+        images but in general they are the building blocks for animation. They either move
+        around the screen or change the image at regular intervals giving a 'flip book'
+        kind of animation or they do both giving you characters like Mario and Donkey Kong
+        that can move around the screen running and jumping.
+    </p>
+    <h3>
+        Positioning a Sprite</h3>
+    <p>
+        Just like Windows Forms controls sprites are placed at an x,y position on the form.
+        0,0 is the top left and ClientSize.Width, ClientSize.Height is the bottom right.
+        Just like a Windows Forms control sprites have a height and width too.</p>
+    <p>
+        However unlike Windows Forms controls sprites are primarily designed to move and
+        animate,
+often hundreds of times per second to get the smoothest animation possible.
+        So while a sprite can only be drawn at an integer x,y position its ACTUAL position
+        at a sub second point in time could actually be 1.45, 12.67 and its important to
+        remember this position so that the animation doesn't get choppy. So a sprite position
+        is stored using a floating point Point structure PointF rather than the integer
+        based Point structure like Windows Forms controls. This means
+        we can store the sub pixel accuracy and then just convert to integer screen positions
+        when we draw them.</p>
+    <h3>
+        Vectors</h3>
+    <p>
+        As you do more game programming you will come across the term vector a lot.
+    Though its avoided in this series for simplicity the concepts are used when the positions
+        of the sprites are updated for animation.</p>
+    <p>
+        Simply put a vector is just an offset. So a vector of (4,2) means that from some
+        start point move 4 units in the x axis and 2 in the y axis.
+    </p>
+    <p>
+        You will see positions referred to as a vector. In this case a position of (4,2)
+        means an offset of (4,2) from the origin.
+    </p>
+    <p>
+        <img src="images/primer_position.png" />&nbsp;</p>
+    <p>
+        Vectors can be added together. So (4,2) + (2,4) gives you a total offset of (6,6).
+    </p>
+    <p>
+        Vectors can have negative components so (-2,1) means move 2 units to the left on
+        the x axis and one unit down on the y axis</p>
+    <p>
+        <img src="images/primer_vector.png" />&nbsp;</p>
+    <p>
+        All of these concepts are used when moving a sprite around the screen.</p>
+    <h3>
+        Moving a Sprite</h3>
+    <p>
+        Sprites move with a certain VELOCITY. Velocity is different from speed because velocity
+        also contains information about the direction. For example you can tell me you are
+        driving at 60mph and I would guess that in one hour you would be 60 miles from the
+        start point. But if you were driving round in a circle that would not be the case.
+        If I told you my velocity was 60mph due East then I would know for sure where you
+        would end up.</p>
+    <p>
+        Since our position is an x, y value we can store our velocity as another 2 component
+        vector (s, t). s is how fast we want to move on the x axis and t is how fast we
+        want to move on the y axis. If we add them together: (x,y) + (s,t) = (x+s, y+t)
+        then we get the new position of the sprite.
+    </p>
+    <p>
+        Example:</p>
+    <p>
+        Sprite is at (4,10) and has a speed of (1,0). (1,0) means the sprite will move right
+        in the x direction only. (4,10) + (1,0)&nbsp; = (5,10). If we repeat this addition 
+        every second then the sprite will move 1 pixel per second across the screen. You
+        can see that any direction and speed can be represented just by changing the s,
+        t values in that vector.</p>
+    <h3>
+        Time Based Animation</h3>
+    <p>
+        Imagine a sprite that starts at X=0 and is moving to the right with a velocity of
+        +10. If you walk through the game loop above the sprite would have +10 added to
+        its position each time the sprite was updated and would move from X=0 to X={some
+        bigger number} where {some bigger number} is 10 times the number of times the loop
+        has been run. But the question is exactly how fast would it move? Well it depends
+        on how fast the loop runs which depends on how fast your computer is running. This
+        would mean that on your top of the line gaming rig the sprite could cross the screen
+        in half a second, but on your parents 4 year old 'we only use it for email' computer
+        it could take 2 seconds. Obviously this isn't something that is desirable in a computer
+        game.</p>
+    <p>
+        To fix this you need to think about what velocity really is. What does that +10
+        mean? Velocity is really a measure of distance over a period of time so you cannot
+        think of the +1 as just a distance; it's really +1 pixel in some time that you need
+        to define. So each time round the loop we just need to know how long it's been since
+        the last update and scale the movement by that time.
+    </p>
+    <p>
+        A sprite that has a velocity of +10 actually means we move +10 pixels per second.
+        So if it's been half a second since the last frame we multiply that by the velocity and move
+        5 pixels. In reality the time between frames is fractions of a second.
+        So on your fast gaming rig where the
+        loop runs very fast the sprite will move with sub pixel accuracy for some very smooth
+        animation. On your parents computer where the loop only runs 5 times per second
+        the sprite will move 2 pixels each frame but after 10 seconds the sprite will be
+        in exactly the same place as it is on your computer.</p>
+    <p>
+        The code will look something like this: (notice that for accuracy elapsedTime is
+        a double and therefore needs to be cast down to a float to match the PointF structure)</p>
+    <div class="codeblock">
+        <div style="font-size: 10pt; color: black; font-family: Courier New">
+            <pre style="margin: 0px">&nbsp; &nbsp; <span style="color: green">//Move the sprite based on the velocity</span></pre>
+            <pre style="margin: 0px">&nbsp; &nbsp; Location.X += Velocity.X * (<span style="color: blue">float</span>)elapsedTime;</pre>
+            <pre style="margin: 0px">&nbsp; &nbsp; Location.Y += Velocity.Y * (<span style="color: blue">float</span>)elapsedTime;</pre>
+        </div>
+    </div>
+    <p>
+        The loop timings I mentioned here are very exaggerated - on most computers the loop
+        will be running hundreds or thousands of times per second meaning that your animations
+        will be very smooth and accurate.</p>
+    <h3>
+        Sprite bounds</h3>
+    <p>
+        There are 2 ways to represent the rectangle containing the sprite:</p>
+    <ol>
+        <li>X, Y, Height, Width</li>
+        <li>X, Y of top left corner and X, Y of bottom right corner</li>
+    </ol>
+    <p>
+        Whilst both of these are valid you most usually find the first one in use. Its easier
+        to just update one corner as the sprite moves around and calculate the other corner
+        when its needed. For tasks like collisions and bounds checking you need to calculate
+        the bottom right corner so you will see X+Width and Y+Height as a very commonly
+        used formula in games.</p>
+    <p>
+    </p>
+    <h3>
+        Simple Collision Detection</h3>
+    <p>
+        Collisions are a vital part of almost any game - they restrict where an object can
+        move, whether an object has taken damage and so forth.</p>
+    <p>
+        Simple collisions can be described in terms of the positions and
+        size of the sprites and the regions they need to collide with. Since everything
+        is rectangular in this case there is no need for any more complex collisions that
+        need to be determined at the pixel level. All the collisions can be checked for
+        by just seeing if the rectangles overlap or if the coordinates are outside of a
+        certain range. Checking for rectangle overlap is <a href="http://www.tekpool.com/?p=23">
+            quite simple</a>.</p>
+    <div class="codeblock">
+        <div style="font-size: 10pt; color: black; font-family: Courier New">
+            <pre style="margin: 0px"><span style="color: blue">private</span> <span style="color: blue">bool</span> collide(<span
+    style="color: teal"></span>)</pre>
+            <pre style="margin: 0px">{</pre>
+            <pre style="margin: 0px">&nbsp; &nbsp; <span style="color: blue">return</span> ! ( sprite1.Location.X                       &gt; sprite2.Location.X + sprite2.Size.Width</pre>
+            <pre style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; || sprite1.Location.X + sprite1.Size.Width  &lt; sprite2.Location.X</pre>
+            <pre style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; || sprite1.Location.Y                       &gt; sprite2.Location.Y + sprite2.Size.Height</pre>
+            <pre style="margin: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; || sprite1.Location.Y + sprite1.Size.Height &lt; sprite2.Location.Y);</pre>
+            <pre style="margin: 0px">}</pre>
+        </div>
+    </div>
+    <p>
+    </p>
+    <p>
+        This code uses an efficient algorithm for determining if the 2 rectangles overlap.
+        It checks the bounds of both rectangles to determine if they DON'T overlap and then
+        negates the result. For example the first line checks if the left hand edge of sprite
+        1 is to the right of the right hand edge of sprite 2. If it is then obviously they
+        cannot overlap. The next 3 lines check the other 3 edges.</p>
+    <h2>
+        <a href="#top"><IMG src="Images\topjump-vc.gif" border=0></A><a name="ForMoreInformation">For 
+More Information</a></h2>
+
+<h3>Online Resources</h3>
+
+<ul>
+	<li>Discuss this Starter Kit in <a href="http://channel9.msdn.com/ShowForum.aspx?ForumID=16">
+        Channel9's TechOff forum</a></li>
+    <li><a href="http://go.microsoft.com/fwlink/?linkid=30034">Provide 
+	feedback on this documentation</a> </li>
+	<li><a href="http://msdn.microsoft.com/coding4fun/gamedevelopment/default.aspx">Game
+        Development on Coding4Fun</a>&nbsp;</li></ul>
+
+<p>&nbsp;</p>
+
+<p>
+<a href="http://www.microsoft.com/info/cpyright.mspx">
+© Microsoft Corporation and/or its suppliers. All rights reserved. Terms of Use.</a>
+</p>
+
+<!-- DONT EDIT BELOW THIS LINE  -->
+<p>&nbsp;</p>
+    </DIV>
+</body>
+</html>
