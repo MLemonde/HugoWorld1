@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
+using System.Net;
 using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 
 namespace Tp3Service
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ServiceHugoWorld : IClasseController, IMondeController, ICompteJoueurController, IHeroController, IMonstreController, IEffetItemController, IInventaireHeroController, IItemController, IObjectMondeController
     {
+        //protected override WebRequest GetWebRequest(Uri uri)
+        //{
+        //    HttpWebRequest webRequest = (HttpWebRequest)base.GetWebRequest(uri);
+        //    //Setting KeepAlive to false
+        //    webRequest.KeepAlive = false;
+        //    return webRequest;
+        //}
+
         private HugoWorldEntities context = new HugoWorldEntities();
 
         #region Classe
@@ -101,6 +108,35 @@ namespace Tp3Service
                 return null;
 
             return Monde.Classes.ToList();            
+        }
+
+        /// <summary>
+        /// Auteur : MA
+        /// Retourne la description de la classe sélectionnée
+        /// </summary>
+        /// <param name="sClassName">la classe sélectionnée</param>
+        /// <returns>la description de la classe sélectionnée</returns>
+        string IClasseController.GetClassDescription(string sClassName)
+        {
+            var Classe = context.Classes.FirstOrNull(c => c.NomClasse == sClassName);
+
+            return Classe.Description;
+        }
+
+        /// <summary>
+        /// Auteur: MAL
+        /// Description: Recevoir le ID de la classe qui vient d'être sélectionnée
+        /// </summary>
+        /// <param name="sUsername">Nom de la classe</param>
+        /// <returns></returns>
+        int? IClasseController.GetClassID(string sClassName)
+        {
+            var Classe = context.Classes.FirstOrNull(c => c.NomClasse == sClassName);
+            if (Classe != null)
+                return Classe.Id;
+
+            else
+                return null;
         }
 
         /// <summary>
@@ -238,12 +274,30 @@ namespace Tp3Service
         }
 
         /// <summary>
-        /// Retourne la liste des mondes du context!
+        /// Auteur : MAL
+        /// Description : retourne le ID du monde sélectionnée
         /// </summary>
+        /// <param name="sDescription"></param>
         /// <returns></returns>
-        Monde[] IMondeController.GetListMonde()
+        int? IMondeController.GetWorldID(string sDescription)
         {
-            return context.Mondes.ToArray();
+            var Monde = context.Mondes.FirstOrNull(c => c.Description == sDescription);
+            if (Monde != null)
+                return Monde.Id;
+
+            else
+                return null;
+        }
+
+        List<Monde> IMondeController.GetListMonde()
+        {
+            return context.Mondes
+                .Include("Classes")
+                .Include("Heroes")
+                .Include("Items")
+                .Include("Monstres")
+                .Include("ObjetMondes")
+                .ToList();
         }
         #endregion
 
@@ -369,10 +423,10 @@ namespace Tp3Service
         /// <param name="sUsername"></param>
         /// <param name="sPassword"></param>
         /// <returns></returns>
-        int? ICompteJoueurController.GetUserID(string sUsername, string sPassword)
+        int? ICompteJoueurController.GetUserID(string sUsername)
         {
             var Account = context.CompteJoueurs.FirstOrNull(c => c.NomUtilisateur == sUsername);
-            if (Account == null)
+            if (Account != null)
                 return Account.Id;
 
             else
@@ -487,6 +541,9 @@ namespace Tp3Service
         /// </summary>
         List<Hero> IHeroController.GetListHero(int compteId)
         {
+            context.Configuration.LazyLoadingEnabled = false;
+            context.Configuration.ProxyCreationEnabled = false;
+
             CompteJoueur compte = context.CompteJoueurs.FirstOrNull(c => c.Id == compteId);
             if (compte != null)
                 return compte.Heroes.ToList();

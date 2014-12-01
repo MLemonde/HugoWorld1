@@ -54,6 +54,19 @@ namespace Tp3Service
         [OperationContract]
         List<Classe> GetListClasses(int mondeID);
 
+        [OperationContract]
+        string GetClassDescription(string sClassName);
+
+
+        /// <summary>
+        /// Auteur: MAL
+        /// Description: Recevoir le ID de la classe qui vient d'être sélectionnée
+        /// </summary>
+        /// <param name="sUsername">Nom de la classe</param>
+        /// <returns></returns>
+        [OperationContract]
+        int? GetClassID(string sClassName);
+
         /// <summary>
         /// Auteur : Marc-André Landry
         /// Trouver la classe d'un héro

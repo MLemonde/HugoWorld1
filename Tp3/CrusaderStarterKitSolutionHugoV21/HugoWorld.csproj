@@ -84,11 +84,17 @@
     </Compile>
     <Compile Include="GameObject.cs" />
     <Compile Include="GameState.cs" />
-    <Compile Include="Vue\FrmManageHeroes.cs">
+    <Compile Include="Vue\frmManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vue\FrmManageHeroes.Designer.cs">
-      <DependentUpon>FrmManageHeroes.cs</DependentUpon>
+    <Compile Include="Vue\frmManage.Designer.cs">
+      <DependentUpon>frmManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vue\frmNewHeros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\frmNewHeros.Designer.cs">
+      <DependentUpon>frmNewHeros.cs</DependentUpon>
     </Compile>
     <Compile Include="Vue\help.cs">
       <SubType>Form</SubType>
@@ -104,11 +110,14 @@
       <SubType>Designer</SubType>
       <DependentUpon>Crusader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vue\FrmLogin.resx">
-      <DependentUpon>FrmLogin.cs</DependentUpon>
+    <EmbeddedResource Include="Vue\frmManage.resx">
+      <DependentUpon>frmManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vue\FrmManageHeroes.resx">
-      <DependentUpon>FrmManageHeroes.cs</DependentUpon>
+    <EmbeddedResource Include="Vue\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vue\frmNewHeros.resx">
+      <DependentUpon>frmNewHeros.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vue\help.resx">
       <SubType>Designer</SubType>
@@ -138,11 +147,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Vue\FrmLogin.cs">
+    <Compile Include="Vue\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vue\FrmLogin.Designer.cs">
-      <DependentUpon>FrmLogin.cs</DependentUpon>
+    <Compile Include="Vue\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Vue\Sounds.cs" />
     <Compile Include="BLL\Sprite.cs" />

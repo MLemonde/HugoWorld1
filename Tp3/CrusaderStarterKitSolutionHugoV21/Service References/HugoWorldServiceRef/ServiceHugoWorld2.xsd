@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Tp3Service" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Tp3Service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Tp3Service" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Tp3Service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:49588/ServiceHugoWorld.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="ArrayOfClasse">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Classe" nillable="true" type="tns:Classe" />
@@ -119,6 +120,8 @@
       <xs:element minOccurs="0" name="Monstres" nillable="true" type="tns:ArrayOfMonstre" />
       <xs:element minOccurs="0" name="ObjetMondes" nillable="true" type="tns:ArrayOfObjetMonde" />
     </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="Monde" nillable="true" type="tns:Monde" />
   <xs:complexType name="ArrayOfMonstre">

@@ -11,9 +11,9 @@ using HugoWorldServiceRef;
 
 namespace Vue
 {
-    public partial class FrmLogin : Form
+    public partial class frmLogin : Form
     {
-        public FrmLogin()
+        public frmLogin()
         {
             InitializeComponent();
         }
@@ -26,26 +26,7 @@ namespace Vue
         /// <param name="e"></param>
         private void btnOk_Click(object sender, EventArgs e)
         {
-            CompteJoueurControllerClient s = new CompteJoueurControllerClient();
-
-            if (s.ValidatePlayer(txtUserName.Text, txtPassword.Text))
-            {
-
-                HugoWorld.Data.userID = s.GetUserID(txtUserName.Text, txtPassword.Text).Value;
-
-                DialogResult = System.Windows.Forms.DialogResult.OK;
-                this.Close();
-
-            }
-            else
-            {
-                MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.",
-                "Erreur",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Exclamation,
-                MessageBoxDefaultButton.Button1);
-            }
-
+            tryToConnect();
         }
 
         /// <summary>
@@ -66,8 +47,40 @@ namespace Vue
                 default:
                     break;
             }
-
-
         }
+
+        private void txtPassword_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                tryToConnect();
+            }
+        }
+
+        #region methods
+
+        private void tryToConnect()
+        {
+            CompteJoueurControllerClient s = new CompteJoueurControllerClient();
+
+            if (s.ValidatePlayer(txtUserName.Text, txtPassword.Text))
+            {
+
+                HugoWorld.Data.userID = s.GetUserID(txtUserName.Text).Value;
+
+                DialogResult = System.Windows.Forms.DialogResult.OK;
+                this.Close();
+
+            }
+            else
+            {
+                MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.",
+                "Erreur",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Exclamation,
+                MessageBoxDefaultButton.Button1);
+            }
+        }
+        #endregion
     }
 }

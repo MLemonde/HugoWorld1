@@ -68,7 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ServiceHugoWorld.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classe.cs">
@@ -99,6 +101,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HugoWorldModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="HugoWorldModel.Views.cs" />
     <Compile Include="IEffetItemController.cs" />
     <Compile Include="IItemController.cs" />
     <Compile Include="IInventaireHeroController.cs" />

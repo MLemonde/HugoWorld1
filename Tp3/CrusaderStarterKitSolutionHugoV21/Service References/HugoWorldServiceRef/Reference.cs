@@ -204,7 +204,7 @@ namespace HugoWorldServiceRef {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Monde", Namespace="http://schemas.datacontract.org/2004/07/Tp3Service")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Monde", Namespace="http://schemas.datacontract.org/2004/07/Tp3Service", IsReference=true)]
     [System.SerializableAttribute()]
     public partial class Monde : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1646,6 +1646,18 @@ namespace HugoWorldServiceRef {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClasseController/GetListClasses", ReplyAction="http://tempuri.org/IClasseController/GetListClassesResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<HugoWorldServiceRef.Classe>> GetListClassesAsync(int mondeID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClasseController/GetClassDescription", ReplyAction="http://tempuri.org/IClasseController/GetClassDescriptionResponse")]
+        string GetClassDescription(string sClassName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClasseController/GetClassDescription", ReplyAction="http://tempuri.org/IClasseController/GetClassDescriptionResponse")]
+        System.Threading.Tasks.Task<string> GetClassDescriptionAsync(string sClassName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClasseController/GetClassID", ReplyAction="http://tempuri.org/IClasseController/GetClassIDResponse")]
+        System.Nullable<int> GetClassID(string sClassName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClasseController/GetClassID", ReplyAction="http://tempuri.org/IClasseController/GetClassIDResponse")]
+        System.Threading.Tasks.Task<System.Nullable<int>> GetClassIDAsync(string sClassName);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClasseController/FindClasseOfHero", ReplyAction="http://tempuri.org/IClasseController/FindClasseOfHeroResponse")]
         HugoWorldServiceRef.Classe FindClasseOfHero(int iHeroID, int iMondeID);
         
@@ -1712,6 +1724,22 @@ namespace HugoWorldServiceRef {
             return base.Channel.GetListClassesAsync(mondeID);
         }
         
+        public string GetClassDescription(string sClassName) {
+            return base.Channel.GetClassDescription(sClassName);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetClassDescriptionAsync(string sClassName) {
+            return base.Channel.GetClassDescriptionAsync(sClassName);
+        }
+        
+        public System.Nullable<int> GetClassID(string sClassName) {
+            return base.Channel.GetClassID(sClassName);
+        }
+        
+        public System.Threading.Tasks.Task<System.Nullable<int>> GetClassIDAsync(string sClassName) {
+            return base.Channel.GetClassIDAsync(sClassName);
+        }
+        
         public HugoWorldServiceRef.Classe FindClasseOfHero(int iHeroID, int iMondeID) {
             return base.Channel.FindClasseOfHero(iHeroID, iMondeID);
         }
@@ -1754,6 +1782,12 @@ namespace HugoWorldServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMondeController/DeleteMonde", ReplyAction="http://tempuri.org/IMondeController/DeleteMondeResponse")]
         System.Threading.Tasks.Task DeleteMondeAsync(int iID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMondeController/GetWorldID", ReplyAction="http://tempuri.org/IMondeController/GetWorldIDResponse")]
+        System.Nullable<int> GetWorldID(string sDescription);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMondeController/GetWorldID", ReplyAction="http://tempuri.org/IMondeController/GetWorldIDResponse")]
+        System.Threading.Tasks.Task<System.Nullable<int>> GetWorldIDAsync(string sDescription);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMondeController/GetListMonde", ReplyAction="http://tempuri.org/IMondeController/GetListMondeResponse")]
         System.Collections.Generic.List<HugoWorldServiceRef.Monde> GetListMonde();
@@ -1829,6 +1863,14 @@ namespace HugoWorldServiceRef {
             return base.Channel.DeleteMondeAsync(iID);
         }
         
+        public System.Nullable<int> GetWorldID(string sDescription) {
+            return base.Channel.GetWorldID(sDescription);
+        }
+        
+        public System.Threading.Tasks.Task<System.Nullable<int>> GetWorldIDAsync(string sDescription) {
+            return base.Channel.GetWorldIDAsync(sDescription);
+        }
+        
         public System.Collections.Generic.List<HugoWorldServiceRef.Monde> GetListMonde() {
             return base.Channel.GetListMonde();
         }
@@ -1873,10 +1915,10 @@ namespace HugoWorldServiceRef {
         System.Threading.Tasks.Task<bool> ValidatePlayerAsync(string sUsername, string sPassword);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICompteJoueurController/GetUserID", ReplyAction="http://tempuri.org/ICompteJoueurController/GetUserIDResponse")]
-        System.Nullable<int> GetUserID(string sUsername, string sPassword);
+        System.Nullable<int> GetUserID(string sUsername);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICompteJoueurController/GetUserID", ReplyAction="http://tempuri.org/ICompteJoueurController/GetUserIDResponse")]
-        System.Threading.Tasks.Task<System.Nullable<int>> GetUserIDAsync(string sUsername, string sPassword);
+        System.Threading.Tasks.Task<System.Nullable<int>> GetUserIDAsync(string sUsername);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICompteJoueurController/ValidateAdmin", ReplyAction="http://tempuri.org/ICompteJoueurController/ValidateAdminResponse")]
         bool ValidateAdmin(string sUsername, string sPassword);
@@ -1952,12 +1994,12 @@ namespace HugoWorldServiceRef {
             return base.Channel.ValidatePlayerAsync(sUsername, sPassword);
         }
         
-        public System.Nullable<int> GetUserID(string sUsername, string sPassword) {
-            return base.Channel.GetUserID(sUsername, sPassword);
+        public System.Nullable<int> GetUserID(string sUsername) {
+            return base.Channel.GetUserID(sUsername);
         }
         
-        public System.Threading.Tasks.Task<System.Nullable<int>> GetUserIDAsync(string sUsername, string sPassword) {
-            return base.Channel.GetUserIDAsync(sUsername, sPassword);
+        public System.Threading.Tasks.Task<System.Nullable<int>> GetUserIDAsync(string sUsername) {
+            return base.Channel.GetUserIDAsync(sUsername);
         }
         
         public bool ValidateAdmin(string sUsername, string sPassword) {

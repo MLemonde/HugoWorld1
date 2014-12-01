@@ -61,11 +61,19 @@ namespace Tp3Service
         void DeleteMonde(int iID);
 
         /// <summary>
+        /// Auteur : Marc-André L.
+        /// Descrption : Use this method to get the current world ID
+        /// </summary>
+        /// <param name="Description">the description of the world</param>
+        [OperationContract]
+        int? GetWorldID(string sDescription);
+
+        /// <summary>
         /// Retourne la liste des mondes du context!
         /// </summary>
         /// <returns></returns>
         [OperationContract]
-        Monde[] GetListMonde();
+        List<Monde> GetListMonde();
 
     }
 }

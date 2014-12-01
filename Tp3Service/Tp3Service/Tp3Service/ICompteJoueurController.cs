@@ -75,7 +75,7 @@ namespace Tp3Service
         /// <param name="sPassword">Mot de passe</param>
         /// <returns></returns>
         [OperationContract]
-        int? GetUserID(string sUsername, string sPassword);
+        int? GetUserID(string sUsername);
 
         /// <summary>
         /// Auteur: Mathew Lemonde

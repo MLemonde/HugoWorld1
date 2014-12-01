@@ -21,14 +21,21 @@ namespace HugoWorld
 
         public HugoWorld()
         {
-            // Login
-            Vue.FrmLogin login = new Vue.FrmLogin();
+            //// Login
+            Vue.frmLogin login = new Vue.frmLogin();
             login.ShowDialog();
             if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
                 Application.Exit();
 
-            Vue.FrmManageHeroes manageHeroes = new Vue.FrmManageHeroes();
+            Vue.frmManage manageHeroes = new Vue.frmManage();
             manageHeroes.ShowDialog();
+
+            Vue.FrmCreateHeros createHeroes = new Vue.FrmCreateHeros();
+            createHeroes.ShowDialog();
+
+            // TEMPORARY
+            // kill app NOW
+            Process.GetCurrentProcess().Kill();
 
             //Setup the form
             InitializeComponent();

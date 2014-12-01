@@ -9,5 +9,9 @@ namespace HugoWorld
     public static class Data
     {
         public static int userID {get; set;}
+
+        public static int worldID { get; set; }
+
+        public static int ClassID { get; set; }
     }
 }

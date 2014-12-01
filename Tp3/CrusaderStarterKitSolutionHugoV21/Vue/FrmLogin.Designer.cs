@@ -1,6 +1,6 @@
 ﻿namespace Vue
 {
-    partial class FrmLogin
+    partial class frmLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -66,6 +66,7 @@
             this.txtPassword.Size = new System.Drawing.Size(223, 20);
             this.txtPassword.TabIndex = 13;
             this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPassword_KeyUp);
             // 
             // txtUserName
             // 

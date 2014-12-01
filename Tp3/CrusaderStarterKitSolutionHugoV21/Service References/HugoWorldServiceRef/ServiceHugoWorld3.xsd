@@ -64,6 +64,34 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetClassDescription">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sClassName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClassDescriptionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetClassDescriptionResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClassID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sClassName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClassIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetClassIDResult" nillable="true" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="FindClasseOfHero">
     <xs:complexType>
       <xs:sequence>
@@ -145,6 +173,20 @@
   <xs:element name="DeleteMondeResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetWorldID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sDescription" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetWorldIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetWorldIDResult" nillable="true" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetListMonde">
@@ -241,7 +283,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="sUsername" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="sPassword" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

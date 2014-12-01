@@ -15,9 +15,12 @@ namespace Tp3Service
     
     public partial class HugoWorldEntities : DbContext
     {
+
         public HugoWorldEntities()
             : base("name=HugoWorldEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

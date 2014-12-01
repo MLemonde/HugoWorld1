@@ -31,6 +31,18 @@
   <wsdl:message name="IClasseController_GetListClasses_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListClassesResponse" />
   </wsdl:message>
+  <wsdl:message name="IClasseController_GetClassDescription_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClassDescription" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_GetClassDescription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClassDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_GetClassID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClassID" />
+  </wsdl:message>
+  <wsdl:message name="IClasseController_GetClassID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClassIDResponse" />
+  </wsdl:message>
   <wsdl:message name="IClasseController_FindClasseOfHero_InputMessage">
     <wsdl:part name="parameters" element="tns:FindClasseOfHero" />
   </wsdl:message>
@@ -66,6 +78,12 @@
   </wsdl:message>
   <wsdl:message name="IMondeController_DeleteMonde_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteMondeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_GetWorldID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorldID" />
+  </wsdl:message>
+  <wsdl:message name="IMondeController_GetWorldID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorldIDResponse" />
   </wsdl:message>
   <wsdl:message name="IMondeController_GetListMonde_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListMonde" />
@@ -246,6 +264,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IClasseController/GetListClasses" message="tns:IClasseController_GetListClasses_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClasseController/GetListClassesResponse" message="tns:IClasseController_GetListClasses_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetClassDescription">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClasseController/GetClassDescription" message="tns:IClasseController_GetClassDescription_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClasseController/GetClassDescriptionResponse" message="tns:IClasseController_GetClassDescription_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClassID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClasseController/GetClassID" message="tns:IClasseController_GetClassID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClasseController/GetClassIDResponse" message="tns:IClasseController_GetClassID_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="FindClasseOfHero">
       <wsdl:input wsaw:Action="http://tempuri.org/IClasseController/FindClasseOfHero" message="tns:IClasseController_FindClasseOfHero_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClasseController/FindClasseOfHeroResponse" message="tns:IClasseController_FindClasseOfHero_OutputMessage" />
@@ -271,6 +297,10 @@
     <wsdl:operation name="DeleteMonde">
       <wsdl:input wsaw:Action="http://tempuri.org/IMondeController/DeleteMonde" message="tns:IMondeController_DeleteMonde_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMondeController/DeleteMondeResponse" message="tns:IMondeController_DeleteMonde_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorldID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMondeController/GetWorldID" message="tns:IMondeController_GetWorldID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMondeController/GetWorldIDResponse" message="tns:IMondeController_GetWorldID_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetListMonde">
       <wsdl:input wsaw:Action="http://tempuri.org/IMondeController/GetListMonde" message="tns:IMondeController_GetListMonde_InputMessage" />
@@ -433,6 +463,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetClassDescription">
+      <soap:operation soapAction="http://tempuri.org/IClasseController/GetClassDescription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClassID">
+      <soap:operation soapAction="http://tempuri.org/IClasseController/GetClassID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="FindClasseOfHero">
       <soap:operation soapAction="http://tempuri.org/IClasseController/FindClasseOfHero" style="document" />
       <wsdl:input>
@@ -483,6 +531,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteMonde">
       <soap:operation soapAction="http://tempuri.org/IMondeController/DeleteMonde" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorldID">
+      <soap:operation soapAction="http://tempuri.org/IMondeController/GetWorldID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
