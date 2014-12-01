@@ -11,19 +11,31 @@ namespace Tp3Service
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]  
     public partial class Monstre
     {
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string Nom { get; set; }
+        [DataMember]
         public int Niveau { get; set; }
+        [DataMember]
         public int x { get; set; }
+        [DataMember]
         public int y { get; set; }
+        [DataMember]
         public int StatPV { get; set; }
+        [DataMember]
         public float StatDmgMin { get; set; }
+        [DataMember]
         public float StatDmgMax { get; set; }
+        [DataMember]
         public int MondeId { get; set; }
-    
+
+        [DataMember]
         public virtual Monde Monde { get; set; }
     }
 }
