@@ -22,8 +22,11 @@ namespace Vue
             List<Hero> lstHeros = new List<Hero>();
             foreach (var item in _Heros.GetListHero(HugoWorld.Data.userID))
             {
-                dtgridViewHeros.Rows.Add(item.Classe, item.Monde, item.Niveau, item.Experience);
+                dtgridViewHeros.Rows.Add(item.Classe.Description, item.Monde.Description, item.Niveau, item.Experience);
+
             }
+
+            //dtgridViewHeros.DataSource = lstHeros;
         }
         #endregion
 

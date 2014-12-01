@@ -12,13 +12,7 @@ namespace Tp3Service
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-<<<<<<< HEAD
     [DataContract(IsReference = true)]
-    
-=======
-
-    [DataContract(IsReference = true)]  
->>>>>>> origin/TileSetChange
     public partial class Hero
     {
         public Hero()

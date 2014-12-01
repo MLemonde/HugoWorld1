@@ -33,6 +33,11 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dtgridViewHeros = new System.Windows.Forms.DataGridView();
+            this.Classe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Monde = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Niveau = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Experience = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.heroBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnCreate = new System.Windows.Forms.Button();
             this.txtMoney = new System.Windows.Forms.TextBox();
             this.txtIntelligence = new System.Windows.Forms.TextBox();
@@ -44,11 +49,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.heroBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.Classe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Monde = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Niveau = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Experience = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dtgridViewHeros)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -86,19 +86,49 @@
             // 
             this.dtgridViewHeros.AllowUserToAddRows = false;
             this.dtgridViewHeros.AllowUserToDeleteRows = false;
-            this.dtgridViewHeros.AutoGenerateColumns = false;
             this.dtgridViewHeros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgridViewHeros.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Classe,
             this.Monde,
             this.Niveau,
             this.Experience});
-            this.dtgridViewHeros.DataSource = this.heroBindingSource;
             this.dtgridViewHeros.Location = new System.Drawing.Point(12, 46);
             this.dtgridViewHeros.Name = "dtgridViewHeros";
             this.dtgridViewHeros.ReadOnly = true;
             this.dtgridViewHeros.Size = new System.Drawing.Size(323, 189);
             this.dtgridViewHeros.TabIndex = 36;
+            // 
+            // Classe
+            // 
+            this.Classe.HeaderText = "Classe";
+            this.Classe.Name = "Classe";
+            this.Classe.ReadOnly = true;
+            this.Classe.Width = 75;
+            // 
+            // Monde
+            // 
+            this.Monde.HeaderText = "Monde";
+            this.Monde.Name = "Monde";
+            this.Monde.ReadOnly = true;
+            this.Monde.Width = 75;
+            // 
+            // Niveau
+            // 
+            this.Niveau.HeaderText = "Niveau";
+            this.Niveau.Name = "Niveau";
+            this.Niveau.ReadOnly = true;
+            this.Niveau.Width = 65;
+            // 
+            // Experience
+            // 
+            this.Experience.HeaderText = "Experience";
+            this.Experience.Name = "Experience";
+            this.Experience.ReadOnly = true;
+            this.Experience.Width = 65;
+            // 
+            // heroBindingSource
+            // 
+            this.heroBindingSource.DataSource = typeof(HugoWorldServiceRef.Hero);
             // 
             // btnCreate
             // 
@@ -199,38 +229,6 @@
             this.label6.Size = new System.Drawing.Size(49, 13);
             this.label6.TabIndex = 41;
             this.label6.Text = "Dextérité";
-            // 
-            // heroBindingSource
-            // 
-            this.heroBindingSource.DataSource = typeof(HugoWorldServiceRef.Hero);
-            // 
-            // Classe
-            // 
-            this.Classe.HeaderText = "Classe";
-            this.Classe.Name = "Classe";
-            this.Classe.ReadOnly = true;
-            this.Classe.Width = 75;
-            // 
-            // Monde
-            // 
-            this.Monde.HeaderText = "Monde";
-            this.Monde.Name = "Monde";
-            this.Monde.ReadOnly = true;
-            this.Monde.Width = 75;
-            // 
-            // Niveau
-            // 
-            this.Niveau.HeaderText = "Niveau";
-            this.Niveau.Name = "Niveau";
-            this.Niveau.ReadOnly = true;
-            this.Niveau.Width = 65;
-            // 
-            // Experience
-            // 
-            this.Experience.HeaderText = "Experience";
-            this.Experience.Name = "Experience";
-            this.Experience.ReadOnly = true;
-            this.Experience.Width = 65;
             // 
             // frmManage
             // 
