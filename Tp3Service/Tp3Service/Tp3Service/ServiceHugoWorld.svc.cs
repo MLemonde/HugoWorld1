@@ -291,13 +291,16 @@ namespace Tp3Service
 
         List<Monde> IMondeController.GetListMonde()
         {
-            return context.Mondes
-                .Include("Classes")
-                .Include("Heroes")
-                .Include("Items")
-                .Include("Monstres")
-                .Include("ObjetMondes")
-                .ToList();
+            lock (context.Mondes)
+            {
+                return context.Mondes
+                    .Include("Classes")
+                    .Include("Heroes")
+                    .Include("Items")
+                    .Include("Monstres")
+                    .Include("ObjetMondes")
+                    .ToList(); 
+            }
         }
         #endregion
 

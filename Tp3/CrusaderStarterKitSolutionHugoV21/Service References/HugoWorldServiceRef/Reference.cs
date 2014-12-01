@@ -15,7 +15,7 @@ namespace HugoWorldServiceRef {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Classe", Namespace="http://schemas.datacontract.org/2004/07/Tp3Service")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Classe", Namespace="http://schemas.datacontract.org/2004/07/Tp3Service", IsReference=true)]
     [System.SerializableAttribute()]
     public partial class Classe : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -377,7 +377,7 @@ namespace HugoWorldServiceRef {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Hero", Namespace="http://schemas.datacontract.org/2004/07/Tp3Service")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Hero", Namespace="http://schemas.datacontract.org/2004/07/Tp3Service", IsReference=true)]
     [System.SerializableAttribute()]
     public partial class Hero : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
