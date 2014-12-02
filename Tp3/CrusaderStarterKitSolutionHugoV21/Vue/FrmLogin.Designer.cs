@@ -49,7 +49,6 @@
             // 
             // btnFermer
             // 
-            this.btnFermer.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnFermer.Location = new System.Drawing.Point(213, 97);
             this.btnFermer.Name = "btnFermer";
             this.btnFermer.Size = new System.Drawing.Size(92, 23);
@@ -102,7 +101,7 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Pour ouvrir l\'application, vous devez d\'abord vous authentifier";
             // 
-            // FrmLogin
+            // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -116,7 +115,7 @@
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FrmLogin";
+            this.Name = "frmLogin";
             this.ShowIcon = false;
             this.Text = "Login";
             this.ResumeLayout(false);
