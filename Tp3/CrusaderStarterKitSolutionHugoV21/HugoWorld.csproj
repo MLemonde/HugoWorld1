@@ -84,6 +84,12 @@
     </Compile>
     <Compile Include="GameObject.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="Vue\frmClass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vue\frmClass.Designer.cs">
+      <DependentUpon>frmClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vue\frmManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     <EmbeddedResource Include="Vue\Crusader.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Crusader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vue\frmClass.resx">
+      <DependentUpon>frmClass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vue\frmManage.resx">
       <DependentUpon>frmManage.cs</DependentUpon>

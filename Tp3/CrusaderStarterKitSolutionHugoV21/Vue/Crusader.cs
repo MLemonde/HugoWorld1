@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using HugoWorldServiceRef;
-
+using Vue;
 namespace HugoWorld
 {
     public partial class HugoWorld : Form
@@ -17,25 +17,12 @@ namespace HugoWorld
         private long _frameCounter;
         private GameState _gameState;
 
-
-
         public HugoWorld()
         {
-            //// Login
-            Vue.frmLogin login = new Vue.frmLogin();
-            login.ShowDialog();
-            if (login.DialogResult != System.Windows.Forms.DialogResult.OK)
-                Application.Exit();
-
-            Vue.frmManage manageHeroes = new Vue.frmManage();
-            manageHeroes.ShowDialog();
-
-            Vue.FrmCreateHeros createHeroes = new Vue.FrmCreateHeros();
-            createHeroes.ShowDialog();
-
+            
             // TEMPORARY
             // kill app NOW
-            Process.GetCurrentProcess().Kill();
+            //Process.GetCurrentProcess().Kill();
 
             //Setup the form
             InitializeComponent();

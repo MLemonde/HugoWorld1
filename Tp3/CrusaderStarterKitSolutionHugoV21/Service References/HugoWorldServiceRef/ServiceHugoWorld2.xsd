@@ -65,6 +65,8 @@
       <xs:element minOccurs="0" name="Prenom" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TypeUtilisateur" type="xs:int" />
     </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="CompteJoueur" nillable="true" type="tns:CompteJoueur" />
   <xs:complexType name="ArrayOfItem">
@@ -94,6 +96,8 @@
       <xs:element minOccurs="0" name="x" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="y" nillable="true" type="xs:int" />
     </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="Item" nillable="true" type="tns:Item" />
   <xs:complexType name="ArrayOfEffetItem">
@@ -110,6 +114,8 @@
       <xs:element minOccurs="0" name="TypeEffet" type="xs:int" />
       <xs:element minOccurs="0" name="ValeurEffet" type="xs:int" />
     </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="EffetItem" nillable="true" type="tns:EffetItem" />
   <xs:complexType name="Monde">
@@ -147,6 +153,8 @@
       <xs:element minOccurs="0" name="x" type="xs:int" />
       <xs:element minOccurs="0" name="y" type="xs:int" />
     </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="Monstre" nillable="true" type="tns:Monstre" />
   <xs:complexType name="ArrayOfObjetMonde">
@@ -165,6 +173,8 @@
       <xs:element minOccurs="0" name="x" type="xs:int" />
       <xs:element minOccurs="0" name="y" type="xs:int" />
     </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="ObjetMonde" nillable="true" type="tns:ObjetMonde" />
   <xs:complexType name="ArrayOfMonde">

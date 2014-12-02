@@ -133,6 +133,12 @@
   <wsdl:message name="ICompteJoueurController_ValidateAdmin_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateAdminResponse" />
   </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_ValidateAdmin2_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateAdmin2" />
+  </wsdl:message>
+  <wsdl:message name="ICompteJoueurController_ValidateAdmin2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateAdmin2Response" />
+  </wsdl:message>
   <wsdl:message name="IHeroController_CreateHero_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateHero" />
   </wsdl:message>
@@ -335,6 +341,10 @@
     <wsdl:operation name="ValidateAdmin">
       <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidateAdmin" message="tns:ICompteJoueurController_ValidateAdmin_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidateAdminResponse" message="tns:ICompteJoueurController_ValidateAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateAdmin2">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidateAdmin2" message="tns:ICompteJoueurController_ValidateAdmin2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICompteJoueurController/ValidateAdmin2Response" message="tns:ICompteJoueurController_ValidateAdmin2_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IHeroController">
@@ -615,6 +625,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidateAdmin">
       <soap:operation soapAction="http://tempuri.org/ICompteJoueurController/ValidateAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateAdmin2">
+      <soap:operation soapAction="http://tempuri.org/ICompteJoueurController/ValidateAdmin2" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -13,36 +13,54 @@ namespace Vue
 {
     public partial class frmManage : Form
     {
-        HeroControllerClient _Heros = new HeroControllerClient();
-
-        #region methods
-        private void populateDataGridView()
-        {
-
-            List<Hero> lstHeros = new List<Hero>();
-            foreach (var item in _Heros.GetListHero(HugoWorld.Data.userID))
-            {
-                dtgridViewHeros.Rows.Add(item.Classe.Description, item.Monde.Description, item.Niveau, item.Experience);
-
-            }
-
-            //dtgridViewHeros.DataSource = lstHeros;
-        }
-        #endregion
-
         public frmManage()
         {
             InitializeComponent();
 
-            populateDataGridView();
+            refreshDataGridView();
+
+            //si le user est Admin!
+            //il peut manage les classes
+            if (HugoWorld.Data.CompteJoueurController.ValidateAdmin2(HugoWorld.Data.UserId))
+                btnEditClass.Visible = true;
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            Vue.FrmCreateHeros createHeroes = new Vue.FrmCreateHeros();
-            createHeroes.ShowDialog();
+            if (new Vue.FrmCreateHeros().ShowDialog() == DialogResult.OK)
+                refreshDataGridView();
         }
 
+        private void refreshDataGridView()
+        {
+            dtgridViewHeros.Rows.Clear();
 
+            List<Hero> lstHeros = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId);
+            foreach (var item in lstHeros)
+                dtgridViewHeros.Rows.Add(item.Classe.Description, item.Monde.Description, item.Niveau, item.Experience, item.Id);
+        }
+
+        private void btnEditClass_Click(object sender, EventArgs e)
+        {
+            new frmClass().ShowDialog(this);
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            if (dtgridViewHeros.SelectedRows.Count == 1)
+            {
+                HugoWorld.Data.CurrentHeroId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[4].Value.ToString());
+                DialogResult = DialogResult.OK;
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dtgridViewHeros.SelectedRows.Count == 1)
+            {
+                HugoWorld.Data.HeroController.DeleteHero(int.Parse(dtgridViewHeros.SelectedRows[0].Cells[4].Value.ToString()));
+                refreshDataGridView();
+            }
+        }
     }
 }

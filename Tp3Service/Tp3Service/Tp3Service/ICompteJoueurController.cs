@@ -86,5 +86,8 @@ namespace Tp3Service
         /// <returns></returns>
         [OperationContract]
         bool ValidateAdmin(string sUsername, string sPassword);
+        
+        [OperationContract]
+        bool ValidateAdmin2(int userId);
     }
 }

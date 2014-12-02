@@ -13,6 +13,8 @@ namespace Vue
 {
     public partial class frmLogin : Form
     {
+        bool _bEnterPressed = false;
+
         public frmLogin()
         {
             InitializeComponent();
@@ -37,50 +39,30 @@ namespace Vue
         /// <param name="e"></param>
         private void btnFermer_Click(object sender, EventArgs e)
         {
-            switch (MessageBox.Show(this, "Voulez-vous vraiment quitter?", "Fermer?", MessageBoxButtons.YesNo))
-            {
-                case DialogResult.No:
-                    break;
-                case DialogResult.Yes:
-                    this.Dispose();
-                    break;
-                default:
-                    break;
-            }
+            if (MessageBox.Show(this, "Voulez-vous vraiment quitter?", "Fermer?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                DialogResult = DialogResult.Abort;
         }
 
         private void txtPassword_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && !_bEnterPressed)
             {
                 tryToConnect();
+                _bEnterPressed = true;
             }
+            else
+                _bEnterPressed = false;
         }
-
-        #region methods
 
         private void tryToConnect()
         {
-            CompteJoueurControllerClient s = new CompteJoueurControllerClient();
-
-            if (s.ValidatePlayer(txtUserName.Text, txtPassword.Text))
+            if (HugoWorld.Data.CompteJoueurController.ValidatePlayer(txtUserName.Text, txtPassword.Text))
             {
-
-                HugoWorld.Data.userID = s.GetUserID(txtUserName.Text).Value;
-
+                HugoWorld.Data.UserId = HugoWorld.Data.CompteJoueurController.GetUserID(txtUserName.Text).Value;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
-                this.Close();
-
             }
             else
-            {
-                MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.",
-                "Erreur",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Exclamation,
-                MessageBoxDefaultButton.Button1);
-            }
+                MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
         }
-        #endregion
     }
 }

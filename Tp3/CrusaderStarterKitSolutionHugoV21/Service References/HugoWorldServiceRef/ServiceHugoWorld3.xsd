@@ -308,6 +308,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ValidateAdmin2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidateAdmin2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidateAdmin2Result" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="CreateHero">
     <xs:complexType>
       <xs:sequence>

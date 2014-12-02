@@ -457,6 +457,13 @@ namespace Tp3Service
 
             return false;
         }
+
+        bool ICompteJoueurController.ValidateAdmin2(int userId)
+        {
+            CompteJoueur Account = context.CompteJoueurs.FirstOrNull(c => c.Id == userId);
+            
+            return Account != null && Account.TypeUtilisateur == 1;
+        }
         #endregion
 
         #region Hero

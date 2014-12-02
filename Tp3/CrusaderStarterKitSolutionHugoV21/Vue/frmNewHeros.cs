@@ -14,35 +14,26 @@ namespace Vue
 {
     public partial class FrmCreateHeros : Form
     {
-        MondeControllerClient _mondes = new MondeControllerClient();
-        ClasseControllerClient _classes = new ClasseControllerClient();
-        HeroControllerClient _Heros = new HeroControllerClient();
-
-
         public FrmCreateHeros()
         {
             InitializeComponent();
             cmbWorld.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbClass.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            List<String> lstMonde = new List<String>();
-            foreach (var item in _mondes.GetListMonde())
-            {
-                lstMonde.Add(item.Description);
-            }
-            cmbWorld.DataSource = lstMonde;
+            List<string> lstMondeString = new List<string>();
+            List<Monde> lstMondes = HugoWorld.Data.MondeController.GetListMonde();
+            foreach (Monde monde in lstMondes)
+                lstMondeString.Add(monde.Description);
+            cmbWorld.DataSource = lstMondeString;
         }
 
         private void cmbWorld_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get current world ID to get the associated classes
-            HugoWorld.Data.worldID = _mondes.GetWorldID(cmbWorld.SelectedItem.ToString()).Value;
+            HugoWorld.Data.WorldId = HugoWorld.Data.MondeController.GetWorldID(cmbWorld.SelectedItem.ToString()).Value;
 
-            RefreshClasses(HugoWorld.Data.worldID);
+            RefreshClasses(HugoWorld.Data.WorldId);
         }
-
-
-        #region methods
 
         /// <summary>
         /// Auteur : Marc-André Landry
@@ -59,7 +50,8 @@ namespace Vue
                 cmbClass.Items.Clear();
 
             List<string> lstClass = new List<string>();
-            foreach (var item in _classes.GetListClasses(HugoWorld.Data.worldID))
+            List<Classe> classes = HugoWorld.Data.ClassController.GetListClasses(HugoWorld.Data.WorldId);
+            foreach (var item in classes)
             {
                 lstClass.Add(item.NomClasse);
                 cmbClass.Items.Add(item.NomClasse);
@@ -92,28 +84,23 @@ namespace Vue
             txtIntelligence.Text = intelligence.ToString();
         }
 
-        #endregion
-
         private void cmbClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(cmbClass.Items.Count >= 0)
-                txtDescrptionClasse.Text = _classes.GetClassDescription(cmbClass.SelectedItem.ToString());
+                txtDescrptionClasse.Text = HugoWorld.Data.ClassController.GetClassDescription(cmbClass.SelectedItem.ToString());
 
-            HugoWorld.Data.ClassID = _classes.GetClassID(cmbClass.SelectedItem.ToString()).Value;
+            HugoWorld.Data.ClassId = HugoWorld.Data.ClassController.GetClassID(cmbClass.SelectedItem.ToString()).Value;
 
             GetRandomStats();
         }
 
         private void btnCreer_Click(object sender, EventArgs e)
         {
-            //_Heros.CreateHero(HugoWorld.Data.worldID, HugoWorld.Data.userID, HugoWorld.Data.ClassID, 0, 0, 0,
-            //    int.Parse(txtDex.Text), int.Parse(txtStr.Text), int.Parse(txtStamina.Text), int.Parse(txtIntelligence.Text), 0, 150);
-
-            // Create an hero for malandry
-            _Heros.CreateHero(HugoWorld.Data.worldID, 23, HugoWorld.Data.ClassID, 0, 0, 0,
+            // Create an hero for connected user.
+            HugoWorld.Data.HeroController.CreateHero(HugoWorld.Data.WorldId, HugoWorld.Data.UserId, HugoWorld.Data.ClassId, 0, 0, 0,
                 int.Parse(txtDex.Text), int.Parse(txtStr.Text), int.Parse(txtStamina.Text), int.Parse(txtIntelligence.Text), 0, 150);
 
-            this.Close();
+            DialogResult = DialogResult.OK;
         }
 
         private void btnRegenerateStats_Click(object sender, EventArgs e)
