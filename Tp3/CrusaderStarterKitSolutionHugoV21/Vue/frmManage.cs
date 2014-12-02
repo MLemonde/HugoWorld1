@@ -48,9 +48,10 @@ namespace Vue
         private void btnPlay_Click(object sender, EventArgs e)
         {
             if (dtgridViewHeros.SelectedRows.Count == 1)
-            {
-                HugoWorld.Data.CurrentHeroId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[4].Value.ToString());
                 DialogResult = DialogResult.OK;
+            else
+            {
+                MessageBox.Show("Veuillez créer au moins un héro");
             }
         }
 
@@ -60,6 +61,23 @@ namespace Vue
             {
                 HugoWorld.Data.HeroController.DeleteHero(int.Parse(dtgridViewHeros.SelectedRows[0].Cells[4].Value.ToString()));
                 refreshDataGridView();
+            }
+        }
+
+        private void dtgridViewHeros_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dtgridViewHeros.SelectedRows.Count == 1)
+            {
+                HugoWorld.Data.CurrentHeroId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[4].Value.ToString());
+                Hero hero = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId).FirstOrDefault(h => h.Id == HugoWorld.Data.CurrentHeroId);
+                if (hero != default(Hero))
+                {
+                    txtStr.Text = hero.StatBaseStr.ToString();
+                    txtDex.Text = hero.StatBaseDex.ToString();
+                    txtIntelligence.Text = hero.StatBaseInt.ToString();
+                    txtMoney.Text = hero.Argent.ToString();
+                    txtStamina.Text = hero.StatBaseStam.ToString();
+                }
             }
         }
     }

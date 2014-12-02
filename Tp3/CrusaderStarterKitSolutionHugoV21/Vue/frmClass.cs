@@ -107,7 +107,13 @@ namespace Vue
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            if (new frmNewClass(GetMondeId()).ShowDialog() == DialogResult.OK)
+                refreshDGV();
+        }
 
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
         }
     }
 }

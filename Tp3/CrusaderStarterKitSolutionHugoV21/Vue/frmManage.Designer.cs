@@ -226,6 +226,7 @@
             this.dtgridViewHeros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgridViewHeros.Size = new System.Drawing.Size(323, 189);
             this.dtgridViewHeros.TabIndex = 36;
+            this.dtgridViewHeros.SelectionChanged += new System.EventHandler(this.dtgridViewHeros_SelectionChanged);
             // 
             // label4
             // 
