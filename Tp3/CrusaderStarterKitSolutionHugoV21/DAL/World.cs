@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using HugoWorldServiceRef;
 
 namespace HugoWorld
 {
@@ -24,54 +26,88 @@ namespace HugoWorld
 
     public class World : GameObject
     {
-        private const string _startArea = "start";
-
+        private const string _startArea = "0,0";
+        private int _heroid = 0;
+        private string _heroClasse;
         private Dictionary<string, Area> _world = new Dictionary<string, Area>();
+        private HugoWorldServiceRef.Hero _currentHero;
         private Area _currentArea;
         private Dictionary<string, Tile> _tiles;
         private Point _heroPosition;
         private Sprite _heroSprite;
         private bool _heroSpriteAnimating;
         private bool _heroSpriteFighting;
-        private double _startFightTime = -1.0;
         private PointF _heroDestination;
         private HeroDirection _direction;
+        private Monde _currentWorld;
         private GameState _gameState;
         private List<textPopup> _popups = new List<textPopup>();
-
+        HeroControllerClient HeroClient = new HeroControllerClient();
         private static Font _font = new Font("Arial", 18);
         private static Brush _whiteBrush = new SolidBrush(Color.White);
         private static Brush _blackBrush = new SolidBrush(Color.Red);
         private static Random _random = new Random();
 
-        public World(GameState gameState, Dictionary<string, Tile> tiles, string mapFile)
+        public World(GameState gameState, Dictionary<string, Tile> tiles, int mondeid)
         {
             _gameState = gameState;
             _tiles = tiles;
-
+            Classe currentclasse = Data.ClassController.GetListClasses(Data.WorldId).First(c=> c.Id == Data.ClassId);
+            _currentHero = Data.HeroController.GetListHero(Data.UserId).First(c => c.Id == Data.CurrentHeroId);
+            _heroClasse = currentclasse.Description;
             //Read in the map file
-            readMapfile(mapFile);
+            CreerAreaDic(mondeid);
+
+
+            //DEPENDING POS TODO
 
             //Find the start point
-            _currentArea = _world[_startArea];
+            _heroid = _currentHero.Id;
+
+            int xarea = _currentHero.x / 8;
+            int yarea = _currentHero.y / 8;
+
+            _currentArea = _world[xarea.ToString() + "," + yarea.ToString()];
+
 
             //Create and position the hero character
             _heroPosition = new Point(3, 3);
+
+
+            _heroPosition.X = _currentHero.x % 8;
+            _heroPosition.Y = _currentHero.y % 8;
+
+
+
+
             _heroSprite = new Sprite(null, _heroPosition.X * Tile.TileSizeX + Area.AreaOffsetX,
                                             _heroPosition.Y * Tile.TileSizeY + Area.AreaOffsetY,
-                                            _tiles["her"].Bitmap, _tiles["her"].Rectangle, _tiles["her"].NumberOfFrames);
+                                            _tiles[_heroClasse].Bitmap, _tiles[_heroClasse].Rectangle, _tiles[_heroClasse].NumberOfFrames);
+
+            
+
+            _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y, "George le magicien"));
+
             _heroSprite.Flip = true;
             _heroSprite.ColorKey = Color.FromArgb(75, 75, 75);
         }
 
-        private void readMapfile(string mapFile)
+        private void CreerAreaDic(int mapid)
         {
-            using (StreamReader stream = new StreamReader(mapFile))
+            MondeControllerClient client = new MondeControllerClient();
+            List<Monde> lstmonde = client.GetListMonde();
+            _currentWorld = lstmonde.FirstOrDefault(c => c.Id == mapid);
+            if (_currentWorld == null)
+                return;
+            int Mondex = int.Parse(_currentWorld.LimiteX) / 8;
+            int Mondey = int.Parse(_currentWorld.LimiteY) / 8;
+
+            for (int x = 0; x < Mondex; x++)
             {
-                while (!stream.EndOfStream)
+
+                for (int y = 0; y < Mondey; y++)
                 {
-                    //Each area constructor will consume just one area
-                    Area area = new Area(stream, _tiles);
+                    Area area = new Area(mapid, x, y, _tiles);
                     _world.Add(area.Name, area);
                 }
             }
@@ -81,9 +117,9 @@ namespace HugoWorld
         public override void Update(double gameTime, double elapsedTime)
         {
             //We only actually update the current area the rest all 'sleep'
-            _currentArea.Update(gameTime, elapsedTime);
+            _currentArea.Update(gameTime, elapsedTime*5);
 
-            _heroSprite.Update(gameTime, elapsedTime);
+            _heroSprite.Update(gameTime, elapsedTime *5);
 
             //If the hero is moving we need to check if we are there yet
             if (_heroSpriteAnimating)
@@ -101,76 +137,100 @@ namespace HugoWorld
             }
 
             //The hero gets animated when moving or fighting
-            if (_heroSpriteAnimating || _heroSpriteFighting)
-                _heroSprite.CurrentFrame = (int)((gameTime * 8.0) % _heroSprite.NumberOfFrames);
-            else
-            {
-                //Otherwise use frame 0
-                _heroSprite.CurrentFrame = 0;
-            }
 
-            //If we are fighting then keep animating for a period of time
-            if (_heroSpriteFighting)
-            {
-                if (_startFightTime < 0)
-                    _startFightTime = gameTime;
-                else
-                {
-                    if (gameTime - _startFightTime > 1.0)
-                        _heroSpriteFighting = false;
-                }
-            }
+            _heroSprite.CurrentFrame = 0;
+
+
+
+
         }
 
         private void checkObjects()
         {
+            bool pickedup = false;
             Tile objectTile = _currentArea.Map[_heroPosition.X, _heroPosition.Y].ObjectTile;
-            if (objectTile == null) 
+            if (objectTile == null)
                 return;
-            switch (objectTile.Category)
+            switch (objectTile.Name)
             {
                 //Most objects change your stats in some way.
-                case "armour":
+                case "Armor":
                     _gameState.Armour++;
                     Sounds.Pickup();
+                    pickedup = true;
                     break;
 
-                case "attack":
+                case "Dagger":
                     _gameState.Attack++;
+                    Sounds.Pickup();
+                    pickedup = true;
+                    break;
+
+                case "Sword":
+                    _gameState.Attack++;
+                    Sounds.Pickup();
+                    pickedup = true;
+                    break;
+
+                case "SpikedMace":
+                    _gameState.Attack++;
+                    Sounds.Pickup();
+                    pickedup = true;
+                    break;
+
+                case "Axe":
+                    _gameState.Attack++;
+                    pickedup = true;
                     Sounds.Pickup();
                     break;
 
-                case "food":
+                case "Heart":
                     _gameState.Health += 10;
+                    pickedup = true;
                     Sounds.Eat();
                     break;
 
-                case "treasure":
+                case "Food":
+                    _gameState.Health += 10;
+                    pickedup = true;
+                    Sounds.Eat();
+                    break;
+
+                case "GoldPile":
                     _gameState.Treasure += 5;
+                    pickedup = true;
                     Sounds.Pickup();
                     break;
 
-                case "potion":
+                case "GoldBag":
+                    _gameState.Treasure += 5;
+                    pickedup = true;
+                    Sounds.Pickup();
+                    break;
+
+                case "Potion":
                     _gameState.Potions++;
+                    pickedup = true;
                     Sounds.Pickup();
                     break;
 
-                case "key":
-                    if (objectTile.Color == "brown") _gameState.HasBrownKey = true;
-                    if (objectTile.Color == "green") _gameState.HasGreenKey = true;
-                    if (objectTile.Color == "red") _gameState.HasRedKey = true;
+                case "Key":
+                    _gameState.HasRedKey = true;
+                    pickedup = true;
                     Sounds.Pickup();
                     break;
 
-                case "fire":
-                    _gameState.Health -= 2;
-                    break;
+
             }
             //Remove the object unless its bones or fire
-            if (objectTile.Category != "fire" && objectTile.Category != "bones" && objectTile.Category != "character")
+            if (pickedup)
             {
                 _currentArea.Map[_heroPosition.X, _heroPosition.Y].ObjectTile = null;
+                _currentArea.Map[_heroPosition.X, _heroPosition.Y].Sprite = null;
                 _currentArea.Map[_heroPosition.X, _heroPosition.Y].ObjectSprite = null;
+
+                _currentArea.Map[_heroPosition.X, _heroPosition.Y].Sprite = _currentArea.MapItem[_heroPosition.X, _heroPosition.Y].Sprite;
+                //  _currentArea.Update(0,0);
             }
         }
 
@@ -198,8 +258,7 @@ namespace HugoWorld
             _heroSprite.Draw(graphics);
 
             //If we are fighting then draw the damage
-            if (_heroSpriteFighting)
-            {
+            
                 foreach (textPopup popup in _popups)
                 {
                     //Draw 4 text offsets to get an outline
@@ -211,7 +270,7 @@ namespace HugoWorld
                     //Draw the actual text
                     graphics.DrawString(popup.Text, _font, _blackBrush, popup.X, popup.Y);
                 }
-            }
+            
 
         }
 
@@ -221,8 +280,9 @@ namespace HugoWorld
         /// <param name="key"></param>
         public void KeyDown(Keys key)
         {
+            _popups.Clear();
             //Ignore keypresses while we are animating or fighting
-            if (!_heroSpriteAnimating && !_heroSpriteFighting)
+            if (!_heroSpriteAnimating)
             {
                 switch (key)
                 {
@@ -233,21 +293,29 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X + 1, _heroPosition.Y], _heroPosition.X + 1, _heroPosition.Y))
                             {
+
                                 _heroSprite.Velocity = new PointF(100, 0);
-                                _heroSprite.Flip = true;
+                                _heroSprite.Flip = false ;
                                 _heroSpriteAnimating = true;
                                 _direction = HeroDirection.Right;
                                 _heroPosition.X++;
                                 setDestination();
+                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X +100, (int)_heroSprite.Location.Y ,"George le magicien"));
+
                             }
                         }
                         else if (_currentArea.EastArea != "-")
                         {
-                            //Edge of map - move to next area
-                            _currentArea = _world[_currentArea.EastArea];
-                            _heroPosition.X = 0;
-                            setDestination();
-                            _heroSprite.Location = _heroDestination;
+                            if (checkNextTile(_world[_currentArea.EastArea].Map[7, _heroPosition.Y], 7, _heroPosition.Y))
+                            {
+                                //Edge of map - move to next area
+                                _currentArea = _world[_currentArea.EastArea];
+                                _heroPosition.X = 0;
+                                setDestination();
+                                _heroSprite.Location = _heroDestination;
+                                //HeroClient.EditHero
+                            }
                         }
                         break;
 
@@ -258,20 +326,28 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X - 1, _heroPosition.Y], _heroPosition.X - 1, _heroPosition.Y))
                             {
+
                                 _heroSprite.Velocity = new PointF(-100, 0);
-                                _heroSprite.Flip = false;
+                                _heroSprite.Flip = true;
                                 _heroSpriteAnimating = true;
                                 _direction = HeroDirection.Left;
                                 _heroPosition.X--;
                                 setDestination();
+                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y , _currentArea.Name);
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X -100, (int)_heroSprite.Location.Y, "George le magicien"));
+
+
                             }
                         }
                         else if (_currentArea.WestArea != "-")
                         {
-                            _currentArea = _world[_currentArea.WestArea];
-                            _heroPosition.X = Area.MapSizeX - 1;
-                            setDestination();
-                            _heroSprite.Location = _heroDestination;
+                            if (checkNextTile(_world[_currentArea.WestArea].Map[7, _heroPosition.Y], 7, _heroPosition.Y))
+                            {
+                                _currentArea = _world[_currentArea.WestArea];
+                                _heroPosition.X = Area.MapSizeX - 1;
+                                setDestination();
+                                _heroSprite.Location = _heroDestination;
+                            }
                         }
                         break;
 
@@ -287,15 +363,23 @@ namespace HugoWorld
                                 _direction = HeroDirection.Up;
                                 _heroPosition.Y--;
                                 setDestination();
+                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y - 100, "George le magicien"));
+                                
+
                             }
                         }
                         else if (_currentArea.NorthArea != "-")
                         {
-                            //Edge of map - move to next area
-                            _currentArea = _world[_currentArea.NorthArea];
-                            _heroPosition.Y = Area.MapSizeY - 1;
-                            setDestination();
-                            _heroSprite.Location = _heroDestination;
+                            if (checkNextTile(_world[_currentArea.NorthArea].Map[_heroPosition.X, 7], _heroPosition.X, 7))
+                            {
+                                //Edge of map - move to next area
+                                _currentArea = _world[_currentArea.NorthArea];
+                                _heroPosition.Y = Area.MapSizeY - 1;
+                                setDestination();
+                                _heroSprite.Location = _heroDestination;
+
+                            }
                         }
                         break;
 
@@ -303,6 +387,7 @@ namespace HugoWorld
                         //Are we at the edge of the map?
                         if (_heroPosition.Y < Area.MapSizeY - 1)
                         {
+
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X, _heroPosition.Y + 1], _heroPosition.X, _heroPosition.Y + 1))
                             {
@@ -311,15 +396,22 @@ namespace HugoWorld
                                 _direction = HeroDirection.Down;
                                 _heroPosition.Y++;
                                 setDestination();
+                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y +100, "George le magicien"));
+
+
                             }
                         }
                         else if (_currentArea.SouthArea != "-")
                         {
-                            //Edge of map - move to next area
-                            _currentArea = _world[_currentArea.SouthArea];
-                            _heroPosition.Y = 0;
-                            setDestination();
-                            _heroSprite.Location = _heroDestination;
+                            if (checkNextTile(_world[_currentArea.SouthArea].Map[_heroPosition.X, 0], _heroPosition.X, 0))
+                            {
+                                //Edge of map - move to next area
+                                _currentArea = _world[_currentArea.SouthArea];
+                                _heroPosition.Y = 0;
+                                setDestination();
+                                _heroSprite.Location = _heroDestination;
+                            }
                         }
                         break;
 
@@ -332,7 +424,7 @@ namespace HugoWorld
                             _gameState.Potions--;
 
                             _heroSpriteFighting = true;
-                            _startFightTime = -1;
+
 
                             //All monsters on the screen take maximum damage
                             _popups.Clear();
@@ -368,7 +460,7 @@ namespace HugoWorld
             //See if there is character to fight
             if (mapTile.ObjectTile != null && mapTile.ObjectTile.Category == "character")
             {
-                if (mapTile.ObjectTile.Shortcut == "pri")
+                if (mapTile.ObjectTile.Name == "Princess")
                 {
                     //Game is won
                     Sounds.Kiss();
@@ -379,7 +471,7 @@ namespace HugoWorld
                 Sounds.Fight();
 
                 _heroSpriteFighting = true;
-                _startFightTime = -1;
+
 
                 int heroDamage = 0;
                 //A monsters attack ability is 1/2 their max health. Compare that to your armour
@@ -394,9 +486,9 @@ namespace HugoWorld
                     if (_gameState.Health <= 0)
                     {
                         _gameState.Health = 0;
-                        _heroSprite = new Sprite(null, _heroPosition.X * Tile.TileSizeX + Area.AreaOffsetX,
-                                _heroPosition.Y * Tile.TileSizeY + Area.AreaOffsetY,
-                                _tiles["bon"].Bitmap, _tiles["bon"].Rectangle, _tiles["bon"].NumberOfFrames);
+                        //_heroSprite = new Sprite(null, _heroPosition.X * Tile.TileSizeX + Area.AreaOffsetX,
+                        //        _heroPosition.Y * Tile.TileSizeY + Area.AreaOffsetY,
+                        //        _tiles["bon"].Bitmap, _tiles["bon"].Rectangle, _tiles["bon"].NumberOfFrames);
                         _heroSprite.ColorKey = Color.FromArgb(75, 75, 75);
                     }
 
@@ -404,6 +496,8 @@ namespace HugoWorld
                 //Hero
                 _popups.Clear();
                 _popups.Add(new textPopup((int)_heroSprite.Location.X + 40, (int)_heroSprite.Location.Y + 20, (heroDamage != 0) ? heroDamage.ToString() : "miss"));
+                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y, "George le magicien"));
+
 
                 //A monsters armour is 1/5 of their max health
                 if (_random.Next(_gameState.Attack + 1) >= (mapTile.ObjectTile.Health / 5))
@@ -451,7 +545,10 @@ namespace HugoWorld
                 _gameState.Experience += mapTile.ObjectTile.Health;
 
                 //Remove the monster and replace with bones
-                mapTile.ObjectTile = _tiles["bon"];
+
+
+                mapTile.ObjectTile = _currentArea.MapItem[x, y].Tile;
+                //mapTile.Tile = null;
                 mapTile.SetObjectSprite(x, y);
                 returnValue = true; //monster is dead
             }
@@ -466,29 +563,17 @@ namespace HugoWorld
         private void checkDoors(MapTile mapTile, int x, int y)
         {
             //If the next tile is a closed door then check if we have the key
-            if (mapTile.Tile.Category == "door" && mapTile.Tile.IsBlock)
+            if (mapTile.Tile.Name == "DoorClosed" && mapTile.Tile.IsBlock)
             {
                 //For each key if it matches then open the door by switching the sprite & sprite to its matching open version
-                if (mapTile.Tile.Color == "brown" && _gameState.HasBrownKey)
+                if (_gameState.HasRedKey)
                 {
                     //Open the door
-                    mapTile.Tile = _tiles["E"];
+                    mapTile.Tile = _tiles["DoorOpen"];
                     mapTile.SetSprite(x, y);
                 }
 
-                if (mapTile.Tile.Color == "red" && _gameState.HasRedKey)
-                {
-                    //Open the door
-                    mapTile.Tile = _tiles["I"];
-                    mapTile.SetSprite(x, y);
-                }
 
-                if (mapTile.Tile.Color == "green" && _gameState.HasGreenKey)
-                {
-                    //Open the door
-                    mapTile.Tile = _tiles["G"];
-                    mapTile.SetSprite(x, y);
-                }
             }
         }
 

@@ -51,3 +51,4 @@ C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\bin\Debug\EntityFram
 C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.csprojResolveAssemblyReference.cache
 C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.exe
 C:\Users\asus\Documents\GitHub\HugoWorld1\HugoLand\HugoLand\obj\Debug\HugoLand.pdb
+I:\Session5\BD\Tp3\HugoWorld1-TileSetChange\HugoLand\HugoLand\bin\Debug\HugoLand.exe.config

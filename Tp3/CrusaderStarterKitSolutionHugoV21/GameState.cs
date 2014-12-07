@@ -51,23 +51,21 @@ namespace HugoWorld
 
             //Create the sprites for the UI
             int y = 50;
-            _experienceSprite = new Sprite(this, 580, y, _tiles["Arrow"].Bitmap, _tiles["Arrow"].Rectangle, _tiles["Arrow"].NumberOfFrames);
+            Bitmap expsprite = _tiles["Arrrow"].Bitmap;
+            expsprite.MakeTransparent(Color.FromArgb(255, 0, 255));
+            _experienceSprite = new Sprite(this, 880, y, expsprite, _tiles["Arrow"].Rectangle, _tiles["Arrow"].NumberOfFrames);
             _experienceSprite.ColorKey = Color.FromArgb(75, 75, 75);
-            _healthSprite = new Sprite(this, 580, y += 74, _tiles["Heart"].Bitmap, _tiles["Heart"].Rectangle, _tiles["Heart"].NumberOfFrames);
+            _healthSprite = new Sprite(this, 880, y += 74, _tiles["Heart"].Bitmap, _tiles["Heart"].Rectangle, _tiles["Heart"].NumberOfFrames);
             _healthSprite.ColorKey = Color.FromArgb(75, 75, 75);
-            _attackSprite = new Sprite(this, 580, y += 74, _tiles["Sword"].Bitmap, _tiles["Sword"].Rectangle, _tiles["Sword"].NumberOfFrames);
+            _attackSprite = new Sprite(this, 880, y += 74, _tiles["Sword"].Bitmap, _tiles["Sword"].Rectangle, _tiles["Sword"].NumberOfFrames);
             _attackSprite.ColorKey = Color.FromArgb(75, 75, 75);
-            _armourSprite = new Sprite(this, 580, y += 74, _tiles["Shield"].Bitmap, _tiles["Shield"].Rectangle, _tiles["Shield"].NumberOfFrames);
+            _armourSprite = new Sprite(this, 880, y += 74, _tiles["Shield"].Bitmap, _tiles["Shield"].Rectangle, _tiles["Shield"].NumberOfFrames);
             _armourSprite.ColorKey = Color.FromArgb(75, 75, 75);
-            _treasureSprite = new Sprite(this, 580, y += 74, _tiles["Gem"].Bitmap, _tiles["Gem"].Rectangle, _tiles["Gem"].NumberOfFrames);
+            _treasureSprite = new Sprite(this, 880, y += 74, _tiles["Gem"].Bitmap, _tiles["Gem"].Rectangle, _tiles["Gem"].NumberOfFrames);
             _treasureSprite.ColorKey = Color.FromArgb(75, 75, 75);
-            _potionSprite = new Sprite(this, 580, y += 74, _tiles["Potion"].Bitmap, _tiles["Potion"].Rectangle, _tiles["Potion"].NumberOfFrames);
+            _potionSprite = new Sprite(this, 880, y += 74, _tiles["Potion"].Bitmap, _tiles["Potion"].Rectangle, _tiles["Potion"].NumberOfFrames);
             _potionSprite.ColorKey = Color.FromArgb(75, 75, 75);
-            _brownKeySprite = new Sprite(this, 580, y += 74, _tiles["Key"].Bitmap, _tiles["Key"].Rectangle, _tiles["Key"].NumberOfFrames);
-            _brownKeySprite.ColorKey = Color.FromArgb(75, 75, 75);
-            _greenKeySprite = new Sprite(this, 654, y, _tiles["Key"].Bitmap, _tiles["Key"].Rectangle, _tiles["Key"].NumberOfFrames);
-            _greenKeySprite.ColorKey = Color.FromArgb(75, 75, 75);
-            _redKeySprite = new Sprite(this, 728, y, _tiles["Key"].Bitmap, _tiles["Key"].Rectangle, _tiles["Key"].NumberOfFrames);
+            _redKeySprite = new Sprite(this, 880, y += 74, _tiles["Key"].Bitmap, _tiles["Key"].Rectangle, _tiles["Key"].NumberOfFrames);
             _redKeySprite.ColorKey = Color.FromArgb(75, 75, 75);
         }
 
@@ -109,12 +107,12 @@ namespace HugoWorld
             if (HasGreenKey) _greenKeySprite.Draw(graphics);
             if (HasRedKey) _redKeySprite.Draw(graphics);
             int y = 65;
-            graphics.DrawString(Experience.ToString(), _font, _brush, 650, y);
-            graphics.DrawString(Health.ToString(), _font, _brush, 650, y+=74);
-            graphics.DrawString(Attack.ToString(), _font, _brush, 650, y += 74);
-            graphics.DrawString(Armour.ToString(), _font, _brush, 650, y += 74);
-            graphics.DrawString(Treasure.ToString(), _font, _brush, 650, y += 74);
-            graphics.DrawString(Potions.ToString(), _font, _brush, 650, y += 74);
+            graphics.DrawString(Experience.ToString(), _font, _brush, 1000, y);
+            graphics.DrawString(Health.ToString(), _font, _brush, 1000, y += 74);
+            graphics.DrawString(Attack.ToString(), _font, _brush, 1000, y += 74);
+            graphics.DrawString(Armour.ToString(), _font, _brush, 1000, y += 74);
+            graphics.DrawString(Treasure.ToString(), _font, _brush, 1000, y += 74);
+            graphics.DrawString(Potions.ToString(), _font, _brush, 1000, y += 74);
 
             //If the game is over then display the end game message
             if (Health == 0)
@@ -143,16 +141,16 @@ namespace HugoWorld
             Sounds.Start();
 
             //Create all the main gameobjects
-            World = new World(this, _tiles, @"gamedata\map.txt");
+            World = new World(this, _tiles, Data.WorldId);
 
             //Reset the game state
             Attack = 1;
             Potions = 10;
-            Armour = 1; 
+            Armour = 1;
             Experience = 0;
             Level = 1;
             _nextUpgrade = 20;
-            Health = 100; 
+            Health = 100;
             Treasure = 0;
             GameIsWon = false;
         }

@@ -23,6 +23,7 @@ namespace Vue
             //il peut manage les classes
             if (HugoWorld.Data.CompteJoueurController.ValidateAdmin2(HugoWorld.Data.UserId))
                 btnEditClass.Visible = true;
+            
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
@@ -37,7 +38,7 @@ namespace Vue
 
             List<Hero> lstHeros = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId);
             foreach (var item in lstHeros)
-                dtgridViewHeros.Rows.Add(item.Classe.Description, item.Monde.Description, item.Niveau, item.Experience, item.Id);
+                dtgridViewHeros.Rows.Add(item.Classe.Description, item.Monde.Description, item.Niveau, item.Experience, item.Id, item.ClasseId, item.MondeId);
         }
 
         private void btnEditClass_Click(object sender, EventArgs e)
@@ -68,6 +69,8 @@ namespace Vue
         {
             if (dtgridViewHeros.SelectedRows.Count == 1)
             {
+                HugoWorld.Data.WorldId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[6].Value.ToString());
+                HugoWorld.Data.ClassId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[5].Value.ToString());
                 HugoWorld.Data.CurrentHeroId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[4].Value.ToString());
                 Hero hero = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId).FirstOrDefault(h => h.Id == HugoWorld.Data.CurrentHeroId);
                 if (hero != default(Hero))

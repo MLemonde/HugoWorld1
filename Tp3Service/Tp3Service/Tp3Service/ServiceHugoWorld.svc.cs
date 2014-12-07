@@ -86,7 +86,7 @@ namespace Tp3Service
             if (myClasse.MondeId != iMondeID)
                 return;
                 
-            myClasse.Description = sNomClasse;
+            myClasse.Description = sDescription;
             myClasse.StatPoidsStr = fStatPoidsStr;
             myClasse.StatPoidsDex = fStatPoidsDex;
             myClasse.StatPoidsInt = fStatPoidsInt;
@@ -103,11 +103,14 @@ namespace Tp3Service
         /// <returns></returns>
         List<Classe> IClasseController.GetListClasses(int mondeID)
         {
-            var Monde = context.Mondes.FirstOrNull(c => c.Id == mondeID);
-            if (Monde == null)
-                return null;
+            lock (context.Mondes)
+            {
+                var Monde = context.Mondes.FirstOrNull(c => c.Id == mondeID);
+                if (Monde == null)
+                    return null;
 
-            return Monde.Classes.ToList();            
+                return Monde.Classes.ToList();       
+            }     
         }
 
         /// <summary>
@@ -458,11 +461,11 @@ namespace Tp3Service
             return false;
         }
 
-        bool ICompteJoueurController.ValidateAdmin2(int userId)
+         bool ICompteJoueurController.ValidateAdmin2(int userId)
         {
             CompteJoueur Account = context.CompteJoueurs.FirstOrNull(c => c.Id == userId);
-            
-            return Account != null && Account.TypeUtilisateur == 1;
+
+                return Account != null && Account.TypeUtilisateur == 1;
         }
         #endregion
 
@@ -551,14 +554,32 @@ namespace Tp3Service
         /// </summary>
         List<Hero> IHeroController.GetListHero(int compteId)
         {
-            context.Configuration.LazyLoadingEnabled = false;
-            context.Configuration.ProxyCreationEnabled = false;
+            lock (context.Heroes)
+            {
+                CompteJoueur compte = context.CompteJoueurs.FirstOrNull(c => c.Id == compteId);
+                if (compte != null)
+                    return compte.Heroes.ToList();
+                else
+                    return new List<Hero>();
+            }
+        }
 
-            CompteJoueur compte = context.CompteJoueurs.FirstOrNull(c => c.Id == compteId);
-            if (compte != null)
-                return compte.Heroes.ToList();
-            else
-                return new List<Hero>();
+         void IHeroController.SetHeroPos(int HeroId, int x, int y,string area)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == HeroId);
+
+                if (hero != null)
+                {
+                    string[] lststr = area.Split(',');
+
+                    hero.x = int.Parse(lststr[0]) * 8 + x;
+                    hero.y = int.Parse(lststr[1]) * 8 + y;
+
+                    context.SaveChanges();
+                }
+            }
         }
 
         /// <summary>
@@ -897,5 +918,11 @@ namespace Tp3Service
             context.SaveChanges();
         }
         #endregion
+
+
+
+
+
+       
     }
 }

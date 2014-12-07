@@ -8,8 +8,8 @@ namespace HugoWorld
     public class Tile 
     {
         private static BitmapCache _bitmaps = new BitmapCache();
-        public const int TileSizeX = 64;
-        public const int TileSizeY = 64;
+        public const int TileSizeX = 100;
+        public const int TileSizeY = 100;
 
         public Bitmap Bitmap;
         public Rectangle Rectangle;

@@ -37,15 +37,15 @@ namespace HugoWorld
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Teal;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(792, 566);
+            this.ClientSize = new System.Drawing.Size(1250, 1034);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "HugoWorld";
             this.Text = "HugoWorld";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Crusader_Paint);
             this.Shown += new System.EventHandler(this.Crusader_Shown);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Crusader_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Crusader_KeyDown);
             this.ResumeLayout(false);
 

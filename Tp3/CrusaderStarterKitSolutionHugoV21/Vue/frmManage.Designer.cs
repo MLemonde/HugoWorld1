@@ -41,14 +41,16 @@
             this.txtIntelligence = new System.Windows.Forms.TextBox();
             this.txtMoney = new System.Windows.Forms.TextBox();
             this.btnCreate = new System.Windows.Forms.Button();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Experience = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Niveau = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Monde = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Classe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dtgridViewHeros = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.Classe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Monde = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Niveau = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Experience = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dtgridViewHeros)).BeginInit();
             this.SuspendLayout();
             // 
@@ -173,41 +175,6 @@
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Column1";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Visible = false;
-            // 
-            // Experience
-            // 
-            this.Experience.HeaderText = "Experience";
-            this.Experience.Name = "Experience";
-            this.Experience.ReadOnly = true;
-            this.Experience.Width = 65;
-            // 
-            // Niveau
-            // 
-            this.Niveau.HeaderText = "Niveau";
-            this.Niveau.Name = "Niveau";
-            this.Niveau.ReadOnly = true;
-            this.Niveau.Width = 65;
-            // 
-            // Monde
-            // 
-            this.Monde.HeaderText = "Monde";
-            this.Monde.Name = "Monde";
-            this.Monde.ReadOnly = true;
-            this.Monde.Width = 75;
-            // 
-            // Classe
-            // 
-            this.Classe.HeaderText = "Classe";
-            this.Classe.Name = "Classe";
-            this.Classe.ReadOnly = true;
-            this.Classe.Width = 75;
-            // 
             // dtgridViewHeros
             // 
             this.dtgridViewHeros.AllowUserToAddRows = false;
@@ -218,7 +185,9 @@
             this.Monde,
             this.Niveau,
             this.Experience,
-            this.Column1});
+            this.Column1,
+            this.Column2,
+            this.Column3});
             this.dtgridViewHeros.Location = new System.Drawing.Point(12, 46);
             this.dtgridViewHeros.Name = "dtgridViewHeros";
             this.dtgridViewHeros.ReadOnly = true;
@@ -248,6 +217,55 @@
             this.btnDelete.Text = "Supprimer Heros";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // Classe
+            // 
+            this.Classe.HeaderText = "Classe";
+            this.Classe.Name = "Classe";
+            this.Classe.ReadOnly = true;
+            this.Classe.Width = 75;
+            // 
+            // Monde
+            // 
+            this.Monde.HeaderText = "Monde";
+            this.Monde.Name = "Monde";
+            this.Monde.ReadOnly = true;
+            this.Monde.Width = 75;
+            // 
+            // Niveau
+            // 
+            this.Niveau.HeaderText = "Niveau";
+            this.Niveau.Name = "Niveau";
+            this.Niveau.ReadOnly = true;
+            this.Niveau.Width = 65;
+            // 
+            // Experience
+            // 
+            this.Experience.HeaderText = "Experience";
+            this.Experience.Name = "Experience";
+            this.Experience.ReadOnly = true;
+            this.Experience.Width = 65;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Visible = false;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Column2";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Visible = false;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Column3";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Visible = false;
             // 
             // frmManage
             // 
@@ -293,14 +311,16 @@
         private System.Windows.Forms.TextBox txtIntelligence;
         private System.Windows.Forms.TextBox txtMoney;
         private System.Windows.Forms.Button btnCreate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Experience;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Niveau;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Monde;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Classe;
         private System.Windows.Forms.DataGridView dtgridViewHeros;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Classe;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Monde;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Niveau;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Experience;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
 
     }
 }

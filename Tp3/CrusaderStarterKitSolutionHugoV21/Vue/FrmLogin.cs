@@ -64,5 +64,20 @@ namespace Vue
             else
                 MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
         }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(txtRegistEmail.Text) && !String.IsNullOrEmpty(txtRegistPass.Text) && !String.IsNullOrEmpty(txtRegistUsername.Text))
+            {
+                HugoWorld.Data.CompteJoueurController.CreatePlayer(txtRegistUsername.Text, txtPassword.Text, txtRegistEmail.Text, "user", "name", 0);
+                txtUserName.Text = txtRegistUsername.Text;
+                txtPassword.Text = txtRegistPass.Text;
+                tryToConnect();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez remplir tous les champs");
+            }
+        }
     }
 }

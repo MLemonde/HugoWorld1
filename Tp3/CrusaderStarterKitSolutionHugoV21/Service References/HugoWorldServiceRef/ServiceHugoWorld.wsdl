@@ -151,6 +151,12 @@
   <wsdl:message name="IHeroController_EditHero_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditHeroResponse" />
   </wsdl:message>
+  <wsdl:message name="IHeroController_SetHeroPos_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetHeroPos" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_SetHeroPos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetHeroPosResponse" />
+  </wsdl:message>
   <wsdl:message name="IHeroController_DeleteHero_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteHero" />
   </wsdl:message>
@@ -355,6 +361,10 @@
     <wsdl:operation name="EditHero">
       <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/EditHero" message="tns:IHeroController_EditHero_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/EditHeroResponse" message="tns:IHeroController_EditHero_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetHeroPos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/SetHeroPos" message="tns:IHeroController_SetHeroPos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/SetHeroPosResponse" message="tns:IHeroController_SetHeroPos_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DeleteHero">
       <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/DeleteHero" message="tns:IHeroController_DeleteHero_InputMessage" />
@@ -655,6 +665,15 @@
     </wsdl:operation>
     <wsdl:operation name="EditHero">
       <soap:operation soapAction="http://tempuri.org/IHeroController/EditHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetHeroPos">
+      <soap:operation soapAction="http://tempuri.org/IHeroController/SetHeroPos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
