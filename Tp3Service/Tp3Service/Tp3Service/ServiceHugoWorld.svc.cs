@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -9,15 +10,30 @@ namespace Tp3Service
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ServiceHugoWorld : IClasseController, IMondeController, ICompteJoueurController, IHeroController, IMonstreController, IEffetItemController, IInventaireHeroController, IItemController, IObjectMondeController
     {
-        //protected override WebRequest GetWebRequest(Uri uri)
-        //{
-        //    HttpWebRequest webRequest = (HttpWebRequest)base.GetWebRequest(uri);
-        //    //Setting KeepAlive to false
-        //    webRequest.KeepAlive = false;
-        //    return webRequest;
-        //}
-
         private HugoWorldEntities context = new HugoWorldEntities();
+        
+        public ServiceHugoWorld()
+        {
+            try
+            {
+                context.Database.Connection.Open();
+                if (context.Database.Connection.State == ConnectionState.Open)
+                {
+                    Console.WriteLine(@"INFO: ConnectionString: " + context.Database.Connection.ConnectionString
+                        + "\n DataBase: " + context.Database.Connection.Database
+                        + "\n DataSource: " + context.Database.Connection.DataSource
+                        + "\n ServerVersion: " + context.Database.Connection.ServerVersion
+                        + "\n TimeOut: " + context.Database.Connection.ConnectionTimeout);
+                    context.Database.Connection.Close();
+                }
+                else
+                    throw new FaultException("Connection error...");
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+        }
 
         #region Classe
         /// <summary>
@@ -564,7 +580,21 @@ namespace Tp3Service
             }
         }
 
-         void IHeroController.SetHeroPos(int HeroId, int x, int y,string area)
+        List<Hero> IHeroController.GetListHeroNearHero(int heroId)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
+                
+                return context.Heroes.Where(h => h.MondeId == hero.MondeId &&
+                    h.x >= hero.x / 8 &&
+                    h.x < hero.x / 8 + 8 &&
+                    h.y >= hero.y / 8 &&
+                    h.y < hero.y / 8 + 8).ToList();
+            }
+        }
+
+        void IHeroController.SetHeroPos(int HeroId, int x, int y,string area)
         {
             lock (context.Heroes)
             {

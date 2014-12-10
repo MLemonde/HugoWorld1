@@ -39,6 +39,12 @@ namespace Tp3Service
         List<Hero> GetListHero(int compteId);
 
         /// <summary>
+        /// Auteur Francis Lussier
+        /// </summary>
+        [OperationContract]
+        List<Hero> GetListHeroNearHero(int heroId);
+
+        /// <summary>
         /// Auteur Francis
         /// retourne une liste de objects (ObjetMonde, Monstre, Item, Héro) qui se trouve dans le rayon de 200 par 200 du héro.
         /// </summary>
