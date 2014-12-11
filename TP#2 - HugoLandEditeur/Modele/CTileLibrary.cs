@@ -57,7 +57,7 @@ namespace HugoLandEditeur
 
 		public CTileLibrary()
 		{
-            m_TileSource = new Bitmap(@"gamedata\AllTiles.bmp");
+            m_TileSource = new Bitmap(@"Gamedata\AllTiles.bmp");
 			m_Width = (m_TileSource.Width / csteApplication.TILE_WIDTH_IN_IMAGE) + 1;
             m_Height = (m_TileSource.Height / csteApplication.TILE_HEIGHT_IN_IMAGE) + 1;
             
