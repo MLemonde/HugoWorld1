@@ -11,9 +11,8 @@ namespace Tp3Service
 {
     using System;
     using System.Collections.Generic;
-
     using System.Runtime.Serialization;
-
+    
     [DataContract(IsReference = true)]
     public partial class ObjetMonde
     {

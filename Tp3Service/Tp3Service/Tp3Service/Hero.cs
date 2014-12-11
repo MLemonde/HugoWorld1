@@ -13,18 +13,20 @@ namespace Tp3Service
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     
-    [DataContract(IsReference=true)]
+    [DataContract(IsReference = true)]
     public partial class Hero
     {
         public Hero()
         {
             this.Items = new HashSet<Item>();
         }
-    
+
         [DataMember]
         public int CompteJoueurId { get; set; }
         [DataMember]
         public bool Connected { get; set; }
+        [DataMember]
+        public Nullable<System.DateTime> LastActivity { get; set; }
         [DataMember]
         public string Name { get; set; }
         [DataMember]

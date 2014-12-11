@@ -12,7 +12,7 @@ namespace Tp3Service
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-
+    
     [DataContract(IsReference = true)]
     public partial class CompteJoueur
     {
@@ -20,6 +20,7 @@ namespace Tp3Service
         {
             this.Heroes = new HashSet<Hero>();
         }
+
         [DataMember]
         public int Id { get; set; }
         [DataMember]

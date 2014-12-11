@@ -11,6 +11,7 @@ namespace Tp3Service
     public class ServiceHugoWorld : IClasseController, IMondeController, ICompteJoueurController, IHeroController, IMonstreController, IEffetItemController, IInventaireHeroController, IItemController, IObjectMondeController
     {
         private HugoWorldEntities context = new HugoWorldEntities();
+        private System.Timers.Timer timer;
         
         public ServiceHugoWorld()
         {
@@ -35,10 +36,40 @@ namespace Tp3Service
                         hero.Connected = false;
                     context.SaveChanges();
                 }
+
+                timer = new System.Timers.Timer(15000);
+                timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
+
+                timer.Start();
             }
             catch (Exception ex)
             {
                 throw new FaultException(ex.Message);
+            }
+        }
+
+        private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            try
+            {
+                lock (context.Heroes)
+                {
+                    List<Hero> heroes = context.Heroes.Where(h => h.Connected).ToList();
+
+                    foreach (Hero hero in heroes)
+                    {
+                        if (hero.LastActivity.Value + new TimeSpan(00, 02, 00) > DateTime.Now)
+                            hero.Connected = false;
+                    }
+                    lock (context)
+                    {
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 

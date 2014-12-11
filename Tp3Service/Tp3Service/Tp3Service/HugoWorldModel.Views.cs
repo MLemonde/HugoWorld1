@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tp3Service.HugoWorldEntities),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetse72ccaed9d33b373917e999e14de1a7399044d978e11493f063d1648943d5dac))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsfd6a2198b5dcebd5afceab669cf3721d95126f947095956f73318f22a1413cf2))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySetse72ccaed9d33b373917e999e14de1a7399044d978e11493f063d1648943d5dac : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySetsfd6a2198b5dcebd5afceab669cf3721d95126f947095956f73318f22a1413cf2 : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "e72ccaed9d33b373917e999e14de1a7399044d978e11493f063d1648943d5dac"; }
+            get { return "fd6a2198b5dcebd5afceab669cf3721d95126f947095956f73318f22a1413cf2"; }
         }
 
         /// <summary>
@@ -225,11 +225,12 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Hero
-        [Model.Store.Hero](T1.Hero_CompteJoueurId, T1.Hero_Connected, T1.Hero_Name, T1.Hero_Id, T1.Hero_Niveau, T1.Hero_Experience, T1.Hero_x, T1.Hero_y, T1.Hero_Argent, T1.Hero_StatBaseStr, T1.Hero_StatBaseDex, T1.Hero_StatBaseInt, T1.Hero_StatBaseStam, T1.Hero_MondeId, T1.Hero_ClasseId)
+        [Model.Store.Hero](T1.Hero_CompteJoueurId, T1.Hero_Connected, T1.Hero_LastActivity, T1.Hero_Name, T1.Hero_Id, T1.Hero_Niveau, T1.Hero_Experience, T1.Hero_x, T1.Hero_y, T1.Hero_Argent, T1.Hero_StatBaseStr, T1.Hero_StatBaseDex, T1.Hero_StatBaseInt, T1.Hero_StatBaseStam, T1.Hero_MondeId, T1.Hero_ClasseId)
     FROM (
         SELECT 
             T.CompteJoueurId AS Hero_CompteJoueurId, 
             T.Connected AS Hero_Connected, 
+            T.LastActivity AS Hero_LastActivity, 
             T.Name AS Hero_Name, 
             T.Id AS Hero_Id, 
             T.Niveau AS Hero_Niveau, 
@@ -439,11 +440,12 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Heroes
-        [Model.Hero](T1.Hero_CompteJoueurId, T1.Hero_Connected, T1.Hero_Name, T1.Hero_Id, T1.Hero_Niveau, T1.Hero_Experience, T1.Hero_x, T1.Hero_y, T1.Hero_Argent, T1.Hero_StatBaseStr, T1.Hero_StatBaseDex, T1.Hero_StatBaseInt, T1.Hero_StatBaseStam, T1.Hero_MondeId, T1.Hero_ClasseId)
+        [Model.Hero](T1.Hero_CompteJoueurId, T1.Hero_Connected, T1.Hero_LastActivity, T1.Hero_Name, T1.Hero_Id, T1.Hero_Niveau, T1.Hero_Experience, T1.Hero_x, T1.Hero_y, T1.Hero_Argent, T1.Hero_StatBaseStr, T1.Hero_StatBaseDex, T1.Hero_StatBaseInt, T1.Hero_StatBaseStam, T1.Hero_MondeId, T1.Hero_ClasseId)
     FROM (
         SELECT 
             T.CompteJoueurId AS Hero_CompteJoueurId, 
             T.Connected AS Hero_Connected, 
+            T.LastActivity AS Hero_LastActivity, 
             T.Name AS Hero_Name, 
             T.Id AS Hero_Id, 
             T.Niveau AS Hero_Niveau, 

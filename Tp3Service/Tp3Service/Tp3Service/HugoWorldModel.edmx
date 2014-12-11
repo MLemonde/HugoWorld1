@@ -45,6 +45,7 @@
           </Key>
           <Property Name="CompteJoueurId" Type="int" Nullable="false" />
           <Property Name="Connected" Type="bit" Nullable="false" />
+          <Property Name="LastActivity" Type="datetime" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Niveau" Type="int" Nullable="false" />
@@ -344,6 +345,42 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="HugoWorldEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="DeleteHero">
+          <Parameter Name="HeroId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertHero">
+            <Parameter Name="CompteJoueurId" Mode="In" Type="Int32" />
+            <Parameter Name="Niveau" Mode="In" Type="Int32" />
+            <Parameter Name="Experience" Mode="In" Type="Int64" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="Argent" Mode="In" Type="Decimal" />
+            <Parameter Name="StatBaseStr" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseDex" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseInt" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseStam" Mode="In" Type="Int32" />
+            <Parameter Name="MondeId" Mode="In" Type="Int32" />
+            <Parameter Name="ClasseId" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Connected" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateHero">
+            <Parameter Name="HeroId" Mode="In" Type="Int32" />
+            <Parameter Name="MondeId" Mode="In" Type="Int32" />
+            <Parameter Name="ClasseId" Mode="In" Type="Int32" />
+            <Parameter Name="CompteJoueurId" Mode="In" Type="Int32" />
+            <Parameter Name="Niveau" Mode="In" Type="Int32" />
+            <Parameter Name="Experience" Mode="In" Type="Int64" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="Argent" Mode="In" Type="Decimal" />
+            <Parameter Name="StatBaseStr" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseDex" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseInt" Mode="In" Type="Int32" />
+            <Parameter Name="StatBaseStam" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Connected" Mode="In" Type="Boolean" />
+          </FunctionImport>
           <EntitySet Name="Classes" EntityType="Model.Classe" />
           <EntitySet Name="CompteJoueurs" EntityType="Model.CompteJoueur" />
           <EntitySet Name="EffetItems" EntityType="Model.EffetItem" />
@@ -389,42 +426,6 @@
             <End Role="Hero" EntitySet="Heroes" />
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
-          <FunctionImport Name="DeleteHero">
-          <Parameter Name="HeroId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="InsertHero">
-            <Parameter Name="CompteJoueurId" Mode="In" Type="Int32" />
-            <Parameter Name="Niveau" Mode="In" Type="Int32" />
-            <Parameter Name="Experience" Mode="In" Type="Int64" />
-            <Parameter Name="x" Mode="In" Type="Int32" />
-            <Parameter Name="y" Mode="In" Type="Int32" />
-            <Parameter Name="Argent" Mode="In" Type="Decimal" />
-            <Parameter Name="StatBaseStr" Mode="In" Type="Int32" />
-            <Parameter Name="StatBaseDex" Mode="In" Type="Int32" />
-            <Parameter Name="StatBaseInt" Mode="In" Type="Int32" />
-            <Parameter Name="StatBaseStam" Mode="In" Type="Int32" />
-            <Parameter Name="MondeId" Mode="In" Type="Int32" />
-            <Parameter Name="ClasseId" Mode="In" Type="Int32" />
-            <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Connected" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="UpdateHero">
-            <Parameter Name="HeroId" Mode="In" Type="Int32" />
-            <Parameter Name="MondeId" Mode="In" Type="Int32" />
-            <Parameter Name="ClasseId" Mode="In" Type="Int32" />
-            <Parameter Name="CompteJoueurId" Mode="In" Type="Int32" />
-            <Parameter Name="Niveau" Mode="In" Type="Int32" />
-            <Parameter Name="Experience" Mode="In" Type="Int64" />
-            <Parameter Name="x" Mode="In" Type="Int32" />
-            <Parameter Name="y" Mode="In" Type="Int32" />
-            <Parameter Name="Argent" Mode="In" Type="Decimal" />
-            <Parameter Name="StatBaseStr" Mode="In" Type="Int32" />
-            <Parameter Name="StatBaseDex" Mode="In" Type="Int32" />
-            <Parameter Name="StatBaseInt" Mode="In" Type="Int32" />
-            <Parameter Name="StatBaseStam" Mode="In" Type="Int32" />
-            <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Connected" Mode="In" Type="Boolean" />
-          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Classe">
           <Key>
@@ -470,6 +471,7 @@
           </Key>
           <Property Name="CompteJoueurId" Type="Int32" Nullable="false" />
           <Property Name="Connected" Type="Boolean" Nullable="false" />
+          <Property Name="LastActivity" Type="DateTime" Precision="3" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Niveau" Type="Int32" Nullable="false" />
@@ -662,12 +664,15 @@
           <End Type="Model.Hero" Role="Hero" Multiplicity="*" />
           <End Type="Model.Item" Role="Item" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="HugoWorldEntities">
+          <FunctionImportMapping FunctionImportName="DeleteHero" FunctionName="Model.Store.DeleteHero" />
+          <FunctionImportMapping FunctionImportName="InsertHero" FunctionName="Model.Store.InsertHero" />
+          <FunctionImportMapping FunctionImportName="UpdateHero" FunctionName="Model.Store.UpdateHero" />
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="Model.Classe">
               <MappingFragment StoreEntitySet="Classe">
@@ -721,49 +726,10 @@
                 <ScalarProperty Name="Niveau" ColumnName="Niveau" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LastActivity" ColumnName="LastActivity" />
                 <ScalarProperty Name="Connected" ColumnName="Connected" />
                 <ScalarProperty Name="CompteJoueurId" ColumnName="CompteJoueurId" />
               </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="Model.Hero">
-              <ModificationFunctionMapping>
-                <InsertFunction FunctionName="Model.Store.InsertHero">
-                  <ScalarProperty Name="Connected" ParameterName="Connected" />
-                  <ScalarProperty Name="Name" ParameterName="Name" />
-                  <ScalarProperty Name="ClasseId" ParameterName="ClasseId" />
-                  <ScalarProperty Name="MondeId" ParameterName="MondeId" />
-                  <ScalarProperty Name="StatBaseStam" ParameterName="StatBaseStam" />
-                  <ScalarProperty Name="StatBaseInt" ParameterName="StatBaseInt" />
-                  <ScalarProperty Name="StatBaseDex" ParameterName="StatBaseDex" />
-                  <ScalarProperty Name="StatBaseStr" ParameterName="StatBaseStr" />
-                  <ScalarProperty Name="Argent" ParameterName="Argent" />
-                  <ScalarProperty Name="y" ParameterName="y" />
-                  <ScalarProperty Name="x" ParameterName="x" />
-                  <ScalarProperty Name="Experience" ParameterName="Experience" />
-                  <ScalarProperty Name="Niveau" ParameterName="Niveau" />
-                  <ScalarProperty Name="CompteJoueurId" ParameterName="CompteJoueurId" />
-                </InsertFunction>
-                <UpdateFunction FunctionName="Model.Store.UpdateHero">
-                  <ScalarProperty Name="Connected" ParameterName="Connected" Version="Current" />
-                  <ScalarProperty Name="Name" ParameterName="Name" Version="Current" />
-                  <ScalarProperty Name="Id" ParameterName="HeroId" Version="Current" />
-                  <ScalarProperty Name="StatBaseStam" ParameterName="StatBaseStam" Version="Current" />
-                  <ScalarProperty Name="StatBaseInt" ParameterName="StatBaseInt" Version="Current" />
-                  <ScalarProperty Name="StatBaseDex" ParameterName="StatBaseDex" Version="Current" />
-                  <ScalarProperty Name="StatBaseStr" ParameterName="StatBaseStr" Version="Current" />
-                  <ScalarProperty Name="Argent" ParameterName="Argent" Version="Current" />
-                  <ScalarProperty Name="y" ParameterName="y" Version="Current" />
-                  <ScalarProperty Name="x" ParameterName="x" Version="Current" />
-                  <ScalarProperty Name="Experience" ParameterName="Experience" Version="Current" />
-                  <ScalarProperty Name="Niveau" ParameterName="Niveau" Version="Current" />
-                  <ScalarProperty Name="CompteJoueurId" ParameterName="CompteJoueurId" Version="Current" />
-                  <ScalarProperty Name="ClasseId" ParameterName="ClasseId" Version="Current" />
-                  <ScalarProperty Name="MondeId" ParameterName="MondeId" Version="Current" />
-                </UpdateFunction>
-                <DeleteFunction FunctionName="Model.Store.DeleteHero" >
-                  <ScalarProperty Name="Id" ParameterName="HeroId" />
-                </DeleteFunction>
-              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">
@@ -843,9 +809,6 @@
               <ScalarProperty Name="Id" ColumnName="IdHero" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="DeleteHero" FunctionName="Model.Store.DeleteHero" />
-          <FunctionImportMapping FunctionImportName="InsertHero" FunctionName="Model.Store.InsertHero" />
-          <FunctionImportMapping FunctionImportName="UpdateHero" FunctionName="Model.Store.UpdateHero" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
