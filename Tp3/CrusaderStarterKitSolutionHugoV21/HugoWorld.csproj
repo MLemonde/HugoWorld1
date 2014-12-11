@@ -114,7 +114,6 @@
     <Compile Include="Vue\help.Designer.cs">
       <DependentUpon>help.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hero.cs" />
     <Compile Include="DAL\MapTile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

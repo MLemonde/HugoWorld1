@@ -49,7 +49,10 @@ namespace Vue
         private void btnPlay_Click(object sender, EventArgs e)
         {
             if (dtgridViewHeros.SelectedRows.Count == 1)
+            {
+                HugoWorld.Data.HeroController.ConnectHero(HugoWorld.Data.CurrentHeroId);
                 DialogResult = DialogResult.OK;
+            }
             else
             {
                 MessageBox.Show("Veuillez créer au moins un héro");

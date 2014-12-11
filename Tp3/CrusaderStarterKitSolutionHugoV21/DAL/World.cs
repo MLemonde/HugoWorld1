@@ -26,6 +26,7 @@ namespace HugoWorld
 
     public class World : GameObject
     {
+        private Timer _tmrRefresh = new Timer();
         private const string _startArea = "0,0";
         private int _heroid = 0;
         private string _heroClasse;
@@ -51,6 +52,8 @@ namespace HugoWorld
         public World(GameState gameState, Dictionary<string, Tile> tiles, int mondeid)
         {
             _gameState = gameState;
+            _tmrRefresh.Interval = 2000;
+            _tmrRefresh.Tick += _tmrRefresh_Tick;
             _tiles = tiles;
             Classe currentclasse = Data.ClassController.GetListClasses(Data.WorldId).First(c=> c.Id == Data.ClassId);
             _currentHero = Data.HeroController.GetListHero(Data.UserId).First(c => c.Id == Data.CurrentHeroId);
@@ -90,6 +93,24 @@ namespace HugoWorld
 
             _heroSprite.Flip = true;
             _heroSprite.ColorKey = Color.FromArgb(75, 75, 75);
+            _tmrRefresh.Start();
+        }
+
+        void _tmrRefresh_Tick(object sender, EventArgs e)
+        {
+           // SaveState();
+            List<Hero> lstheronear = Data.HeroController.GetListHeroNearHero(Data.CurrentHeroId);
+
+            foreach(var her in lstheronear)
+            {
+                if( her.Id != Data.CurrentHeroId)
+                {
+                    _currentArea.MapItem[her.x % 8, her.y % 8].Sprite = new Sprite(null, (her.x % 8) * Tile.TileSizeX + Area.AreaOffsetX,
+                        (her.y % 8) * Tile.TileSizeY + Area.AreaOffsetY, _tiles[her.Classe.Description].Bitmap, _tiles[her.Classe.Description].Rectangle,
+                        _tiles[her.Classe.Description].NumberOfFrames);
+                    _currentArea.MapItem[her.x % 8, her.y % 8].Tile = _tiles[her.Classe.Description];
+                }
+            }
         }
 
         private void CreerAreaDic(int mapid)
@@ -280,6 +301,27 @@ namespace HugoWorld
         /// <param name="key"></param>
         public void KeyDown(Keys key)
         {
+
+
+            List<Hero> lstheronear = Data.HeroController.GetListHeroNearHero(Data.CurrentHeroId);
+            if (lstheronear != null)
+            {
+                if (lstheronear.Count != 0)
+                {
+                    foreach (var her in lstheronear)
+                    {
+                        if (her.Id != Data.CurrentHeroId)
+                        {
+                            _currentArea.MapItem[her.x % 8, her.y % 8].Sprite = new Sprite(null, (her.x % 8) * Tile.TileSizeX + Area.AreaOffsetX,
+                                (her.y % 8) * Tile.TileSizeY + Area.AreaOffsetY, _tiles[her.Classe.Description].Bitmap, _tiles[her.Classe.Description].Rectangle,
+                                _tiles[her.Classe.Description].NumberOfFrames);
+                            _currentArea.MapItem[her.x % 8, her.y % 8].Tile = _tiles[her.Classe.Description];
+                        }
+                    }
+                }
+            }
+
+
             _popups.Clear();
             //Ignore keypresses while we are animating or fighting
             if (!_heroSpriteAnimating)
