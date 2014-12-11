@@ -587,12 +587,46 @@ namespace Tp3Service
             lock (context.Heroes)
             {
                 Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
-                
+                if (hero == null)
+                    return new List<Hero>();
+
                 return context.Heroes.Where(h => h.MondeId == hero.MondeId &&
                     h.x >= hero.x / 8 &&
                     h.x < hero.x / 8 + 8 &&
                     h.y >= hero.y / 8 &&
                     h.y < hero.y / 8 + 8).ToList();
+            }
+        }
+
+        void IHeroController.ConnectHero(int heroId)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
+                if (hero == null)
+                    throw new FaultException("Error: the hero wasn't found in the database");
+                else if (hero.Connected)
+                    throw new FaultException("Error: the hero is already connected");
+                else
+                {
+                    hero.Connected = true;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        void IHeroController.DeconnectHero(int heroId)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
+                if (hero == null)
+                    throw new FaultException("Error: the hero wasn't found in the database");
+                else
+                {
+                    hero.Connected = false;
+                    context.SaveChanges();
+                }
             }
         }
 
