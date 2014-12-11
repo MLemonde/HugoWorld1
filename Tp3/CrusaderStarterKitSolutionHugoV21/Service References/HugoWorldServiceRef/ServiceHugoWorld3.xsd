@@ -423,6 +423,30 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ConnectHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="heroId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConnectHeroResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeconnectHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="heroId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeconnectHeroResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetListHeroNearHero">
     <xs:complexType>
       <xs:sequence>

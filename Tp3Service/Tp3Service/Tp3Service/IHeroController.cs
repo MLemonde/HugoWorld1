@@ -40,6 +40,12 @@ namespace Tp3Service
         [OperationContract]
         List<Hero> GetListHero(int compteId);
 
+        [OperationContract]
+        void ConnectHero(int heroId);
+
+        [OperationContract]
+        void DeconnectHero(int heroId);
+
         /// <summary>
         /// Auteur Francis Lussier
         /// </summary>

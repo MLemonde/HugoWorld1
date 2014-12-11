@@ -175,6 +175,18 @@
   <wsdl:message name="IHeroController_GetListHero_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListHeroResponse" />
   </wsdl:message>
+  <wsdl:message name="IHeroController_ConnectHero_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConnectHero" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_ConnectHero_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConnectHeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_DeconnectHero_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeconnectHero" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_DeconnectHero_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeconnectHeroResponse" />
+  </wsdl:message>
   <wsdl:message name="IHeroController_GetListHeroNearHero_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListHeroNearHero" />
   </wsdl:message>
@@ -389,6 +401,14 @@
     <wsdl:operation name="GetListHero">
       <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/GetListHero" message="tns:IHeroController_GetListHero_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/GetListHeroResponse" message="tns:IHeroController_GetListHero_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConnectHero">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/ConnectHero" message="tns:IHeroController_ConnectHero_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/ConnectHeroResponse" message="tns:IHeroController_ConnectHero_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeconnectHero">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/DeconnectHero" message="tns:IHeroController_DeconnectHero_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/DeconnectHeroResponse" message="tns:IHeroController_DeconnectHero_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetListHeroNearHero">
       <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/GetListHeroNearHero" message="tns:IHeroController_GetListHeroNearHero_InputMessage" />
@@ -721,6 +741,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetListHero">
       <soap:operation soapAction="http://tempuri.org/IHeroController/GetListHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConnectHero">
+      <soap:operation soapAction="http://tempuri.org/IHeroController/ConnectHero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeconnectHero">
+      <soap:operation soapAction="http://tempuri.org/IHeroController/DeconnectHero" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

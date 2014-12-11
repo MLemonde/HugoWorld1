@@ -28,6 +28,13 @@ namespace Tp3Service
                 }
                 else
                     throw new FaultException("Connection error...");
+
+                lock (context.Heroes)
+                {
+                    foreach (Hero hero in context.Heroes)
+                        hero.Connected = false;
+                    context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
@@ -503,6 +510,7 @@ namespace Tp3Service
 
             Hero hero = new Hero()
             {
+                //Id = id,
                 MondeId = MondeID,
                 Argent = argent,
                 ClasseId = classeId,
@@ -586,32 +594,52 @@ namespace Tp3Service
         {
             lock (context.Heroes)
             {
-                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId && h.Connected == true);
-                if (hero != null)
-                {
-                    return context.Heroes.Where(h => h.MondeId == hero.MondeId &&
-                        h.x >= hero.x / 8 &&
-                        h.x < hero.x / 8 + 8 &&
-                        h.y >= hero.y / 8 &&
-                        h.y < hero.y / 8 + 8 && h.Connected == true).ToList();
-                }
-                return null;
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
+                if (hero == null)
+                    return new List<Hero>();
+
+                return context.Heroes.Where(h => h.MondeId == hero.MondeId &&
+                    h.x >= hero.x / 8 &&
+                    h.x < hero.x / 8 + 8 &&
+                    h.y >= hero.y / 8 &&
+                    h.y < hero.y / 8 + 8).ToList();
             }
         }
 
-        int IHeroController.ConnectHero(int heroid)
+        void IHeroController.ConnectHero(int heroId)
         {
             lock (context.Heroes)
             {
-                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroid && h.Connected == false);
-                if (hero != null)
+                CompteJoueur compte = context.CompteJoueurs.Include("Heroes").FirstOrNull(c => c.Heroes.Any(h => h.Id == heroId));
+                if (compte == null)
+                    throw new FaultException("Error: the account wasn't found in the database");
+
+                Hero hero = compte.Heroes.FirstOrNull(h => h.Id == heroId);
+                if (hero == null)
+                    throw new FaultException("Error: the hero wasn't found in the database");
+                else if (compte.Heroes.Any(h => h.Connected))
+                    throw new FaultException("Error: there's already a connected hero on that account");
+                else
                 {
                     hero.Connected = true;
-                    int count = context.SaveChanges();
-                    return 0;
+                    context.SaveChanges();
                 }
             }
-                return 1;
+        }
+
+        void IHeroController.DeconnectHero(int heroId)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
+                if (hero == null)
+                    throw new FaultException("Error: the hero wasn't found in the database");
+                else
+                {
+                    hero.Connected = false;
+                    context.SaveChanges();
+                }
+            }
         }
 
         void IHeroController.SetHeroPos(int HeroId, int x, int y,string area)

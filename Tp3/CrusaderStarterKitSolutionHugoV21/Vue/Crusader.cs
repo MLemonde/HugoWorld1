@@ -72,12 +72,24 @@ namespace HugoWorld
             _gameState.KeyDown(e.KeyCode);
         }
 
-
         private void Crusader_Shown(object sender, EventArgs e)
         {
             Form help = new helpform();
             help.Show();
             help.Focus();
+        }
+
+        private void HugoWorld_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                Data.HeroController.DeconnectHero(Data.CurrentHeroId);
+                DialogResult = DialogResult.OK;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message);
+            }
         }
     }
 }
