@@ -2080,10 +2080,10 @@ namespace HugoWorldServiceRef {
         System.Threading.Tasks.Task SetHeroPosAsync(int HeroId, int x, int y, string area);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/ConnectHero", ReplyAction="http://tempuri.org/IHeroController/ConnectHeroResponse")]
-        int ConnectHero(int heroid);
+        void ConnectHero(int heroid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/ConnectHero", ReplyAction="http://tempuri.org/IHeroController/ConnectHeroResponse")]
-        System.Threading.Tasks.Task<int> ConnectHeroAsync(int heroid);
+        System.Threading.Tasks.Task ConnectHeroAsync(int heroid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/DeleteHero", ReplyAction="http://tempuri.org/IHeroController/DeleteHeroResponse")]
         void DeleteHero(int HeroId);
@@ -2096,6 +2096,12 @@ namespace HugoWorldServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/GetListHero", ReplyAction="http://tempuri.org/IHeroController/GetListHeroResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<HugoWorldServiceRef.Hero>> GetListHeroAsync(int compteId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/DeconnectHero", ReplyAction="http://tempuri.org/IHeroController/DeconnectHeroResponse")]
+        void DeconnectHero(int heroId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/DeconnectHero", ReplyAction="http://tempuri.org/IHeroController/DeconnectHeroResponse")]
+        System.Threading.Tasks.Task DeconnectHeroAsync(int heroId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/GetListHeroNearHero", ReplyAction="http://tempuri.org/IHeroController/GetListHeroNearHeroResponse")]
         System.Collections.Generic.List<HugoWorldServiceRef.Hero> GetListHeroNearHero(int heroId);
@@ -2161,11 +2167,11 @@ namespace HugoWorldServiceRef {
             return base.Channel.SetHeroPosAsync(HeroId, x, y, area);
         }
         
-        public int ConnectHero(int heroid) {
-            return base.Channel.ConnectHero(heroid);
+        public void ConnectHero(int heroid) {
+            base.Channel.ConnectHero(heroid);
         }
         
-        public System.Threading.Tasks.Task<int> ConnectHeroAsync(int heroid) {
+        public System.Threading.Tasks.Task ConnectHeroAsync(int heroid) {
             return base.Channel.ConnectHeroAsync(heroid);
         }
         
@@ -2183,6 +2189,14 @@ namespace HugoWorldServiceRef {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<HugoWorldServiceRef.Hero>> GetListHeroAsync(int compteId) {
             return base.Channel.GetListHeroAsync(compteId);
+        }
+        
+        public void DeconnectHero(int heroId) {
+            base.Channel.DeconnectHero(heroId);
+        }
+        
+        public System.Threading.Tasks.Task DeconnectHeroAsync(int heroId) {
+            return base.Channel.DeconnectHeroAsync(heroId);
         }
         
         public System.Collections.Generic.List<HugoWorldServiceRef.Hero> GetListHeroNearHero(int heroId) {

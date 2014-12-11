@@ -392,9 +392,7 @@
   </xs:element>
   <xs:element name="ConnectHeroResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ConnectHeroResult" type="xs:int" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteHero">
@@ -421,18 +419,6 @@
       <xs:sequence>
         <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetListHeroResult" nillable="true" type="q4:ArrayOfHero" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ConnectHero">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="heroId" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ConnectHeroResponse">
-    <xs:complexType>
-      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="DeconnectHero">

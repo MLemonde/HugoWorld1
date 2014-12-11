@@ -55,7 +55,7 @@ namespace HugoWorld
             _tmrRefresh.Interval = 2000;
             _tmrRefresh.Tick += _tmrRefresh_Tick;
             _tiles = tiles;
-            Classe currentclasse = Data.ClassController.GetListClasses(Data.WorldId).First(c=> c.Id == Data.ClassId);
+            Classe currentclasse = Data.ClassController.GetListClasses(Data.WorldId).FirstOrDefault(c=> c.Id == Data.ClassId);
             _currentHero = Data.HeroController.GetListHero(Data.UserId).First(c => c.Id == Data.CurrentHeroId);
             _heroClasse = currentclasse.Description;
             //Read in the map file
@@ -312,10 +312,11 @@ namespace HugoWorld
                     {
                         if (her.Id != Data.CurrentHeroId)
                         {
-                            _currentArea.MapItem[her.x % 8, her.y % 8].Sprite = new Sprite(null, (her.x % 8) * Tile.TileSizeX + Area.AreaOffsetX,
-                                (her.y % 8) * Tile.TileSizeY + Area.AreaOffsetY, _tiles[her.Classe.Description].Bitmap, _tiles[her.Classe.Description].Rectangle,
-                                _tiles[her.Classe.Description].NumberOfFrames);
-                            _currentArea.MapItem[her.x % 8, her.y % 8].Tile = _tiles[her.Classe.Description];
+                            MapTile mapTile = new MapTile();
+                            _currentArea.Map[her.x % 8, her.y % 8] = mapTile;
+                            mapTile.Tile = _tiles[her.Classe.Description];
+                            mapTile.ObjectTile = _tiles[her.Classe.Description];
+                            mapTile.SetSprite(her.x % 8, her.y % 8);
                         }
                     }
                 }

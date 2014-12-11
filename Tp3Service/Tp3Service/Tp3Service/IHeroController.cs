@@ -27,7 +27,7 @@ namespace Tp3Service
         void SetHeroPos(int HeroId, int x, int y, string area);
 
         [OperationContract]
-        int ConnectHero(int heroid);
+        void ConnectHero(int heroid);
         /// <summary>
         /// Auteur Francis Lussier
         /// </summary>
@@ -40,8 +40,6 @@ namespace Tp3Service
         [OperationContract]
         List<Hero> GetListHero(int compteId);
 
-        [OperationContract]
-        void ConnectHero(int heroId);
 
         [OperationContract]
         void DeconnectHero(int heroId);

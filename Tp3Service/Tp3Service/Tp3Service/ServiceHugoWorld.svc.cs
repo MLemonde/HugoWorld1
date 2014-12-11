@@ -598,11 +598,28 @@ namespace Tp3Service
                 if (hero == null)
                     return new List<Hero>();
 
-                return context.Heroes.Where(h => h.MondeId == hero.MondeId &&
-                    h.x >= hero.x / 8 &&
-                    h.x < hero.x / 8 + 8 &&
-                    h.y >= hero.y / 8 &&
-                    h.y < hero.y / 8 + 8).ToList();
+                List<Hero> lstheo = new List<Hero>();
+                //List<Hero> lstheo = context.Heroes.Where(
+                //    h => h.MondeId == hero.MondeId &&
+                //    (int)(h.x % 8) == (int)(hero.x % 8) &&
+                //    (int)(h.y % 8) == (int)(hero.y % 8) 
+                //    && h.Connected == true).ToList();
+
+                foreach(var her in context.Heroes)
+                {
+                    int x1 = (her.x+1) / 8;
+                    int x2 = (hero.x+1) / 8;
+                    int y1 = (her.y+1) / 8;
+                    int y2 =  (hero.y+1) / 8;
+                    
+                    if (x1==x2)
+                        if (y1 == y2)
+                            if (her.Connected == true)
+                                if(her.MondeId == hero.MondeId)
+                                lstheo.Add(her);
+                }
+
+                return lstheo;
             }
         }
 
