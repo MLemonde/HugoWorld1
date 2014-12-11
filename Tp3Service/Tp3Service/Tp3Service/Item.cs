@@ -12,7 +12,7 @@ namespace Tp3Service
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    
+
     [DataContract(IsReference = true)]
     public partial class Item
     {
@@ -21,7 +21,6 @@ namespace Tp3Service
             this.EffetItems = new HashSet<EffetItem>();
             this.Heroes = new HashSet<Hero>();
         }
-
         [DataMember]
         public int Id { get; set; }
         [DataMember]

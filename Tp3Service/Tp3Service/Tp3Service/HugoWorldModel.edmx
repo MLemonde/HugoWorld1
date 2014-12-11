@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Classe">
           <Key>
             <PropertyRef Name="Id" />
@@ -386,7 +386,7 @@
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
           <FunctionImport Name="DeleteHero">
-            <Parameter Name="HeroId" Mode="In" Type="Int32" />
+          <Parameter Name="HeroId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InsertHero">
             <Parameter Name="CompteJoueurId" Mode="In" Type="Int32" />
@@ -716,6 +716,42 @@
                 <ScalarProperty Name="Connected" ColumnName="Connected" />
                 <ScalarProperty Name="CompteJoueurId" ColumnName="CompteJoueurId" />
               </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Model.Hero">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="Model.Store.InsertHero">
+                  <ScalarProperty Name="ClasseId" ParameterName="ClasseId" />
+                  <ScalarProperty Name="MondeId" ParameterName="MondeId" />
+                  <ScalarProperty Name="StatBaseStam" ParameterName="StatBaseStam" />
+                  <ScalarProperty Name="StatBaseInt" ParameterName="StatBaseInt" />
+                  <ScalarProperty Name="StatBaseDex" ParameterName="StatBaseDex" />
+                  <ScalarProperty Name="StatBaseStr" ParameterName="StatBaseStr" />
+                  <ScalarProperty Name="Argent" ParameterName="Argent" />
+                  <ScalarProperty Name="y" ParameterName="y" />
+                  <ScalarProperty Name="x" ParameterName="x" />
+                  <ScalarProperty Name="Experience" ParameterName="Experience" />
+                  <ScalarProperty Name="Niveau" ParameterName="Niveau" />
+                  <ScalarProperty Name="CompteJoueurId" ParameterName="CompteJoueurId" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="Model.Store.UpdateHero">
+                  <ScalarProperty Name="Id" ParameterName="HeroId" Version="Current" />
+                  <ScalarProperty Name="StatBaseStam" ParameterName="StatBaseStam" Version="Current" />
+                  <ScalarProperty Name="StatBaseInt" ParameterName="StatBaseInt" Version="Current" />
+                  <ScalarProperty Name="StatBaseDex" ParameterName="StatBaseDex" Version="Current" />
+                  <ScalarProperty Name="StatBaseStr" ParameterName="StatBaseStr" Version="Current" />
+                  <ScalarProperty Name="Argent" ParameterName="Argent" Version="Current" />
+                  <ScalarProperty Name="y" ParameterName="y" Version="Current" />
+                  <ScalarProperty Name="x" ParameterName="x" Version="Current" />
+                  <ScalarProperty Name="Experience" ParameterName="Experience" Version="Current" />
+                  <ScalarProperty Name="Niveau" ParameterName="Niveau" Version="Current" />
+                  <ScalarProperty Name="CompteJoueurId" ParameterName="CompteJoueurId" Version="Current" />
+                  <ScalarProperty Name="ClasseId" ParameterName="ClasseId" Version="Current" />
+                  <ScalarProperty Name="MondeId" ParameterName="MondeId" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="Model.Store.DeleteHero" >
+                  <ScalarProperty Name="Id" ParameterName="HeroId" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">

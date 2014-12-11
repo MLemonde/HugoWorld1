@@ -20,7 +20,8 @@ namespace Tp3Service
         public HugoWorldEntities()
             : base("name=HugoWorldEntities")
         {
-            Configuration.LazyLoadingEnabled = Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

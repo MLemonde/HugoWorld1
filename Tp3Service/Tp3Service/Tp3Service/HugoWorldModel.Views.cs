@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tp3Service.HugoWorldEntities),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets01ed3e44054ad778c755989802bf531f603a998b33000e4967b0e39be6537ea1))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetse72ccaed9d33b373917e999e14de1a7399044d978e11493f063d1648943d5dac))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySets01ed3e44054ad778c755989802bf531f603a998b33000e4967b0e39be6537ea1 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySetse72ccaed9d33b373917e999e14de1a7399044d978e11493f063d1648943d5dac : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "01ed3e44054ad778c755989802bf531f603a998b33000e4967b0e39be6537ea1"; }
+            get { return "e72ccaed9d33b373917e999e14de1a7399044d978e11493f063d1648943d5dac"; }
         }
 
         /// <summary>
@@ -137,6 +137,16 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView17();
             }
 
+            if (extentName == "ModelStoreContainer.sysdiagrams")
+            {
+                return GetView18();
+            }
+
+            if (extentName == "HugoWorldEntities.sysdiagrams")
+            {
+                return GetView19();
+            }
+
             return null;
         }
 
@@ -215,10 +225,12 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Hero
-        [Model.Store.Hero](T1.Hero_CompteJoueurId, T1.Hero_Id, T1.Hero_Niveau, T1.Hero_Experience, T1.Hero_x, T1.Hero_y, T1.Hero_Argent, T1.Hero_StatBaseStr, T1.Hero_StatBaseDex, T1.Hero_StatBaseInt, T1.Hero_StatBaseStam, T1.Hero_MondeId, T1.Hero_ClasseId)
+        [Model.Store.Hero](T1.Hero_CompteJoueurId, T1.Hero_Connected, T1.Hero_Name, T1.Hero_Id, T1.Hero_Niveau, T1.Hero_Experience, T1.Hero_x, T1.Hero_y, T1.Hero_Argent, T1.Hero_StatBaseStr, T1.Hero_StatBaseDex, T1.Hero_StatBaseInt, T1.Hero_StatBaseStam, T1.Hero_MondeId, T1.Hero_ClasseId)
     FROM (
         SELECT 
             T.CompteJoueurId AS Hero_CompteJoueurId, 
+            T.Connected AS Hero_Connected, 
+            T.Name AS Hero_Name, 
             T.Id AS Hero_Id, 
             T.Niveau AS Hero_Niveau, 
             T.Experience AS Hero_Experience, 
@@ -427,10 +439,12 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Heroes
-        [Model.Hero](T1.Hero_CompteJoueurId, T1.Hero_Id, T1.Hero_Niveau, T1.Hero_Experience, T1.Hero_x, T1.Hero_y, T1.Hero_Argent, T1.Hero_StatBaseStr, T1.Hero_StatBaseDex, T1.Hero_StatBaseInt, T1.Hero_StatBaseStam, T1.Hero_MondeId, T1.Hero_ClasseId)
+        [Model.Hero](T1.Hero_CompteJoueurId, T1.Hero_Connected, T1.Hero_Name, T1.Hero_Id, T1.Hero_Niveau, T1.Hero_Experience, T1.Hero_x, T1.Hero_y, T1.Hero_Argent, T1.Hero_StatBaseStr, T1.Hero_StatBaseDex, T1.Hero_StatBaseInt, T1.Hero_StatBaseStam, T1.Hero_MondeId, T1.Hero_ClasseId)
     FROM (
         SELECT 
             T.CompteJoueurId AS Hero_CompteJoueurId, 
+            T.Connected AS Hero_Connected, 
+            T.Name AS Hero_Name, 
             T.Id AS Hero_Id, 
             T.Niveau AS Hero_Niveau, 
             T.Experience AS Hero_Experience, 
@@ -572,6 +586,48 @@ namespace Edm_EntityMappingGeneratedViews
             ) AS T1
         ) AS T2
     ) AS T3");
+        }
+
+        /// <summary>
+        /// Gets the view for ModelStoreContainer.sysdiagrams.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView18()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing sysdiagrams
+        [Model.Store.sysdiagrams](T1.sysdiagrams_name, T1.[sysdiagrams.principal_id], T1.[sysdiagrams.diagram_id], T1.sysdiagrams_version, T1.sysdiagrams_definition)
+    FROM (
+        SELECT 
+            T.name AS sysdiagrams_name, 
+            T.principal_id AS [sysdiagrams.principal_id], 
+            T.diagram_id AS [sysdiagrams.diagram_id], 
+            T.version AS sysdiagrams_version, 
+            T.definition AS sysdiagrams_definition, 
+            True AS _from0
+        FROM HugoWorldEntities.sysdiagrams AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for HugoWorldEntities.sysdiagrams.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView19()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing sysdiagrams
+        [Model.sysdiagram](T1.sysdiagram_name, T1.[sysdiagram.principal_id], T1.[sysdiagram.diagram_id], T1.sysdiagram_version, T1.sysdiagram_definition)
+    FROM (
+        SELECT 
+            T.name AS sysdiagram_name, 
+            T.principal_id AS [sysdiagram.principal_id], 
+            T.diagram_id AS [sysdiagram.diagram_id], 
+            T.version AS sysdiagram_version, 
+            T.definition AS sysdiagram_definition, 
+            True AS _from0
+        FROM ModelStoreContainer.sysdiagrams AS T
+    ) AS T1");
         }
     }
 }

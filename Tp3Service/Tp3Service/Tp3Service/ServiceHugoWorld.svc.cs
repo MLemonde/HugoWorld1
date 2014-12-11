@@ -490,7 +490,7 @@ namespace Tp3Service
         /// Auteur Francis Lussier
         /// permet de crée un héro
         /// </summary>
-        void IHeroController.CreateHero(int MondeID, int compteId, int classeId, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent)
+        void IHeroController.CreateHero(int MondeID, int compteId, int classeId, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent, string name)
         {
             var Monde = context.Mondes.FirstOrNull(c => c.Id == MondeID);
             if (Monde == null)
@@ -513,6 +513,8 @@ namespace Tp3Service
                 StatBaseInt = Int,
                 StatBaseStam = stamina,
                 StatBaseStr = str,
+                Connected = false,
+                Name = name,
                 x = X,
                 y = Y
             };

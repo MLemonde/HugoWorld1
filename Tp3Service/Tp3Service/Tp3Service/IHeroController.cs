@@ -15,7 +15,7 @@ namespace Tp3Service
         /// Auteur Francis Lussier
         /// </summary>
         [OperationContract]
-        void CreateHero(int MondeID, int compteId, int classeId, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent);
+        void CreateHero(int MondeID, int compteId, int classeId, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent,string name);
 
         /// <summary>
         /// Auteur Francis Lussier
