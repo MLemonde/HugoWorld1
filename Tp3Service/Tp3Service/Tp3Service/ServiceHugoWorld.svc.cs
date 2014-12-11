@@ -513,7 +513,7 @@ namespace Tp3Service
                 StatBaseInt = Int,
                 StatBaseStam = stamina,
                 StatBaseStr = str,
-                Connected = true,
+                Connected = false,
                 Name = name,
                 x = X,
                 y = Y
@@ -586,14 +586,32 @@ namespace Tp3Service
         {
             lock (context.Heroes)
             {
-                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
-                
-                return context.Heroes.Where(h => h.MondeId == hero.MondeId &&
-                    h.x >= hero.x / 8 &&
-                    h.x < hero.x / 8 + 8 &&
-                    h.y >= hero.y / 8 &&
-                    h.y < hero.y / 8 + 8).ToList();
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId && h.Connected == true);
+                if (hero != null)
+                {
+                    return context.Heroes.Where(h => h.MondeId == hero.MondeId &&
+                        h.x >= hero.x / 8 &&
+                        h.x < hero.x / 8 + 8 &&
+                        h.y >= hero.y / 8 &&
+                        h.y < hero.y / 8 + 8 && h.Connected == true).ToList();
+                }
+                return null;
             }
+        }
+
+        int IHeroController.ConnectHero(int heroid)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroid && h.Connected == false);
+                if (hero != null)
+                {
+                    hero.Connected = true;
+                    int count = context.SaveChanges();
+                    return 0;
+                }
+            }
+                return 1;
         }
 
         void IHeroController.SetHeroPos(int HeroId, int x, int y,string area)

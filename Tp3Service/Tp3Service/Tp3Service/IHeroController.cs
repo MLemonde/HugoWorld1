@@ -26,6 +26,8 @@ namespace Tp3Service
         [OperationContract]
         void SetHeroPos(int HeroId, int x, int y, string area);
 
+        [OperationContract]
+        int ConnectHero(int heroid);
         /// <summary>
         /// Auteur Francis Lussier
         /// </summary>

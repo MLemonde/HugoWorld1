@@ -11,17 +11,16 @@ namespace Tp3Service
 {
     using System;
     using System.Collections.Generic;
-
     using System.Runtime.Serialization;
-
-    [DataContract(IsReference = true)]
+    
+    [DataContract(IsReference=true)]
     public partial class Hero
     {
         public Hero()
         {
             this.Items = new HashSet<Item>();
         }
-
+    
         [DataMember]
         public int CompteJoueurId { get; set; }
         [DataMember]
@@ -63,4 +62,3 @@ namespace Tp3Service
         public virtual ICollection<Item> Items { get; set; }
     }
 }
-

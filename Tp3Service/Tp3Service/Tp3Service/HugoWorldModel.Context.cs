@@ -109,7 +109,7 @@ namespace Tp3Service
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHero", compteJoueurIdParameter, niveauParameter, experienceParameter, xParameter, yParameter, argentParameter, statBaseStrParameter, statBaseDexParameter, statBaseIntParameter, statBaseStamParameter, mondeIdParameter, classeIdParameter, nameParameter, connectedParameter);
         }
     
-        public virtual int UpdateHero(Nullable<int> heroId, Nullable<int> mondeId, Nullable<int> classeId, Nullable<int> compteJoueurId, Nullable<int> niveau, Nullable<long> experience, Nullable<int> x, Nullable<int> y, Nullable<decimal> argent, Nullable<int> statBaseStr, Nullable<int> statBaseDex, Nullable<int> statBaseInt, Nullable<int> statBaseStam)
+        public virtual int UpdateHero(Nullable<int> heroId, Nullable<int> mondeId, Nullable<int> classeId, Nullable<int> compteJoueurId, Nullable<int> niveau, Nullable<long> experience, Nullable<int> x, Nullable<int> y, Nullable<decimal> argent, Nullable<int> statBaseStr, Nullable<int> statBaseDex, Nullable<int> statBaseInt, Nullable<int> statBaseStam, string name, Nullable<bool> connected)
         {
             var heroIdParameter = heroId.HasValue ?
                 new ObjectParameter("HeroId", heroId) :
@@ -163,7 +163,15 @@ namespace Tp3Service
                 new ObjectParameter("StatBaseStam", statBaseStam) :
                 new ObjectParameter("StatBaseStam", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateHero", heroIdParameter, mondeIdParameter, classeIdParameter, compteJoueurIdParameter, niveauParameter, experienceParameter, xParameter, yParameter, argentParameter, statBaseStrParameter, statBaseDexParameter, statBaseIntParameter, statBaseStamParameter);
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var connectedParameter = connected.HasValue ?
+                new ObjectParameter("Connected", connected) :
+                new ObjectParameter("Connected", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateHero", heroIdParameter, mondeIdParameter, classeIdParameter, compteJoueurIdParameter, niveauParameter, experienceParameter, xParameter, yParameter, argentParameter, statBaseStrParameter, statBaseDexParameter, statBaseIntParameter, statBaseStamParameter, nameParameter, connectedParameter);
         }
     }
 }

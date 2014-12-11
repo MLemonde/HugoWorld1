@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Classe">
           <Key>
             <PropertyRef Name="Id" />
@@ -284,6 +284,8 @@
           <Parameter Name="StatBaseDex" Type="int" Mode="In" />
           <Parameter Name="StatBaseInt" Type="int" Mode="In" />
           <Parameter Name="StatBaseStam" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Connected" Type="bit" Mode="In" />
         </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Classe" EntityType="Self.Classe" Schema="dbo" store:Type="Tables" />
@@ -420,6 +422,8 @@
             <Parameter Name="StatBaseDex" Mode="In" Type="Int32" />
             <Parameter Name="StatBaseInt" Mode="In" Type="Int32" />
             <Parameter Name="StatBaseStam" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Connected" Mode="In" Type="Boolean" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Classe">
@@ -740,6 +744,8 @@
                   <ScalarProperty Name="CompteJoueurId" ParameterName="CompteJoueurId" />
                 </InsertFunction>
                 <UpdateFunction FunctionName="Model.Store.UpdateHero">
+                  <ScalarProperty Name="Connected" ParameterName="Connected" Version="Current" />
+                  <ScalarProperty Name="Name" ParameterName="Name" Version="Current" />
                   <ScalarProperty Name="Id" ParameterName="HeroId" Version="Current" />
                   <ScalarProperty Name="StatBaseStam" ParameterName="StatBaseStam" Version="Current" />
                   <ScalarProperty Name="StatBaseInt" ParameterName="StatBaseInt" Version="Current" />
