@@ -36,9 +36,17 @@ namespace Vue
         {
             dtgridViewHeros.Rows.Clear();
 
-            List<Hero> lstHeros = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId);
-            foreach (var item in lstHeros)
-                dtgridViewHeros.Rows.Add(item.Classe.NomClasse, item.Monde.Description, item.Niveau, item.Experience, item.Id, item.ClasseId, item.MondeId);
+            try
+            {
+                List<Hero> lstHeros = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId);
+                foreach (var item in lstHeros)
+                    dtgridViewHeros.Rows.Add(item.Classe.NomClasse, item.Monde.Description, item.Niveau, item.Experience, item.Id, item.ClasseId, item.MondeId);
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
         }
 
         private void btnEditClass_Click(object sender, EventArgs e)
@@ -49,11 +57,19 @@ namespace Vue
         private void btnPlay_Click(object sender, EventArgs e)
         {
             if (dtgridViewHeros.SelectedRows.Count == 1)
-                DialogResult = DialogResult.OK;
-            else
             {
-                MessageBox.Show("Veuillez créer au moins un héro");
+                try
+                {
+                    HugoWorld.Data.HeroController.ConnectHero(HugoWorld.Data.CurrentHeroId);
+                    DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, ex.Message);
+                }
             }
+            else
+                MessageBox.Show("Veuillez créer au moins un héro");
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

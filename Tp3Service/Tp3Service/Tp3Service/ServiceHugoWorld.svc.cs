@@ -28,6 +28,13 @@ namespace Tp3Service
                 }
                 else
                     throw new FaultException("Connection error...");
+
+                lock (context.Heroes)
+                {
+                    foreach (Hero hero in context.Heroes)
+                        hero.Connected = false;
+                    context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
@@ -503,6 +510,7 @@ namespace Tp3Service
 
             Hero hero = new Hero()
             {
+                //Id = id,
                 MondeId = MondeID,
                 Argent = argent,
                 ClasseId = classeId,
@@ -513,7 +521,7 @@ namespace Tp3Service
                 StatBaseInt = Int,
                 StatBaseStam = stamina,
                 StatBaseStr = str,
-                Connected = true,
+                Connected = false,
                 Name = name,
                 x = X,
                 y = Y
@@ -602,11 +610,15 @@ namespace Tp3Service
         {
             lock (context.Heroes)
             {
-                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
+                CompteJoueur compte = context.CompteJoueurs.Include("Heroes").FirstOrNull(c => c.Heroes.Any(h => h.Id == heroId));
+                if (compte == null)
+                    throw new FaultException("Error: the account wasn't found in the database");
+
+                Hero hero = compte.Heroes.FirstOrNull(h => h.Id == heroId);
                 if (hero == null)
                     throw new FaultException("Error: the hero wasn't found in the database");
-                else if (hero.Connected)
-                    throw new FaultException("Error: the hero is already connected");
+                else if (compte.Heroes.Any(h => h.Connected))
+                    throw new FaultException("Error: there's already a connected hero on that account");
                 else
                 {
                     hero.Connected = true;
