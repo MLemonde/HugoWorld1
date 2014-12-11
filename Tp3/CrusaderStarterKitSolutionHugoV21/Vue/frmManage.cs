@@ -42,9 +42,9 @@ namespace Vue
                 foreach (var item in lstHeros)
                     dtgridViewHeros.Rows.Add(item.Classe.NomClasse, item.Monde.Description, item.Niveau, item.Experience, item.Id, item.ClasseId, item.MondeId);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                MessageBox.Show(ex.Message);
                 //throw;
             }
         }
