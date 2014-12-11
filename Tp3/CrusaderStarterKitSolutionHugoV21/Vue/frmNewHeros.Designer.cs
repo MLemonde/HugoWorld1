@@ -45,6 +45,8 @@
             this.txtStamina = new System.Windows.Forms.TextBox();
             this.txtIntelligence = new System.Windows.Forms.TextBox();
             this.btnRegenerateStats = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtHeroName = new System.Windows.Forms.TextBox();
             this.grpBoxDescription.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,9 +112,9 @@
             // grpBoxDescription
             // 
             this.grpBoxDescription.Controls.Add(this.txtDescrptionClasse);
-            this.grpBoxDescription.Location = new System.Drawing.Point(15, 97);
+            this.grpBoxDescription.Location = new System.Drawing.Point(15, 123);
             this.grpBoxDescription.Name = "grpBoxDescription";
-            this.grpBoxDescription.Size = new System.Drawing.Size(317, 106);
+            this.grpBoxDescription.Size = new System.Drawing.Size(317, 80);
             this.grpBoxDescription.TabIndex = 19;
             this.grpBoxDescription.TabStop = false;
             this.grpBoxDescription.Text = "Description de la classe";
@@ -122,10 +124,10 @@
             this.txtDescrptionClasse.BackColor = System.Drawing.SystemColors.Control;
             this.txtDescrptionClasse.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDescrptionClasse.Enabled = false;
-            this.txtDescrptionClasse.Location = new System.Drawing.Point(6, 19);
+            this.txtDescrptionClasse.Location = new System.Drawing.Point(6, 49);
             this.txtDescrptionClasse.Multiline = true;
             this.txtDescrptionClasse.Name = "txtDescrptionClasse";
-            this.txtDescrptionClasse.Size = new System.Drawing.Size(305, 72);
+            this.txtDescrptionClasse.Size = new System.Drawing.Size(305, 42);
             this.txtDescrptionClasse.TabIndex = 0;
             this.txtDescrptionClasse.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -211,11 +213,29 @@
             this.btnRegenerateStats.UseVisualStyleBackColor = true;
             this.btnRegenerateStats.Click += new System.EventHandler(this.btnRegenerateStats_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 97);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(98, 13);
+            this.label4.TabIndex = 34;
+            this.label4.Text = "Nom de votre héro:";
+            // 
+            // txtHeroName
+            // 
+            this.txtHeroName.Location = new System.Drawing.Point(127, 94);
+            this.txtHeroName.Name = "txtHeroName";
+            this.txtHeroName.Size = new System.Drawing.Size(208, 20);
+            this.txtHeroName.TabIndex = 35;
+            // 
             // FrmCreateHeros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(572, 218);
+            this.Controls.Add(this.txtHeroName);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnRegenerateStats);
             this.Controls.Add(this.txtIntelligence);
             this.Controls.Add(this.txtStamina);
@@ -260,5 +280,7 @@
         private System.Windows.Forms.TextBox txtStamina;
         private System.Windows.Forms.TextBox txtIntelligence;
         private System.Windows.Forms.Button btnRegenerateStats;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtHeroName;
     }
 }

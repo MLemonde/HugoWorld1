@@ -37,11 +37,13 @@
       <xs:element minOccurs="0" name="ClasseId" type="xs:int" />
       <xs:element minOccurs="0" name="CompteJoueur" nillable="true" type="tns:CompteJoueur" />
       <xs:element minOccurs="0" name="CompteJoueurId" type="xs:int" />
+      <xs:element minOccurs="0" name="Connected" type="xs:boolean" />
       <xs:element minOccurs="0" name="Experience" type="xs:long" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfItem" />
       <xs:element minOccurs="0" name="Monde" nillable="true" type="tns:Monde" />
       <xs:element minOccurs="0" name="MondeId" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Niveau" type="xs:int" />
       <xs:element minOccurs="0" name="StatBaseDex" type="xs:int" />
       <xs:element minOccurs="0" name="StatBaseInt" type="xs:int" />
@@ -114,8 +116,6 @@
       <xs:element minOccurs="0" name="TypeEffet" type="xs:int" />
       <xs:element minOccurs="0" name="ValeurEffet" type="xs:int" />
     </xs:sequence>
-    <xs:attribute ref="ser:Id" />
-    <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="EffetItem" nillable="true" type="tns:EffetItem" />
   <xs:complexType name="Monde">

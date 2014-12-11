@@ -267,6 +267,8 @@
           <Parameter Name="StatBaseStam" Type="int" Mode="In" />
           <Parameter Name="MondeId" Type="int" Mode="In" />
           <Parameter Name="ClasseId" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Connected" Type="bit" Mode="In" />
         </Function>
         <Function Name="UpdateHero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="HeroId" Type="int" Mode="In" />
@@ -401,6 +403,8 @@
             <Parameter Name="StatBaseStam" Mode="In" Type="Int32" />
             <Parameter Name="MondeId" Mode="In" Type="Int32" />
             <Parameter Name="ClasseId" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Connected" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="UpdateHero">
             <Parameter Name="HeroId" Mode="In" Type="Int32" />
@@ -720,6 +724,8 @@
             <EntityTypeMapping TypeName="Model.Hero">
               <ModificationFunctionMapping>
                 <InsertFunction FunctionName="Model.Store.InsertHero">
+                  <ScalarProperty Name="Connected" ParameterName="Connected" />
+                  <ScalarProperty Name="Name" ParameterName="Name" />
                   <ScalarProperty Name="ClasseId" ParameterName="ClasseId" />
                   <ScalarProperty Name="MondeId" ParameterName="MondeId" />
                   <ScalarProperty Name="StatBaseStam" ParameterName="StatBaseStam" />

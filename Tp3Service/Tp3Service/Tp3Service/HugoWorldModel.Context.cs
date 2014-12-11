@@ -20,8 +20,8 @@ namespace Tp3Service
         public HugoWorldEntities()
             : base("name=HugoWorldEntities")
         {
-            Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -48,7 +48,7 @@ namespace Tp3Service
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteHero", heroIdParameter);
         }
     
-        public virtual int InsertHero(Nullable<int> compteJoueurId, Nullable<int> niveau, Nullable<long> experience, Nullable<int> x, Nullable<int> y, Nullable<decimal> argent, Nullable<int> statBaseStr, Nullable<int> statBaseDex, Nullable<int> statBaseInt, Nullable<int> statBaseStam, Nullable<int> mondeId, Nullable<int> classeId)
+        public virtual int InsertHero(Nullable<int> compteJoueurId, Nullable<int> niveau, Nullable<long> experience, Nullable<int> x, Nullable<int> y, Nullable<decimal> argent, Nullable<int> statBaseStr, Nullable<int> statBaseDex, Nullable<int> statBaseInt, Nullable<int> statBaseStam, Nullable<int> mondeId, Nullable<int> classeId, string name, Nullable<bool> connected)
         {
             var compteJoueurIdParameter = compteJoueurId.HasValue ?
                 new ObjectParameter("CompteJoueurId", compteJoueurId) :
@@ -98,7 +98,15 @@ namespace Tp3Service
                 new ObjectParameter("ClasseId", classeId) :
                 new ObjectParameter("ClasseId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHero", compteJoueurIdParameter, niveauParameter, experienceParameter, xParameter, yParameter, argentParameter, statBaseStrParameter, statBaseDexParameter, statBaseIntParameter, statBaseStamParameter, mondeIdParameter, classeIdParameter);
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var connectedParameter = connected.HasValue ?
+                new ObjectParameter("Connected", connected) :
+                new ObjectParameter("Connected", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHero", compteJoueurIdParameter, niveauParameter, experienceParameter, xParameter, yParameter, argentParameter, statBaseStrParameter, statBaseDexParameter, statBaseIntParameter, statBaseStamParameter, mondeIdParameter, classeIdParameter, nameParameter, connectedParameter);
         }
     
         public virtual int UpdateHero(Nullable<int> heroId, Nullable<int> mondeId, Nullable<int> classeId, Nullable<int> compteJoueurId, Nullable<int> niveau, Nullable<long> experience, Nullable<int> x, Nullable<int> y, Nullable<decimal> argent, Nullable<int> statBaseStr, Nullable<int> statBaseDex, Nullable<int> statBaseInt, Nullable<int> statBaseStam)

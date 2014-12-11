@@ -72,11 +72,12 @@ namespace Vue
             int dexterity = 0, strength = 0, stamina = 0, intelligence = 0;
             int maxStatForANoob = 20;
             Random rmd = new Random();
-
-            dexterity = rmd.Next(1, maxStatForANoob);
-            strength = rmd.Next(1, maxStatForANoob);
-            stamina = rmd.Next(1, maxStatForANoob);
-            intelligence = rmd.Next(1, maxStatForANoob);
+            List<Classe> lstclass = HugoWorld.Data.ClassController.GetListClasses(HugoWorld.Data.WorldId);
+            Classe heroclass = lstclass.FirstOrDefault(c => c.NomClasse == cmbClass.SelectedItem.ToString());
+            dexterity = rmd.Next(1, maxStatForANoob) * (int)heroclass.StatPoidsDex;
+            strength = rmd.Next(1, maxStatForANoob) * (int)heroclass.StatPoidsStr;
+            stamina = rmd.Next(1, maxStatForANoob) * (int)heroclass.StatPoidsStam;
+            intelligence = rmd.Next(1, maxStatForANoob) * (int)heroclass.StatPoidsInt;
 
             txtDex.Text = dexterity.ToString();
             txtStr.Text = strength.ToString();
@@ -98,7 +99,7 @@ namespace Vue
         {
             // Create an hero for connected user.
             HugoWorld.Data.HeroController.CreateHero(HugoWorld.Data.WorldId, HugoWorld.Data.UserId, HugoWorld.Data.ClassId, 0, 0, 0,
-                int.Parse(txtDex.Text), int.Parse(txtStr.Text), int.Parse(txtStamina.Text), int.Parse(txtIntelligence.Text), 0, 150);
+                int.Parse(txtDex.Text), int.Parse(txtStr.Text), int.Parse(txtStamina.Text), int.Parse(txtIntelligence.Text), 0, 150,txtHeroName.Text);
 
             DialogResult = DialogResult.OK;
         }

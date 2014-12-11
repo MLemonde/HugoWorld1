@@ -38,7 +38,7 @@ namespace Vue
 
             List<Hero> lstHeros = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId);
             foreach (var item in lstHeros)
-                dtgridViewHeros.Rows.Add(item.Classe.Description, item.Monde.Description, item.Niveau, item.Experience, item.Id, item.ClasseId, item.MondeId);
+                dtgridViewHeros.Rows.Add(item.Classe.NomClasse, item.Monde.Description, item.Niveau, item.Experience, item.Id, item.ClasseId, item.MondeId);
         }
 
         private void btnEditClass_Click(object sender, EventArgs e)

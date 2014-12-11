@@ -337,6 +337,7 @@
         <xs:element minOccurs="0" name="Int" type="xs:int" />
         <xs:element minOccurs="0" name="experience" type="xs:long" />
         <xs:element minOccurs="0" name="argent" type="xs:decimal" />
+        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -408,6 +409,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetListHeroNearHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="heroId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListHeroNearHeroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetListHeroNearHeroResult" nillable="true" type="q5:ArrayOfHero" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetElementsArroundHero">
     <xs:complexType>
       <xs:sequence>
@@ -418,7 +433,7 @@
   <xs:element name="GetElementsArroundHeroResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetElementsArroundHeroResult" nillable="true" type="q5:Elements" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetElementsArroundHeroResult" nillable="true" type="q6:Elements" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

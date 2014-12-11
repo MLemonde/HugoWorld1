@@ -101,7 +101,7 @@ namespace Tp3Service
                 return;
             if (myClasse.MondeId != iMondeID)
                 return;
-                
+            myClasse.NomClasse = sNomClasse;
             myClasse.Description = sDescription;
             myClasse.StatPoidsStr = fStatPoidsStr;
             myClasse.StatPoidsDex = fStatPoidsDex;
@@ -513,7 +513,7 @@ namespace Tp3Service
                 StatBaseInt = Int,
                 StatBaseStam = stamina,
                 StatBaseStr = str,
-                Connected = false,
+                Connected = true,
                 Name = name,
                 x = X,
                 y = Y
