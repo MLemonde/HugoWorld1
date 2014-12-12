@@ -12,7 +12,7 @@ namespace HugoWorld
         public static int CurrentHeroId { get; set; }
         public static int WorldId { get; set; }
         public static int ClassId { get; set; }
-
+        public static string HeroName { get; set; }
         public static ClasseControllerClient ClassController = new ClasseControllerClient();
         public static CompteJoueurControllerClient CompteJoueurController = new CompteJoueurControllerClient();
         public static EffetItemControllerClient EffetItemController = new EffetItemControllerClient();

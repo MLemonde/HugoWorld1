@@ -47,7 +47,7 @@
             this.Classe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Monde = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Niveau = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Experience = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -184,7 +184,7 @@
             this.Classe,
             this.Monde,
             this.Niveau,
-            this.Experience,
+            this.Nom,
             this.Column1,
             this.Column2,
             this.Column3});
@@ -239,12 +239,12 @@
             this.Niveau.ReadOnly = true;
             this.Niveau.Width = 65;
             // 
-            // Experience
+            // Nom
             // 
-            this.Experience.HeaderText = "Experience";
-            this.Experience.Name = "Experience";
-            this.Experience.ReadOnly = true;
-            this.Experience.Width = 65;
+            this.Nom.HeaderText = "Nom";
+            this.Nom.Name = "Nom";
+            this.Nom.ReadOnly = true;
+            this.Nom.Width = 65;
             // 
             // Column1
             // 
@@ -317,7 +317,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Classe;
         private System.Windows.Forms.DataGridViewTextBoxColumn Monde;
         private System.Windows.Forms.DataGridViewTextBoxColumn Niveau;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Experience;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nom;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;

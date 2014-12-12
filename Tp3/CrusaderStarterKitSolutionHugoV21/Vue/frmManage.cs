@@ -40,7 +40,7 @@ namespace Vue
             {
                 List<Hero> lstHeros = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId);
                 foreach (var item in lstHeros)
-                    dtgridViewHeros.Rows.Add(item.Classe.NomClasse, item.Monde.Description, item.Niveau, item.Experience, item.Id, item.ClasseId, item.MondeId);
+                    dtgridViewHeros.Rows.Add(item.Classe.NomClasse, item.Monde.Description, item.Name, item.Experience, item.Id, item.ClasseId, item.MondeId);
             }
             catch (Exception ex)
             {
@@ -88,6 +88,7 @@ namespace Vue
                 HugoWorld.Data.WorldId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[6].Value.ToString());
                 HugoWorld.Data.ClassId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[5].Value.ToString());
                 HugoWorld.Data.CurrentHeroId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[4].Value.ToString());
+                HugoWorld.Data.HeroName = dtgridViewHeros.SelectedRows[0].Cells[2].Value.ToString();
                 Hero hero = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId).FirstOrDefault(h => h.Id == HugoWorld.Data.CurrentHeroId);
                 if (hero != default(Hero))
                 {

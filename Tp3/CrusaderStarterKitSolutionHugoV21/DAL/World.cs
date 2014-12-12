@@ -88,8 +88,9 @@ namespace HugoWorld
                                             _tiles[_heroClasse].Bitmap, _tiles[_heroClasse].Rectangle, _tiles[_heroClasse].NumberOfFrames);
 
             
+            
+            _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y +100, Data.HeroName));
 
-            _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y, "George le magicien"));
 
             _heroSprite.Flip = true;
             _heroSprite.ColorKey = Color.FromArgb(75, 75, 75);
@@ -336,7 +337,7 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X + 1, _heroPosition.Y], _heroPosition.X + 1, _heroPosition.Y))
                             {
-
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X + 100, (int)_heroSprite.Location.Y+100, Data.HeroName));
                                 _heroSprite.Velocity = new PointF(100, 0);
                                 _heroSprite.Flip = false ;
                                 _heroSpriteAnimating = true;
@@ -344,7 +345,7 @@ namespace HugoWorld
                                 _heroPosition.X++;
                                 setDestination();
                                 HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
-                                _popups.Add(new textPopup((int)_heroSprite.Location.X +100, (int)_heroSprite.Location.Y ,"George le magicien"));
+                                
 
                             }
                         }
@@ -369,7 +370,7 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X - 1, _heroPosition.Y], _heroPosition.X - 1, _heroPosition.Y))
                             {
-
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X - 100, (int)_heroSprite.Location.Y+100, Data.HeroName));
                                 _heroSprite.Velocity = new PointF(-100, 0);
                                 _heroSprite.Flip = true;
                                 _heroSpriteAnimating = true;
@@ -377,7 +378,7 @@ namespace HugoWorld
                                 _heroPosition.X--;
                                 setDestination();
                                 HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y , _currentArea.Name);
-                                _popups.Add(new textPopup((int)_heroSprite.Location.X -100, (int)_heroSprite.Location.Y, "George le magicien"));
+                                
 
 
                             }
@@ -401,13 +402,14 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X, _heroPosition.Y - 1], _heroPosition.X, _heroPosition.Y - 1))
                             {
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y, Data.HeroName));
                                 _heroSprite.Velocity = new PointF(0, -100);
                                 _heroSpriteAnimating = true;
                                 _direction = HeroDirection.Up;
                                 _heroPosition.Y--;
                                 setDestination();
                                 HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
-                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y - 100, "George le magicien"));
+                                
                                 
 
                             }
@@ -434,13 +436,14 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X, _heroPosition.Y + 1], _heroPosition.X, _heroPosition.Y + 1))
                             {
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y +200, Data.HeroName));
                                 _heroSprite.Velocity = new PointF(0, 100);
                                 _heroSpriteAnimating = true;
                                 _direction = HeroDirection.Down;
                                 _heroPosition.Y++;
                                 setDestination();
                                 HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
-                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y +100, "George le magicien"));
+                                
 
 
                             }
