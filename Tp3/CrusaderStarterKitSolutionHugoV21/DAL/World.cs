@@ -149,7 +149,7 @@ namespace HugoWorld
         public override void Update(double gameTime, double elapsedTime)
         {
             time += elapsedTime;
-            if(time > 5)
+            if(time > 15)
             {
                 time = 0;
                 SaveState();
@@ -284,12 +284,12 @@ namespace HugoWorld
         }
         private void UpdateGameState()
         {
-            _gameState.Attack = Data.Attack;
+            _gameState.Attack = Data.Str + Data.Dex;
             _gameState.Potions = 0;
-            _gameState.Armour = Data.Def;
+            _gameState.Armour = Data.Str / 2 + Data.Dex / 2 + Data.Intel; ;
             _gameState.Experience = Data.Exp;
             _gameState.Level = Data.Lvl;
-            _gameState.Health = Data.vie;
+            _gameState.Health = Data.Stam * 10;
             _gameState.Treasure = Data.Argent;
         }
         private bool checkDestination()
