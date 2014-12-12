@@ -145,7 +145,7 @@ namespace HugoWorld
 
             //Reset the game state
             Attack = Data.Attack;
-            Potions = 10;
+            Potions = 0;
             Armour = Data.Def;
             Experience = Data.Exp;
             Level = Data.Lvl;

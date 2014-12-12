@@ -62,7 +62,7 @@ namespace Tp3Service
                 
                     foreach (Hero hero in heroes)
                     {
-                        if (hero.LastActivity.Value + new TimeSpan(00, 02, 00) < DateTime.Now)
+                        if (hero.LastActivity.Value + new TimeSpan(00, 01, 00) < DateTime.Now)
                             hero.Connected = false;
                     }
                     
@@ -594,7 +594,8 @@ namespace Tp3Service
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    var objContext = ((IObjectContextAdapter)context).ObjectContext;
+                    objContext.Refresh(RefreshMode.StoreWins, hero);
                 }
             }
         }
@@ -623,7 +624,7 @@ namespace Tp3Service
         /// </summary>
         List<Hero> IHeroController.GetListHero(int compteId)
         {
-            lock (context.Heroes)
+            using (HugoWorldEntities db = new HugoWorldEntities())
             {
                 CompteJoueur compte = context.CompteJoueurs.FirstOrNull(c => c.Id == compteId);
                 if (compte != null)
@@ -668,13 +669,13 @@ namespace Tp3Service
 
         void IHeroController.ConnectHero(int heroId)
         {
-            lock (context.Heroes)
+            using (HugoWorldEntities db = new HugoWorldEntities())
             {
-                CompteJoueur compte = context.CompteJoueurs.Include("Heroes").FirstOrNull(c => c.Heroes.Any(h => h.Id == heroId));
+                CompteJoueur compte = db.CompteJoueurs.Include("Heroes").FirstOrNull(c => c.Heroes.Any(h => h.Id == heroId));
                 if (compte == null)
                     throw new FaultException("Error: the account wasn't found in the database");
 
-                Hero hero = compte.Heroes.FirstOrNull(h => h.Id == heroId);
+                Hero hero = db.Heroes.FirstOrNull(h => h.Id == heroId);
                 if (hero == null)
                     throw new FaultException("Error: the hero wasn't found in the database");
                 else if (compte.Heroes.Any(h => h.Connected))
@@ -682,9 +683,10 @@ namespace Tp3Service
                 else
                 {
                     hero.Connected = true;
-                    context.SaveChanges();
+                    db.SaveChanges();
                 }
             }
+            
         }
 
         void IHeroController.DeconnectHero(int heroId)

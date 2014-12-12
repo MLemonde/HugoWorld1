@@ -375,7 +375,7 @@ namespace HugoWorld
                                 setDestination();
                                 _heroSprite.Location = _heroDestination;
                                 _popups.Clear();
-                                _popups.Add(new textPopup((int)_heroSprite.Location.X + 100, (int)_heroSprite.Location.Y + 100, Data.HeroName));
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X , (int)_heroSprite.Location.Y + 100, Data.HeroName));
                             }
                         }
                         break;
@@ -409,7 +409,7 @@ namespace HugoWorld
                                 setDestination();
                                 _heroSprite.Location = _heroDestination;
                                 _popups.Clear();
-                                _popups.Add(new textPopup((int)_heroSprite.Location.X - 100, (int)_heroSprite.Location.Y + 100, Data.HeroName));
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y + 100, Data.HeroName));
                             }
                         }
                         break;
@@ -443,7 +443,7 @@ namespace HugoWorld
                                 setDestination();
                                 _heroSprite.Location = _heroDestination;
                                 _popups.Clear();
-                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y, Data.HeroName));
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y + 100, Data.HeroName));
 
                             }
                         }
@@ -479,7 +479,7 @@ namespace HugoWorld
                                 setDestination();
                                 _heroSprite.Location = _heroDestination;
                                 _popups.Clear();
-                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y + 200, Data.HeroName));
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y + 100, Data.HeroName));
                             }
                         }
                         break;

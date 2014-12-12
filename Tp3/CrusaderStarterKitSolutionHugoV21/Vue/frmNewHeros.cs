@@ -98,8 +98,8 @@ namespace Vue
         private void btnCreer_Click(object sender, EventArgs e)
         {
             // Create an hero for connected user.
-            HugoWorld.Data.HeroController.CreateHero(HugoWorld.Data.WorldId, HugoWorld.Data.UserId, HugoWorld.Data.ClassId, 0, 0, 0,
-                int.Parse(txtDex.Text), int.Parse(txtStr.Text), int.Parse(txtStamina.Text), int.Parse(txtIntelligence.Text), 0, 150,txtHeroName.Text);
+            HugoWorld.Data.HeroController.CreateHero(HugoWorld.Data.WorldId, HugoWorld.Data.UserId, HugoWorld.Data.ClassId,3, 3, 1,
+                int.Parse(txtDex.Text), int.Parse(txtStr.Text), int.Parse(txtStamina.Text), int.Parse(txtIntelligence.Text),0, 150,txtHeroName.Text);
 
             DialogResult = DialogResult.OK;
         }
