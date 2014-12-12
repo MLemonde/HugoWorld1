@@ -113,6 +113,7 @@ namespace HugoWorld
 
         public void Refresh()
         {
+            FillGrass();
             List<Monstre> lstmonstre = currentWorld.Monstres.Where(c => c.MondeId == currentWorld.Id
                 && c.x >= _x * MapSizeX
                 && c.x < (_x * MapSizeX + MapSizeX)
@@ -128,6 +129,8 @@ namespace HugoWorld
                 && c.x < (_x * MapSizeX + MapSizeX)
                 && c.y >= _y * MapSizeY
                 && c.y < (_y * MapSizeY + MapSizeY)).ToList();
+
+    
 
             foreach (var m in lstmonstre)
             {
@@ -176,6 +179,25 @@ namespace HugoWorld
                 mapTile.Tile = _tiles[m.Nom];
                 mapTile.ObjectTile = _tiles[m.Nom];
                 mapTile.SetSprite(xi, yi);
+            }
+
+            List<Hero> lstheronear = Data.HeroController.GetListHeroNearHero(Data.CurrentHeroId);
+            if (lstheronear != null)
+            {
+                if (lstheronear.Count != 0)
+                {
+                    foreach (var her in lstheronear)
+                    {
+                        if (her.Id != Data.CurrentHeroId)
+                        {
+                            MapTile mapTile = new MapTile();
+                            Map[her.x % 8, her.y % 8] = mapTile;
+                            mapTile.Tile = _tiles[her.Classe.Description];
+                            mapTile.ObjectTile = _tiles[her.Classe.Description];
+                            mapTile.SetSprite(her.x % 8, her.y % 8);
+                        }
+                    }
+                }
             }
 
             //for (int j = 0; j < MapSizeY; j++)

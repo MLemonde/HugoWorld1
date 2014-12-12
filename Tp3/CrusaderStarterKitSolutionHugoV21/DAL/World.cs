@@ -347,24 +347,7 @@ namespace HugoWorld
         {
 
 
-            List<Hero> lstheronear = Data.HeroController.GetListHeroNearHero(Data.CurrentHeroId);
-            if (lstheronear != null)
-            {
-                if (lstheronear.Count != 0)
-                {
-                    foreach (var her in lstheronear)
-                    {
-                        if (her.Id != Data.CurrentHeroId)
-                        {
-                            MapTile mapTile = new MapTile();
-                            _currentArea.Map[her.x % 8, her.y % 8] = mapTile;
-                            mapTile.Tile = _tiles[her.Classe.Description];
-                            mapTile.ObjectTile = _tiles[her.Classe.Description];
-                            mapTile.SetSprite(her.x % 8, her.y % 8);
-                        }
-                    }
-                }
-            }
+           
 
 
             //Ignore keypresses while we are animating or fighting

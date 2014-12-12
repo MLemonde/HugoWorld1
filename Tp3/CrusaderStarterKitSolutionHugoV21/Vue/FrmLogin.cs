@@ -69,10 +69,10 @@ namespace Vue
         {
             if (!String.IsNullOrEmpty(txtRegistEmail.Text) && !String.IsNullOrEmpty(txtRegistPass.Text) && !String.IsNullOrEmpty(txtRegistUsername.Text))
             {
-                HugoWorld.Data.CompteJoueurController.CreatePlayer(txtRegistUsername.Text, txtPassword.Text, txtRegistEmail.Text, "user", "name", 0);
-                txtUserName.Text = txtRegistUsername.Text;
-                txtPassword.Text = txtRegistPass.Text;
-                tryToConnect();
+               if( HugoWorld.Data.CompteJoueurController.CreatePlayer(txtRegistUsername.Text, txtPassword.Text, txtRegistEmail.Text, "user", "name", 0))
+                MessageBox.Show("Create Sucess");
+               else
+                   MessageBox.Show("Create pas sucess");
             }
             else
             {
