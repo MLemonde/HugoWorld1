@@ -85,10 +85,23 @@ namespace Vue
         {
             if (dtgridViewHeros.SelectedRows.Count == 1)
             {
+                Hero herotolog = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId).FirstOrDefault(c=> c.Id == HugoWorld.Data.CurrentHeroId);
+
                 HugoWorld.Data.WorldId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[6].Value.ToString());
                 HugoWorld.Data.ClassId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[5].Value.ToString());
                 HugoWorld.Data.CurrentHeroId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[4].Value.ToString());
-                HugoWorld.Data.HeroName = dtgridViewHeros.SelectedRows[0].Cells[2].Value.ToString();
+                HugoWorld.Data.HeroName = herotolog.Name;
+                HugoWorld.Data.Attack = herotolog.StatBaseStr + herotolog.StatBaseDex;
+                HugoWorld.Data.Def = herotolog.StatBaseStr /2 + herotolog.StatBaseDex/2 + herotolog.StatBaseInt;
+                HugoWorld.Data.Lvl = herotolog.Niveau;
+                HugoWorld.Data.Exp = (int)herotolog.Experience;
+                HugoWorld.Data.vie = herotolog.StatBaseStam * 10;
+                HugoWorld.Data.Argent = (int)herotolog.Argent;
+                HugoWorld.Data.Dex = herotolog.StatBaseDex;
+                HugoWorld.Data.Intel = herotolog.StatBaseInt;
+                HugoWorld.Data.Stam = herotolog.StatBaseStam;
+                HugoWorld.Data.Str = herotolog.StatBaseStr;
+
                 Hero hero = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId).FirstOrDefault(h => h.Id == HugoWorld.Data.CurrentHeroId);
                 if (hero != default(Hero))
                 {

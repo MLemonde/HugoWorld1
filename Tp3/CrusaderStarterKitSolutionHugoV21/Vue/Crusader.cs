@@ -30,7 +30,7 @@ namespace HugoWorld
 
             //Startup the game state
             _gameState = new GameState(ClientSize);
-
+            
             initialize();
         }
 

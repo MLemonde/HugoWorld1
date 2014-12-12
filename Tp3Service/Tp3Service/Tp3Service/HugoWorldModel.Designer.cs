@@ -1,4 +1,4 @@
-﻿// La génération de code T4 est activée pour le modèle 'C:\Users\Francis\Documents\GitHub\HugoWorld1\Tp3Service\Tp3Service\Tp3Service\HugoWorldModel.edmx'. 
+﻿// La génération de code T4 est activée pour le modèle 'I:\Session5\BD\Tp3\TileSetBranch\HugoWorld1\Tp3Service\Tp3Service\Tp3Service\HugoWorldModel.edmx'. 
 // Pour activer la génération de code héritée, définissez la valeur de la propriété
 // du concepteur 'Stratégie de génération de code' sur 'ObjectContext hérité'. Cette propriété est disponible dans la fenêtre Propriétés lorsque le modèle
 //  est ouvert dans le concepteur.

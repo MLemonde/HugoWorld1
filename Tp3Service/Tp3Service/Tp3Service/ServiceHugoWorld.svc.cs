@@ -30,12 +30,12 @@ namespace Tp3Service
                 else
                     throw new FaultException("Connection error...");
 
-                lock (context.Heroes)
-                {
-                    foreach (Hero hero in context.Heroes)
-                        hero.Connected = false;
-                    context.SaveChanges();
-                }
+                //lock (context.Heroes)
+                //{
+                //    foreach (Hero hero in context.Heroes)
+                //        hero.Connected = false;
+                //    context.SaveChanges();
+                //}
 
                 timer = new System.Timers.Timer(15000);
                 timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
@@ -566,15 +566,12 @@ namespace Tp3Service
         /// Auteur Francis Lussier
         /// permet de modifier un héro
         /// </summary>
-        void IHeroController.EditHero(int HeroId, int classeId, int x, int y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent)
+        void IHeroController.EditHero(int HeroId,int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent)
         {
             Hero hero = context.Heroes.FirstOrNull(h => h.Id == HeroId);
-            Classe classe = context.Classes.FirstOrNull(c => c.Id == classeId);
-            if (classe != null && hero != null)
+            
+            if (hero != null)
             {
-                hero.ClasseId = classeId;
-                hero.x = x;
-                hero.y = y;
                 hero.Niveau = niveau;
                 hero.StatBaseDex = dex;
                 hero.StatBaseStr = str;
@@ -582,6 +579,7 @@ namespace Tp3Service
                 hero.StatBaseInt = Int;
                 hero.Experience = experience;
                 hero.Argent = argent;
+                hero.LastActivity = DateTime.Now;
 
                 context.SaveChanges();
             }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Classe">
           <Key>
             <PropertyRef Name="Id" />
@@ -255,6 +255,7 @@
         <Function Name="DeleteHero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="HeroId" Type="int" Mode="In" />
         </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="InsertHero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CompteJoueurId" Type="int" Mode="In" />
           <Parameter Name="Niveau" Type="int" Mode="In" />
@@ -270,7 +271,38 @@
           <Parameter Name="ClasseId" Type="int" Mode="In" />
           <Parameter Name="Name" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Connected" Type="bit" Mode="In" />
+          <Parameter Name="Activity" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="UpdateHero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="HeroId" Type="int" Mode="In" />
           <Parameter Name="MondeId" Type="int" Mode="In" />
@@ -287,6 +319,7 @@
           <Parameter Name="StatBaseStam" Type="int" Mode="In" />
           <Parameter Name="Name" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Connected" Type="bit" Mode="In" />
+          <Parameter Name="Activity" Type="datetime" Mode="In" />
         </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Classe" EntityType="Self.Classe" Schema="dbo" store:Type="Tables" />
@@ -363,6 +396,7 @@
             <Parameter Name="ClasseId" Mode="In" Type="Int32" />
             <Parameter Name="Name" Mode="In" Type="String" />
             <Parameter Name="Connected" Mode="In" Type="Boolean" />
+            <Parameter Name="Activity" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="UpdateHero">
             <Parameter Name="HeroId" Mode="In" Type="Int32" />
@@ -380,6 +414,7 @@
             <Parameter Name="StatBaseStam" Mode="In" Type="Int32" />
             <Parameter Name="Name" Mode="In" Type="String" />
             <Parameter Name="Connected" Mode="In" Type="Boolean" />
+            <Parameter Name="Activity" Mode="In" Type="DateTime" />
           </FunctionImport>
           <EntitySet Name="Classes" EntityType="Model.Classe" />
           <EntitySet Name="CompteJoueurs" EntityType="Model.CompteJoueur" />
@@ -426,6 +461,36 @@
             <End Role="Hero" EntitySet="Heroes" />
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Model.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Model.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
         <EntityType Name="Classe">
           <Key>
@@ -471,7 +536,7 @@
           </Key>
           <Property Name="CompteJoueurId" Type="Int32" Nullable="false" />
           <Property Name="Connected" Type="Boolean" Nullable="false" />
-          <Property Name="LastActivity" Type="DateTime" Precision="3" />
+          <Property Name="LastActivity" Type="DateTime" Precision="3" ConcurrencyMode="Fixed" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Niveau" Type="Int32" Nullable="false" />
@@ -664,6 +729,17 @@
           <End Type="Model.Hero" Role="Hero" Multiplicity="*" />
           <End Type="Model.Item" Role="Item" Multiplicity="*" />
         </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -730,6 +806,48 @@
                 <ScalarProperty Name="Connected" ColumnName="Connected" />
                 <ScalarProperty Name="CompteJoueurId" ColumnName="CompteJoueurId" />
               </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Model.Hero">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="Model.Store.InsertHero">
+                  <ScalarProperty Name="LastActivity" ParameterName="Activity" />
+                  <ScalarProperty Name="Connected" ParameterName="Connected" />
+                  <ScalarProperty Name="Name" ParameterName="Name" />
+                  <ScalarProperty Name="ClasseId" ParameterName="ClasseId" />
+                  <ScalarProperty Name="MondeId" ParameterName="MondeId" />
+                  <ScalarProperty Name="StatBaseStam" ParameterName="StatBaseStam" />
+                  <ScalarProperty Name="StatBaseInt" ParameterName="StatBaseInt" />
+                  <ScalarProperty Name="StatBaseDex" ParameterName="StatBaseDex" />
+                  <ScalarProperty Name="StatBaseStr" ParameterName="StatBaseStr" />
+                  <ScalarProperty Name="Argent" ParameterName="Argent" />
+                  <ScalarProperty Name="y" ParameterName="y" />
+                  <ScalarProperty Name="x" ParameterName="x" />
+                  <ScalarProperty Name="Experience" ParameterName="Experience" />
+                  <ScalarProperty Name="Niveau" ParameterName="Niveau" />
+                  <ScalarProperty Name="CompteJoueurId" ParameterName="CompteJoueurId" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="Model.Store.UpdateHero">
+                  <ScalarProperty Name="Id" ParameterName="HeroId" Version="Current" />
+                  <ScalarProperty Name="LastActivity" ParameterName="Activity" Version="Current" />
+                  <ScalarProperty Name="Connected" ParameterName="Connected" Version="Current" />
+                  <ScalarProperty Name="Name" ParameterName="Name" Version="Current" />
+                  <ScalarProperty Name="StatBaseStam" ParameterName="StatBaseStam" Version="Current" />
+                  <ScalarProperty Name="StatBaseInt" ParameterName="StatBaseInt" Version="Current" />
+                  <ScalarProperty Name="StatBaseDex" ParameterName="StatBaseDex" Version="Current" />
+                  <ScalarProperty Name="StatBaseStr" ParameterName="StatBaseStr" Version="Current" />
+                  <ScalarProperty Name="Argent" ParameterName="Argent" Version="Current" />
+                  <ScalarProperty Name="y" ParameterName="y" Version="Current" />
+                  <ScalarProperty Name="x" ParameterName="x" Version="Current" />
+                  <ScalarProperty Name="Experience" ParameterName="Experience" Version="Current" />
+                  <ScalarProperty Name="Niveau" ParameterName="Niveau" Version="Current" />
+                  <ScalarProperty Name="CompteJoueurId" ParameterName="CompteJoueurId" Version="Current" />
+                  <ScalarProperty Name="ClasseId" ParameterName="ClasseId" Version="Current" />
+                  <ScalarProperty Name="MondeId" ParameterName="MondeId" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="Model.Store.DeleteHero" >
+                  <ScalarProperty Name="Id" ParameterName="HeroId" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">
@@ -809,6 +927,30 @@
               <ScalarProperty Name="Id" ColumnName="IdHero" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Model.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Model.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Model.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Model.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Model.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Model.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Model.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -350,9 +350,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="HeroId" type="xs:int" />
-        <xs:element minOccurs="0" name="classeId" type="xs:int" />
-        <xs:element minOccurs="0" name="X" type="xs:int" />
-        <xs:element minOccurs="0" name="Y" type="xs:int" />
         <xs:element minOccurs="0" name="niveau" type="xs:int" />
         <xs:element minOccurs="0" name="dex" type="xs:int" />
         <xs:element minOccurs="0" name="str" type="xs:int" />

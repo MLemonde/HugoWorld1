@@ -13,6 +13,18 @@ namespace HugoWorld
         public static int WorldId { get; set; }
         public static int ClassId { get; set; }
         public static string HeroName { get; set; }
+        public static int Attack { get; set; }
+        public static int Def { get; set; }
+        public static int Potion { get; set; }
+        public static int Lvl { get; set; }
+        public static int Exp { get; set; }
+        public static int vie { get; set; }
+        public static int  Argent { get; set; }
+        public static int Dex { get; set; }
+        public static int Str { get; set; }
+        public static int Stam { get; set; }
+        public static int Intel { get; set; }
+
         public static ClasseControllerClient ClassController = new ClasseControllerClient();
         public static CompteJoueurControllerClient CompteJoueurController = new CompteJoueurControllerClient();
         public static EffetItemControllerClient EffetItemController = new EffetItemControllerClient();

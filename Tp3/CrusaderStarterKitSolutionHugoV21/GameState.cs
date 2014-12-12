@@ -118,7 +118,7 @@ namespace HugoWorld
             if (Health == 0)
             {
                 graphics.DrawString("You died!", _font, _brush, 200, 250);
-                graphics.DrawString("Press 's' to play again", _font, _brush, 100, 300);
+                graphics.DrawString("Press 's' to respawn", _font, _brush, 100, 300);
             }
 
             //If the game is won then show congratulations
@@ -144,14 +144,14 @@ namespace HugoWorld
             World = new World(this, _tiles, Data.WorldId);
 
             //Reset the game state
-            Attack = 1;
+            Attack = Data.Attack;
             Potions = 10;
-            Armour = 1;
-            Experience = 0;
-            Level = 1;
-            _nextUpgrade = 20;
-            Health = 100;
-            Treasure = 0;
+            Armour = Data.Def;
+            Experience = Data.Exp;
+            Level = Data.Lvl;
+            _nextUpgrade = Data.Lvl * 20;
+            Health = Data.vie;
+            Treasure = Data.Argent;
             GameIsWon = false;
         }
 

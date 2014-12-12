@@ -10,22 +10,10 @@
 namespace Tp3Service
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.Serialization;
-
-    [DataContract(IsReference = true)]
-    public partial class EffetItem
+    
+    public partial class sp_helpdiagramdefinition_Result
     {
-        [DataMember]
-        public int Id { get; set; }
-        [DataMember]
-        public int ItemId { get; set; }
-        [DataMember]
-        public int ValeurEffet { get; set; }
-        [DataMember]
-        public int TypeEffet { get; set; }
-
-        [DataMember]
-        public virtual Item Item { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

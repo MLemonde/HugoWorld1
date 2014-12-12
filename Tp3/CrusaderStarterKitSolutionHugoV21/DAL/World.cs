@@ -99,21 +99,29 @@ namespace HugoWorld
 
         void _tmrRefresh_Tick(object sender, EventArgs e)
         {
-           // SaveState();
-            List<Hero> lstheronear = Data.HeroController.GetListHeroNearHero(Data.CurrentHeroId);
+            SaveState();           
 
-            foreach(var her in lstheronear)
-            {
-                if( her.Id != Data.CurrentHeroId)
-                {
-                    _currentArea.MapItem[her.x % 8, her.y % 8].Sprite = new Sprite(null, (her.x % 8) * Tile.TileSizeX + Area.AreaOffsetX,
-                        (her.y % 8) * Tile.TileSizeY + Area.AreaOffsetY, _tiles[her.Classe.Description].Bitmap, _tiles[her.Classe.Description].Rectangle,
-                        _tiles[her.Classe.Description].NumberOfFrames);
-                    _currentArea.MapItem[her.x % 8, her.y % 8].Tile = _tiles[her.Classe.Description];
-                }
-            }
         }
 
+        private void SaveState()
+        {
+            while (true)
+            {
+
+
+                try
+                {
+                    HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
+                    HeroClient.EditHero(_heroid, Data.Lvl, Data.Dex, Data.Str, Data.Stam, Data.Intel, Data.Exp, Data.Argent);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+           
+        }
         private void CreerAreaDic(int mapid)
         {
             MondeControllerClient client = new MondeControllerClient();
@@ -324,7 +332,6 @@ namespace HugoWorld
             }
 
 
-            _popups.Clear();
             //Ignore keypresses while we are animating or fighting
             if (!_heroSpriteAnimating)
             {
@@ -337,6 +344,7 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X + 1, _heroPosition.Y], _heroPosition.X + 1, _heroPosition.Y))
                             {
+                                _popups.Clear();
                                 _popups.Add(new textPopup((int)_heroSprite.Location.X + 100, (int)_heroSprite.Location.Y+100, Data.HeroName));
                                 _heroSprite.Velocity = new PointF(100, 0);
                                 _heroSprite.Flip = false ;
@@ -370,6 +378,7 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X - 1, _heroPosition.Y], _heroPosition.X - 1, _heroPosition.Y))
                             {
+                                _popups.Clear();
                                 _popups.Add(new textPopup((int)_heroSprite.Location.X - 100, (int)_heroSprite.Location.Y+100, Data.HeroName));
                                 _heroSprite.Velocity = new PointF(-100, 0);
                                 _heroSprite.Flip = true;
@@ -402,6 +411,7 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X, _heroPosition.Y - 1], _heroPosition.X, _heroPosition.Y - 1))
                             {
+                                _popups.Clear();
                                 _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y, Data.HeroName));
                                 _heroSprite.Velocity = new PointF(0, -100);
                                 _heroSpriteAnimating = true;
@@ -436,6 +446,7 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X, _heroPosition.Y + 1], _heroPosition.X, _heroPosition.Y + 1))
                             {
+                                _popups.Clear();
                                 _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y +200, Data.HeroName));
                                 _heroSprite.Velocity = new PointF(0, 100);
                                 _heroSpriteAnimating = true;

@@ -11,7 +11,9 @@ namespace Tp3Service
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Item
     {
         public Item()
@@ -19,25 +21,42 @@ namespace Tp3Service
             this.EffetItems = new HashSet<EffetItem>();
             this.Heroes = new HashSet<Hero>();
         }
-    
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string Nom { get; set; }
+        [DataMember]
         public string Description { get; set; }
+        [DataMember]
         public Nullable<int> x { get; set; }
+        [DataMember]
         public Nullable<int> y { get; set; }
+        [DataMember]
         public int Niveau { get; set; }
+        [DataMember]
         public Nullable<decimal> ValeurArgent { get; set; }
+        [DataMember]
         public decimal Poids { get; set; }
+        [DataMember]
         public int ReqNiveau { get; set; }
+        [DataMember]
         public int ReqForce { get; set; }
+        [DataMember]
         public int ReqDexterite { get; set; }
+        [DataMember]
         public int ReqIntelligence { get; set; }
+        [DataMember]
         public int ReqEndurance { get; set; }
+        [DataMember]
         public int MondeId { get; set; }
+        [DataMember]
         public int Quantite { get; set; }
-    
+
+        [DataMember]
         public virtual ICollection<EffetItem> EffetItems { get; set; }
+        [DataMember]
         public virtual Monde Monde { get; set; }
+        [DataMember]
         public virtual ICollection<Hero> Heroes { get; set; }
     }
 }

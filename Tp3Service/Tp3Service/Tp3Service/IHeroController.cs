@@ -21,7 +21,7 @@ namespace Tp3Service
         /// Auteur Francis Lussier
         /// </summary>
         [OperationContract]
-        void EditHero(int HeroId, int classeId, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent);
+        void EditHero(int HeroId,int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent);
 
         [OperationContract]
         void SetHeroPos(int HeroId, int x, int y, string area);
