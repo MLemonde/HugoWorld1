@@ -26,6 +26,7 @@ namespace HugoWorld
 
     public class World : GameObject
     {
+        private double time = 0;
         private Timer _tmrRefresh = new Timer();
         private const string _startArea = "0,0";
         private int _heroid = 0;
@@ -94,12 +95,13 @@ namespace HugoWorld
 
             _heroSprite.Flip = true;
             _heroSprite.ColorKey = Color.FromArgb(75, 75, 75);
-            _tmrRefresh.Start();
+            _tmrRefresh.Enabled = true;
+
         }
 
         void _tmrRefresh_Tick(object sender, EventArgs e)
         {
-            SaveState();           
+           
 
         }
 
@@ -146,6 +148,12 @@ namespace HugoWorld
 
         public override void Update(double gameTime, double elapsedTime)
         {
+            time += elapsedTime;
+            if(time > 5)
+            {
+                time = 0;
+                SaveState();
+            }
             //We only actually update the current area the rest all 'sleep'
             _currentArea.Update(gameTime, elapsedTime*5);
 
@@ -352,7 +360,6 @@ namespace HugoWorld
                                 _direction = HeroDirection.Right;
                                 _heroPosition.X++;
                                 setDestination();
-                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
                                 
 
                             }
@@ -362,11 +369,13 @@ namespace HugoWorld
                             if (checkNextTile(_world[_currentArea.EastArea].Map[7, _heroPosition.Y], 7, _heroPosition.Y))
                             {
                                 //Edge of map - move to next area
+                                
                                 _currentArea = _world[_currentArea.EastArea];
                                 _heroPosition.X = 0;
                                 setDestination();
                                 _heroSprite.Location = _heroDestination;
-                                //HeroClient.EditHero
+                                _popups.Clear();
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X + 100, (int)_heroSprite.Location.Y + 100, Data.HeroName));
                             }
                         }
                         break;
@@ -386,7 +395,6 @@ namespace HugoWorld
                                 _direction = HeroDirection.Left;
                                 _heroPosition.X--;
                                 setDestination();
-                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y , _currentArea.Name);
                                 
 
 
@@ -400,6 +408,8 @@ namespace HugoWorld
                                 _heroPosition.X = Area.MapSizeX - 1;
                                 setDestination();
                                 _heroSprite.Location = _heroDestination;
+                                _popups.Clear();
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X - 100, (int)_heroSprite.Location.Y + 100, Data.HeroName));
                             }
                         }
                         break;
@@ -418,7 +428,6 @@ namespace HugoWorld
                                 _direction = HeroDirection.Up;
                                 _heroPosition.Y--;
                                 setDestination();
-                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
                                 
                                 
 
@@ -433,6 +442,8 @@ namespace HugoWorld
                                 _heroPosition.Y = Area.MapSizeY - 1;
                                 setDestination();
                                 _heroSprite.Location = _heroDestination;
+                                _popups.Clear();
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y, Data.HeroName));
 
                             }
                         }
@@ -453,7 +464,6 @@ namespace HugoWorld
                                 _direction = HeroDirection.Down;
                                 _heroPosition.Y++;
                                 setDestination();
-                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
                                 
 
 
@@ -468,6 +478,8 @@ namespace HugoWorld
                                 _heroPosition.Y = 0;
                                 setDestination();
                                 _heroSprite.Location = _heroDestination;
+                                _popups.Clear();
+                                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y + 200, Data.HeroName));
                             }
                         }
                         break;

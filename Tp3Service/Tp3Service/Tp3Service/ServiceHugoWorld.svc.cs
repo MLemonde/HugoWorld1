@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -52,20 +54,22 @@ namespace Tp3Service
         {
             try
             {
-                lock (context.Heroes)
+              
+                using (HugoWorldEntities db = new HugoWorldEntities())
                 {
-                    List<Hero> heroes = context.Heroes.Where(h => h.Connected).ToList();
 
+                    List<Hero> heroes = db.Heroes.Where(h => h.Connected).ToList();
+                
                     foreach (Hero hero in heroes)
                     {
-                        if (hero.LastActivity.Value + new TimeSpan(00, 02, 00) > DateTime.Now)
+                        if (hero.LastActivity.Value + new TimeSpan(00, 02, 00) < DateTime.Now)
                             hero.Connected = false;
                     }
-                    lock (context)
-                    {
-                        context.SaveChanges();
-                    }
+                    
+                        db.SaveChanges();
                 }
+                    
+                
             }
             catch (Exception ex)
             {
@@ -555,7 +559,8 @@ namespace Tp3Service
                 Connected = false,
                 Name = name,
                 x = X,
-                y = Y
+                y = Y,
+                LastActivity=DateTime.Now
             };
 
             context.Heroes.Add(hero);
@@ -572,16 +577,25 @@ namespace Tp3Service
             
             if (hero != null)
             {
-                hero.Niveau = niveau;
-                hero.StatBaseDex = dex;
-                hero.StatBaseStr = str;
-                hero.StatBaseStam = stamina;
-                hero.StatBaseInt = Int;
-                hero.Experience = experience;
-                hero.Argent = argent;
-                hero.LastActivity = DateTime.Now;
+                try
+                {
 
-                context.SaveChanges();
+
+                    hero.Niveau = niveau;
+                    hero.StatBaseDex = dex;
+                    hero.StatBaseStr = str;
+                    hero.StatBaseStam = stamina;
+                    hero.StatBaseInt = Int;
+                    hero.Experience = experience;
+                    hero.Argent = argent;
+                    hero.LastActivity = DateTime.Now;
+
+                    context.SaveChanges();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 
@@ -677,13 +691,20 @@ namespace Tp3Service
         {
             lock (context.Heroes)
             {
-                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
-                if (hero == null)
-                    throw new FaultException("Error: the hero wasn't found in the database");
-                else
+                try
                 {
-                    hero.Connected = false;
-                    context.SaveChanges();
+                    Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
+                    if (hero == null)
+                        throw new FaultException("Error: the hero wasn't found in the database");
+                    else
+                    {
+                        hero.Connected = false;
+                        context.SaveChanges();
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
