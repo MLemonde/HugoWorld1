@@ -62,7 +62,7 @@ namespace Tp3Service
                 
                     foreach (Hero hero in heroes)
                     {
-                        if (hero.LastActivity.Value + new TimeSpan(00, 01, 00) < DateTime.Now)
+                        if (hero.LastActivity.Value + new TimeSpan(00, 05, 00) < DateTime.Now)
                             hero.Connected = false;
                     }
                     
@@ -605,7 +605,7 @@ namespace Tp3Service
                     hero.Experience = experience;
                     hero.Argent = argent;
                     hero.LastActivity = DateTime.Now;
-
+                    hero.Connected = true;
                     context.SaveChanges();
                 }
                 catch(Exception ex)
@@ -700,6 +700,7 @@ namespace Tp3Service
                 else
                 {
                     hero.Connected = true;
+                    hero.LastActivity = DateTime.Now;
                     db.SaveChanges();
                 }
             }

@@ -50,7 +50,7 @@ namespace HugoWorld
         private static Brush _blackBrush = new SolidBrush(Color.Red);
         private static Random _random = new Random();
 
-        public World(GameState gameState, Dictionary<string, Tile> tiles, int mondeid)
+        public World(GameState gameState, Dictionary<string, Tile> tiles, int mondeid, bool dead)
         {
             _gameState = gameState;
             _tmrRefresh.Interval = 2000;
@@ -77,10 +77,11 @@ namespace HugoWorld
             //Create and position the hero character
             _heroPosition = new Point(3, 3);
 
-
-            _heroPosition.X = _currentHero.x % 8;
-            _heroPosition.Y = _currentHero.y % 8;
-
+            if (!dead)
+            {
+                _heroPosition.X = _currentHero.x % 8;
+                _heroPosition.Y = _currentHero.y % 8;
+            }
 
 
 
@@ -109,8 +110,6 @@ namespace HugoWorld
         {
             while (true)
             {
-
-
                 try
                 {
                     HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
@@ -149,7 +148,7 @@ namespace HugoWorld
         public override void Update(double gameTime, double elapsedTime)
         {
             time += elapsedTime;
-            if(time > 15)
+            if(time > 5)
             {
                 time = 0;
                 SaveState();
@@ -207,11 +206,18 @@ namespace HugoWorld
                     break;
 
                 case "Sword":
-                    Data.Str++;
-                    UpdateGameState();
-                    Sounds.Pickup();
-                    pickedup = true;
-                    break;
+                  //  if (Data.HeroController.PickUpItem())
+                   // {
+                        Data.Str++;
+                        UpdateGameState();
+                        Sounds.Pickup();
+                        pickedup = true;
+                        break;
+                 //   }
+                  //  else
+                   // {
+                        _currentArea.Refresh();
+                  //  }
 
                 case "SpikedMace":
                     Data.Str += 3;

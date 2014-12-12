@@ -83,8 +83,10 @@ namespace HugoWorld
                 //If we hit the upgrade threshold then increase our abilities
                 if (_experience > _nextUpgrade)
                 {
-                    Attack++;
-                    Armour++;
+                    Data.Str++;
+                    Data.Dex++;
+                    Data.Stam++;
+                    Data.Intel++;
                     //Each upgrade is a little harder to get
                     _nextUpgrade = _nextUpgrade + 20 * Level;
                     Level++;
@@ -136,13 +138,13 @@ namespace HugoWorld
         }
 
 
-        public void Initialize()
+        public void Initialize(bool dead)
         {
             Sounds.Start();
 
             //Create all the main gameobjects
-            World = new World(this, _tiles, Data.WorldId);
-
+            World = new World(this, _tiles, Data.WorldId,dead);
+            
             //Reset the game state
             Attack = Data.Attack;
             Potions = 0;
@@ -186,7 +188,7 @@ namespace HugoWorld
                 //If game is over then allow S to restart 
                 if (keys == Keys.S)
                 {
-                    Initialize();
+                    Initialize(true);
                 }
             }
         }

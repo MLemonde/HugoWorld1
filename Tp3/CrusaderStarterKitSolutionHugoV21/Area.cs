@@ -22,7 +22,7 @@ namespace HugoWorld
         public const int AreaOffsetY = 50;
         public const int MapSizeX = 8;
         public const int MapSizeY = 8;
-
+        Dictionary<string, Tile> _tiles;
         public MapTile[,] Map = new MapTile[MapSizeX, MapSizeY];
         public MapTile[,] MapItem = new MapTile[MapSizeX, MapSizeY];
         private Rectangle _areaRectangle = new Rectangle(AreaOffsetX, AreaOffsetY, MapSizeX * Tile.TileSizeX, MapSizeY * Tile.TileSizeY);
@@ -42,6 +42,8 @@ namespace HugoWorld
         /// <param name="tiles"></param>
         public Area(int Mondeid, int x, int y, Dictionary<string, Tile> tiles)
         {
+            _tiles = tiles;
+            FillGrass();
             MondeControllerClient client = new MondeControllerClient();
             List<Monde> lstmonde = client.GetListMonde();
             Monde currentWorld = lstmonde.FirstOrDefault(c => c.Id == Mondeid);
@@ -189,6 +191,35 @@ namespace HugoWorld
             //    }
             //}
 
+        }
+
+        public void Refresh()
+        {
+
+        }
+
+        public void FillGrass()
+        {
+            for (int j = 0; j < MapSizeY; j++)
+            {
+                for (int i = 0; i < MapSizeX; i++)
+                {
+
+
+                    MapTile mapTile2 = new MapTile();
+                    
+                        MapItem[i, j] = mapTile2;
+                        mapTile2.Tile = _tiles["Grass"];
+                        mapTile2.SetSprite(i, j);
+                    
+
+                    
+                      Map[i, j] = MapItem[i, j];
+
+                    
+                }
+
+            }
         }
 
         public override void Update(double gameTime, double elapsedTime)
