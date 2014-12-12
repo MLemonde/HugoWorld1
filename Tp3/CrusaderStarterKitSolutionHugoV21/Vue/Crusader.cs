@@ -36,7 +36,7 @@ namespace HugoWorld
 
         private void initialize()
         {
-            _gameState.Initialize();
+            _gameState.Initialize(false);
 
             //Initialise and start the timer
             _lastTime = 0.0;

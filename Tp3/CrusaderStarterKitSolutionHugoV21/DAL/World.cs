@@ -61,7 +61,7 @@ namespace HugoWorld
             _heroClasse = currentclasse.Description;
             //Read in the map file
             CreerAreaDic(mondeid);
-
+            UpdateGameState();
 
             //DEPENDING POS TODO
 
@@ -152,6 +152,7 @@ namespace HugoWorld
             {
                 time = 0;
                 SaveState();
+                _currentArea.Refresh();
             }
             //We only actually update the current area the rest all 'sleep'
             _currentArea.Update(gameTime, elapsedTime*5);

@@ -22,6 +22,9 @@ namespace HugoWorld
         public const int AreaOffsetY = 50;
         public const int MapSizeX = 8;
         public const int MapSizeY = 8;
+        private Monde currentWorld;
+        private int _x;
+        private int _y;
         Dictionary<string, Tile> _tiles;
         public MapTile[,] Map = new MapTile[MapSizeX, MapSizeY];
         public MapTile[,] MapItem = new MapTile[MapSizeX, MapSizeY];
@@ -42,11 +45,13 @@ namespace HugoWorld
         /// <param name="tiles"></param>
         public Area(int Mondeid, int x, int y, Dictionary<string, Tile> tiles)
         {
+            _x = x;
+            _y = y;
             _tiles = tiles;
             FillGrass();
             MondeControllerClient client = new MondeControllerClient();
             List<Monde> lstmonde = client.GetListMonde();
-            Monde currentWorld = lstmonde.FirstOrDefault(c => c.Id == Mondeid);
+            currentWorld = lstmonde.FirstOrDefault(c => c.Id == Mondeid);
 
             Name = x.ToString() + ',' + y.ToString();
             if (y == 0)
@@ -80,94 +85,7 @@ namespace HugoWorld
             //Read in 8 lines of 8 characters each. Look up the tile and make the
             //matching sprite
 
-            List<Monstre> lstmonstre = currentWorld.Monstres.Where(c => c.MondeId == currentWorld.Id
-                && c.x >= x * MapSizeX
-                && c.x < (x * MapSizeX + MapSizeX)
-                && c.y >= y * MapSizeY
-                && c.y < (y * MapSizeY + MapSizeY)).ToList();
-            List<ObjetMonde> lstobj = currentWorld.ObjetMondes.Where(c => c.MondeId == currentWorld.Id
-                && c.x >= x * MapSizeX
-                && c.x < (x * MapSizeX + MapSizeX)
-                && c.y >= y * MapSizeY
-                && c.y < (y * MapSizeY + MapSizeY)).ToList();
-            List<Item> lstitem = currentWorld.Items.Where(c => c.MondeId == currentWorld.Id
-                && c.x >= x * MapSizeX
-                && c.x < (x * MapSizeX + MapSizeX)
-                && c.y >= y * MapSizeY
-                && c.y < (y * MapSizeY + MapSizeY)).ToList();
-
-            foreach (var m in lstmonstre)
-            {
-                int xm = m.x - x * MapSizeX;
-                int ym = m.y - y * MapSizeY;
-
-                MapTile mapTile = new MapTile();
-                Map[xm, ym] = mapTile;
-                mapTile.Tile = tiles[m.Nom];
-                mapTile.ObjectTile = tiles[m.Nom];
-                mapTile.SetSprite(xm, ym);
-            }
-            foreach (var m in lstobj)
-            {
-                int xo = m.x - x * MapSizeX;
-                int yo = m.y - y * MapSizeY;
-
-                if (m.Description != "Sand" && m.Description != "Snow"
-                    && m.Description != "Grass" && m.Description != "Dirt"
-                    && m.Description != "Path4way"
-                    && m.Description != "PathH" && m.Description != "PathV" && m.Description != "PathCornerUR")
-                {
-                    MapTile mapTile = new MapTile();
-                    Map[xo, yo] = mapTile;
-                    mapTile.Tile = tiles[m.Description];
-                    mapTile.ObjectTile = tiles[m.Description];
-                    mapTile.SetSprite(xo, yo);
-                }
-                else
-                {
-
-                    MapTile mapTile = new MapTile();
-                    MapItem[xo, yo] = mapTile;
-                    mapTile.Tile = tiles[m.Description];
-                    mapTile.SetSprite(xo, yo);
-                }
-
-            }
-            foreach (var m in lstitem)
-            {
-                int xi = m.x.Value - x * MapSizeX;
-                int yi = m.y.Value - y * MapSizeY;
-
-                MapTile mapTile = new MapTile();
-                Map[xi, yi] = mapTile;
-                mapTile.Tile = tiles[m.Nom];
-                mapTile.ObjectTile = tiles[m.Nom];
-                mapTile.SetSprite(xi, yi);
-            }
-
-            for (int j = 0; j < MapSizeY; j++)
-            {
-                for (int i = 0; i < MapSizeX; i++)
-                {
-
-
-                    MapTile mapTile2 = new MapTile();
-                    if (MapItem[i, j] == null)
-                    {
-                        MapItem[i, j] = mapTile2;
-                        mapTile2.Tile = tiles["Grass"];
-                        mapTile2.SetSprite(i, j);
-                    }
-
-                    MapTile mapTile = new MapTile();
-                    if (Map[i, j] == null)
-                    {
-                        Map[i, j] = MapItem[i, j];
-
-                    }
-                }
-
-            }
+            Refresh();
 
 
 
@@ -195,7 +113,94 @@ namespace HugoWorld
 
         public void Refresh()
         {
+            List<Monstre> lstmonstre = currentWorld.Monstres.Where(c => c.MondeId == currentWorld.Id
+                && c.x >= _x * MapSizeX
+                && c.x < (_x * MapSizeX + MapSizeX)
+                && c.y >= _y * MapSizeY
+                && c.y < (_y * MapSizeY + MapSizeY)).ToList();
+            List<ObjetMonde> lstobj = currentWorld.ObjetMondes.Where(c => c.MondeId == currentWorld.Id
+                && c.x >= _x * MapSizeX
+                && c.x < (_x * MapSizeX + MapSizeX)
+                && c.y >= _y * MapSizeY
+                && c.y < (_y * MapSizeY + MapSizeY)).ToList();
+            List<Item> lstitem = currentWorld.Items.Where(c => c.MondeId == currentWorld.Id
+                && c.x >= _x * MapSizeX
+                && c.x < (_x * MapSizeX + MapSizeX)
+                && c.y >= _y * MapSizeY
+                && c.y < (_y * MapSizeY + MapSizeY)).ToList();
 
+            foreach (var m in lstmonstre)
+            {
+                int xm = m.x - _x * MapSizeX;
+                int ym = m.y - _y * MapSizeY;
+
+                MapTile mapTile = new MapTile();
+                Map[xm, ym] = mapTile;
+                mapTile.Tile = _tiles[m.Nom];
+                mapTile.ObjectTile = _tiles[m.Nom];
+                mapTile.SetSprite(xm, ym);
+            }
+            foreach (var m in lstobj)
+            {
+                int xo = m.x - _x * MapSizeX;
+                int yo = m.y - _y * MapSizeY;
+
+                if (m.Description != "Sand" && m.Description != "Snow"
+                    && m.Description != "Grass" && m.Description != "Dirt"
+                    && m.Description != "Path4way"
+                    && m.Description != "PathH" && m.Description != "PathV" && m.Description != "PathCornerUR")
+                {
+                    MapTile mapTile = new MapTile();
+                    Map[xo, yo] = mapTile;
+                    mapTile.Tile = _tiles[m.Description];
+                    mapTile.ObjectTile = _tiles[m.Description];
+                    mapTile.SetSprite(xo, yo);
+                }
+                else
+                {
+
+                    MapTile mapTile = new MapTile();
+                    MapItem[xo, yo] = mapTile;
+                    mapTile.Tile = _tiles[m.Description];
+                    mapTile.SetSprite(xo, yo);
+                }
+
+            }
+            foreach (var m in lstitem)
+            {
+                int xi = m.x.Value - _x * MapSizeX;
+                int yi = m.y.Value - _y * MapSizeY;
+
+                MapTile mapTile = new MapTile();
+                Map[xi, yi] = mapTile;
+                mapTile.Tile = _tiles[m.Nom];
+                mapTile.ObjectTile = _tiles[m.Nom];
+                mapTile.SetSprite(xi, yi);
+            }
+
+            //for (int j = 0; j < MapSizeY; j++)
+            //{
+            //    for (int i = 0; i < MapSizeX; i++)
+            //    {
+
+
+            //        MapTile mapTile2 = new MapTile();
+            //        if (MapItem[i, j] == null)
+            //        {
+            //            MapItem[i, j] = mapTile2;
+            //            mapTile2.Tile = _tiles["Grass"];
+            //            mapTile2.SetSprite(i, j);
+            //        }
+
+            //        MapTile mapTile = new MapTile();
+            //        if (Map[i, j] == null)
+            //        {
+            //            Map[i, j] = MapItem[i, j];
+
+            //        }
+            //    }
+
+            //}
         }
 
         public void FillGrass()
