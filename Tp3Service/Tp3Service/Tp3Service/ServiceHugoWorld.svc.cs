@@ -543,28 +543,44 @@ namespace Tp3Service
             if (classe == null || compte == null)
                 return;
 
-            Hero hero = new Hero()
+            while (true)
             {
-                //Id = id,
-                MondeId = MondeID,
-                Argent = argent,
-                ClasseId = classeId,
-                CompteJoueurId = compteId,
-                Experience = experience,
-                Niveau = niveau,
-                StatBaseDex = dex,
-                StatBaseInt = Int,
-                StatBaseStam = stamina,
-                StatBaseStr = str,
-                Connected = false,
-                Name = name,
-                x = X,
-                y = Y,
-                LastActivity=DateTime.Now
-            };
+                try
+                {
 
-            context.Heroes.Add(hero);
-            context.SaveChanges();
+
+                    using (HugoWorldEntities db = new HugoWorldEntities())
+                    {
+                        Hero hero = new Hero()
+                        {
+                            //Id = id,
+                            MondeId = MondeID,
+                            Argent = argent,
+                            ClasseId = classeId,
+                            CompteJoueurId = compteId,
+                            Experience = experience,
+                            Niveau = niveau,
+                            StatBaseDex = dex,
+                            StatBaseInt = Int,
+                            StatBaseStam = stamina,
+                            StatBaseStr = str,
+                            Connected = false,
+                            Name = name,
+                            x = X,
+                            y = Y,
+                            LastActivity = DateTime.Now
+                        };
+
+                        db.Heroes.Add(hero);
+                        db.SaveChanges();
+                        break;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
 
         /// <summary>
@@ -624,14 +640,15 @@ namespace Tp3Service
         /// </summary>
         List<Hero> IHeroController.GetListHero(int compteId)
         {
-            using (HugoWorldEntities db = new HugoWorldEntities())
+            lock (context.Heroes)
             {
-                CompteJoueur compte = context.CompteJoueurs.FirstOrNull(c => c.Id == compteId);
+                CompteJoueur compte = context.CompteJoueurs.Include("Heroes").FirstOrNull(c => c.Id == compteId);
                 if (compte != null)
                     return compte.Heroes.ToList();
                 else
                     return new List<Hero>();
             }
+            
         }
 
         List<Hero> IHeroController.GetListHeroNearHero(int heroId)

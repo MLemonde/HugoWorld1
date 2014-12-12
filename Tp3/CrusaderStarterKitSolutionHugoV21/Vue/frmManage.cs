@@ -40,7 +40,11 @@ namespace Vue
             {
                 List<Hero> lstHeros = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId);
                 foreach (var item in lstHeros)
-                    dtgridViewHeros.Rows.Add(item.Classe.NomClasse, item.Monde.Description, item.Name, item.Experience, item.Id, item.ClasseId, item.MondeId);
+                {
+                    Classe cla = HugoWorld.Data.ClassController.FindClasseOfHero(item.Id, item.MondeId);
+                    Monde mo = HugoWorld.Data.MondeController.GetListMonde().Where(c => c.Id == item.MondeId).FirstOrDefault();
+                    dtgridViewHeros.Rows.Add(cla.NomClasse, mo.Description, item.Name, item.Experience, item.Id, item.ClasseId, item.MondeId);
+                }
             }
             catch (Exception ex)
             {
@@ -85,11 +89,11 @@ namespace Vue
         {
             if (dtgridViewHeros.SelectedRows.Count == 1)
             {
-                Hero herotolog = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId).FirstOrDefault(c=> c.Id == HugoWorld.Data.CurrentHeroId);
 
                 HugoWorld.Data.WorldId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[6].Value.ToString());
                 HugoWorld.Data.ClassId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[5].Value.ToString());
                 HugoWorld.Data.CurrentHeroId = int.Parse(dtgridViewHeros.SelectedRows[0].Cells[4].Value.ToString());
+                Hero herotolog = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId).FirstOrDefault(c => c.Id == HugoWorld.Data.CurrentHeroId);
                 HugoWorld.Data.HeroName = herotolog.Name;
                 HugoWorld.Data.Attack = herotolog.StatBaseStr + herotolog.StatBaseDex;
                 HugoWorld.Data.Def = herotolog.StatBaseStr /2 + herotolog.StatBaseDex/2 + herotolog.StatBaseInt;
@@ -102,14 +106,14 @@ namespace Vue
                 HugoWorld.Data.Stam = herotolog.StatBaseStam;
                 HugoWorld.Data.Str = herotolog.StatBaseStr;
 
-                Hero hero = HugoWorld.Data.HeroController.GetListHero(HugoWorld.Data.UserId).FirstOrDefault(h => h.Id == HugoWorld.Data.CurrentHeroId);
-                if (hero != default(Hero))
+                
+                if (herotolog != default(Hero))
                 {
-                    txtStr.Text = hero.StatBaseStr.ToString();
-                    txtDex.Text = hero.StatBaseDex.ToString();
-                    txtIntelligence.Text = hero.StatBaseInt.ToString();
-                    txtMoney.Text = hero.Argent.ToString();
-                    txtStamina.Text = hero.StatBaseStam.ToString();
+                    txtStr.Text = herotolog.StatBaseStr.ToString();
+                    txtDex.Text = herotolog.StatBaseDex.ToString();
+                    txtIntelligence.Text = herotolog.StatBaseInt.ToString();
+                    txtMoney.Text = herotolog.Argent.ToString();
+                    txtStamina.Text = herotolog.StatBaseStam.ToString();
                 }
             }
         }

@@ -193,68 +193,79 @@ namespace HugoWorld
             {
                 //Most objects change your stats in some way.
                 case "Armor":
-                    _gameState.Armour++;
+                    Data.Str++;
+                    UpdateGameState();
                     Sounds.Pickup();
                     pickedup = true;
                     break;
 
                 case "Dagger":
-                    _gameState.Attack++;
+                    Data.Dex++;
+                    UpdateGameState();
                     Sounds.Pickup();
                     pickedup = true;
                     break;
 
                 case "Sword":
-                    _gameState.Attack++;
+                    Data.Str++;
+                    UpdateGameState();
                     Sounds.Pickup();
                     pickedup = true;
                     break;
 
                 case "SpikedMace":
-                    _gameState.Attack++;
+                    Data.Str += 3;
+                    UpdateGameState();
                     Sounds.Pickup();
                     pickedup = true;
                     break;
 
                 case "Axe":
-                    _gameState.Attack++;
+                    Data.Str += 3;
+                    UpdateGameState();
                     pickedup = true;
                     Sounds.Pickup();
                     break;
 
                 case "Heart":
-                    _gameState.Health += 10;
+                    Data.Stam += 3;
+                    UpdateGameState();
                     pickedup = true;
                     Sounds.Eat();
                     break;
 
                 case "Food":
-                    _gameState.Health += 10;
+                    Data.Stam += 1;
                     pickedup = true;
+                    UpdateGameState();
                     Sounds.Eat();
                     break;
 
                 case "GoldPile":
-                    _gameState.Treasure += 5;
+                    Data.Argent += 5;
                     pickedup = true;
+                    UpdateGameState();
                     Sounds.Pickup();
                     break;
 
                 case "GoldBag":
-                    _gameState.Treasure += 5;
+                    Data.Argent += 15;
                     pickedup = true;
+                    UpdateGameState();
                     Sounds.Pickup();
                     break;
 
                 case "Potion":
                     _gameState.Potions++;
                     pickedup = true;
+                    UpdateGameState();
                     Sounds.Pickup();
                     break;
 
                 case "Key":
                     _gameState.HasRedKey = true;
                     pickedup = true;
+                    UpdateGameState();
                     Sounds.Pickup();
                     break;
 
@@ -271,7 +282,16 @@ namespace HugoWorld
                 //  _currentArea.Update(0,0);
             }
         }
-
+        private void UpdateGameState()
+        {
+            _gameState.Attack = Data.Attack;
+            _gameState.Potions = 0;
+            _gameState.Armour = Data.Def;
+            _gameState.Experience = Data.Exp;
+            _gameState.Level = Data.Lvl;
+            _gameState.Health = Data.vie;
+            _gameState.Treasure = Data.Argent;
+        }
         private bool checkDestination()
         {
             //Depending on the direction we are moving we check different bounds of the destination
