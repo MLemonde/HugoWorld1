@@ -16,6 +16,9 @@ namespace Tp3Service
         private HugoWorldEntities context = new HugoWorldEntities();
         private System.Timers.Timer timer;
         
+        /// <summary>
+        /// Contructeur qui test s'il peut se connecter a la Database et qui part le timer de déconnection des joueurs.
+        /// </summary>
         public ServiceHugoWorld()
         {
             try
@@ -32,13 +35,6 @@ namespace Tp3Service
                 }
                 else
                     throw new FaultException("Connection error...");
-
-                //lock (context.Heroes)
-                //{
-                //    foreach (Hero hero in context.Heroes)
-                //        hero.Connected = false;
-                //    context.SaveChanges();
-                //}
 
                 timer = new System.Timers.Timer(15000);
                 timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
@@ -60,22 +56,15 @@ namespace Tp3Service
         {
             try
             {
-              
-                using (HugoWorldEntities db = new HugoWorldEntities())
+                using (HugoWorldEntities context = new HugoWorldEntities())
                 {
-
-                    List<Hero> heroes = db.Heroes.Where(h => h.Connected).ToList();
+                    List<Hero> heroes = context.Heroes.Where(h => h.Connected).ToList();
                 
                     foreach (Hero hero in heroes)
-                    {
                         if (hero.LastActivity.Value + new TimeSpan(00, 02, 00) < DateTime.Now)
                             hero.Connected = false;
-                    }
-                    
-                        db.SaveChanges();
+                    context.SaveChanges();
                 }
-                    
-                
             }
             catch (Exception ex)
             {
@@ -602,8 +591,6 @@ namespace Tp3Service
             {
                 try
                 {
-
-
                     hero.Niveau = niveau;
                     hero.StatBaseDex = dex;
                     hero.StatBaseStr = str;
@@ -620,6 +607,7 @@ namespace Tp3Service
                 {
                     var objContext = ((IObjectContextAdapter)context).ObjectContext;
                     objContext.Refresh(RefreshMode.StoreWins, hero);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
@@ -707,9 +695,23 @@ namespace Tp3Service
                     throw new FaultException("Error: there's already a connected hero on that account");
                 else
                 {
-                    hero.Connected = true;
-                    hero.LastActivity = DateTime.Now;
-                    db.SaveChanges();
+                    //list hero avec meme position et connecté
+                    List<Hero> lstHeroes = context.Heroes.Where(h => h.x == hero.x && h.y == hero.y && h.Connected && h.Id != hero.Id).ToList();
+                    if (lstHeroes.Count == 0)
+                    {
+                        hero.Connected = true;
+                        hero.LastActivity = DateTime.Now;
+                        db.SaveChanges();    
+                    }
+                    else
+                    {
+                        hero.x = 0;
+                        hero.y = 0;
+                        hero.Connected = true;
+                        hero.LastActivity = DateTime.Now;
+                        db.SaveChanges();
+                        throw new FaultException("Error: You can't login at that position because there's currently someone.\nYou were teleported at the spawn.");
+                    }
                 }
             }
             
@@ -734,6 +736,47 @@ namespace Tp3Service
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
+        }
+
+        bool IHeroController.CheckIfHeroesAt(int heroId, int x, int y, string area)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
+                if (hero != null)
+                {
+                    //list hero avec meme position et connecté
+                    List<Hero> lstHeroes = context.Heroes.Where(h => h.x == hero.x && h.y == hero.y && h.Connected && h.Id != hero.Id).ToList();
+
+                    return lstHeroes.Count != 0;
+                }
+                return false;
+            }
+        }
+
+        string IHeroController.AttackHeroAt(int attackerHeroId, int x, int y, string area)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == attackerHeroId);
+                if (hero != null)
+                {
+                    //list hero avec meme position et connecté
+                    List<Hero> lstHeroes = context.Heroes.Where(h => h.x == hero.x && h.y == hero.y && h.Connected && h.Id != hero.Id).ToList();
+                    switch (lstHeroes.Count)
+                    {
+                        case 0:
+                            throw new FaultException("Error: No hero were found at that position");
+                        case 1:
+                            string str = String.Empty;
+
+                            return str;
+                        default:
+                            return String.Empty;
+                    }
+                }
+                return String.Empty;
             }
         }
 
@@ -820,8 +863,6 @@ namespace Tp3Service
             if (monster == null)
                 return;
 
-
-
             monster.Monde.Monstres.Remove(monster);
             context.Monstres.Remove(monster);
             context.SaveChanges();
@@ -856,6 +897,21 @@ namespace Tp3Service
             }
             context.SaveChanges();
         }
+
+        void IMonstreController.KillMonster(int mondeId, int x, int y)
+        {
+            lock (context.Monstres)
+            {
+                Monstre monstre = context.Monstres.FirstOrNull(m => m.MondeId == mondeId && m.x == x && m.y == y);
+                if (monstre != null)
+                {
+                    monstre.Monde.Monstres.Remove(monstre);
+                    context.Monstres.Remove(monstre);
+                    context.SaveChanges();
+                }
+            }
+        }
+        
         #endregion
 
         #region EffetItem
@@ -1092,9 +1148,6 @@ namespace Tp3Service
         }
         #endregion
 
-
-
-
        //// private void Refreshcontext()
        // {
        //     var objContext = ((IObjectContextAdapter)context).ObjectContext;
@@ -1108,8 +1161,6 @@ namespace Tp3Service
 
        //     objContext.Refresh(RefreshMode.StoreWins, refreshableObjects);
        // }
-
-
 
         bool IHeroController.PickupItem(int Heroid, int x, int y)
         {
@@ -1145,6 +1196,8 @@ namespace Tp3Service
                     {
                         var objContext = ((IObjectContextAdapter)context).ObjectContext;
                         objContext.Refresh(RefreshMode.StoreWins, item);
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine("Error fixed : StoreWins");
                     }
                 }
             }

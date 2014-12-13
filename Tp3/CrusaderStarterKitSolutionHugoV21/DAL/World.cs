@@ -703,6 +703,14 @@ namespace HugoWorld
                     if (damageMonster(_random.Next(_gameState.Attack * 2) + 1, mapTile, x, y))
                     {
                         //Monster is dead now
+                        try
+                        {
+                            Data.MonstreController.KillMonster(Data.WorldId, x, y);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                         return true;
                     }
                 }
@@ -717,7 +725,6 @@ namespace HugoWorld
             //If the next tile is a blocker then we can't move
             if (mapTile.Tile.IsBlock) return false;
 
-
             return true;
         }
 
@@ -731,7 +738,6 @@ namespace HugoWorld
             {
                 mapTile.ObjectHealth = mapTile.ObjectTile.Health;
             }
-
 
             mapTile.ObjectHealth -= damage;
 
@@ -753,8 +759,6 @@ namespace HugoWorld
             _popups.Add(new textPopup((int)mapTile.Sprite.Location.X + 40, (int)mapTile.Sprite.Location.Y + 20, (damage != 0) ? damage.ToString() : "miss"));
 
             return returnValue;
-
-
         }
 
         private void checkDoors(MapTile mapTile, int x, int y)
@@ -769,16 +773,13 @@ namespace HugoWorld
                     mapTile.Tile = _tiles["DoorOpen"];
                     mapTile.SetSprite(x, y);
                 }
-
-
             }
         }
 
         private void setDestination()
         {
             //Calculate the eventual sprite destination based on the area grid coordinates
-            _heroDestination = new PointF(_heroPosition.X * Tile.TileSizeX + Area.AreaOffsetX,
-                                            _heroPosition.Y * Tile.TileSizeY + Area.AreaOffsetY);
+            _heroDestination = new PointF(_heroPosition.X * Tile.TileSizeX + Area.AreaOffsetX, _heroPosition.Y * Tile.TileSizeY + Area.AreaOffsetY);
         }
 
         private enum HeroDirection

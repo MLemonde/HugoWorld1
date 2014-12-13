@@ -27,6 +27,12 @@ namespace Tp3Service
         void SetHeroPos(int HeroId, int x, int y, string area);
 
         [OperationContract]
+        bool CheckIfHeroesAt(int heroId, int x, int y, string area);
+
+        [OperationContract]
+        string AttackHeroAt(int attackerHeroId, int x, int y, string area);
+
+        [OperationContract]
         bool PickupItem(int Heroid, int x, int y);
 
         [OperationContract]

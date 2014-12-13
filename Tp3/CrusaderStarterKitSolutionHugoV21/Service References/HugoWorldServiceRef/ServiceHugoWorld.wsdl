@@ -157,6 +157,18 @@
   <wsdl:message name="IHeroController_SetHeroPos_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetHeroPosResponse" />
   </wsdl:message>
+  <wsdl:message name="IHeroController_CheckIfHeroesAt_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckIfHeroesAt" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_CheckIfHeroesAt_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckIfHeroesAtResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_AttackHeroAt_InputMessage">
+    <wsdl:part name="parameters" element="tns:AttackHeroAt" />
+  </wsdl:message>
+  <wsdl:message name="IHeroController_AttackHeroAt_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AttackHeroAtResponse" />
+  </wsdl:message>
   <wsdl:message name="IHeroController_PickupItem_InputMessage">
     <wsdl:part name="parameters" element="tns:PickupItem" />
   </wsdl:message>
@@ -216,6 +228,12 @@
   </wsdl:message>
   <wsdl:message name="IMonstreController_EditMonster_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditMonsterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMonstreController_KillMonster_InputMessage">
+    <wsdl:part name="parameters" element="tns:KillMonster" />
+  </wsdl:message>
+  <wsdl:message name="IMonstreController_KillMonster_OutputMessage">
+    <wsdl:part name="parameters" element="tns:KillMonsterResponse" />
   </wsdl:message>
   <wsdl:message name="IEffetItemController_CreateEffetItem_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateEffetItem" />
@@ -390,6 +408,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/SetHeroPos" message="tns:IHeroController_SetHeroPos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/SetHeroPosResponse" message="tns:IHeroController_SetHeroPos_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="CheckIfHeroesAt">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/CheckIfHeroesAt" message="tns:IHeroController_CheckIfHeroesAt_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/CheckIfHeroesAtResponse" message="tns:IHeroController_CheckIfHeroesAt_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AttackHeroAt">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/AttackHeroAt" message="tns:IHeroController_AttackHeroAt_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/AttackHeroAtResponse" message="tns:IHeroController_AttackHeroAt_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="PickupItem">
       <wsdl:input wsaw:Action="http://tempuri.org/IHeroController/PickupItem" message="tns:IHeroController_PickupItem_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHeroController/PickupItemResponse" message="tns:IHeroController_PickupItem_OutputMessage" />
@@ -431,6 +457,10 @@
     <wsdl:operation name="EditMonster">
       <wsdl:input wsaw:Action="http://tempuri.org/IMonstreController/EditMonster" message="tns:IMonstreController_EditMonster_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMonstreController/EditMonsterResponse" message="tns:IMonstreController_EditMonster_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="KillMonster">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMonstreController/KillMonster" message="tns:IMonstreController_KillMonster_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMonstreController/KillMonsterResponse" message="tns:IMonstreController_KillMonster_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IEffetItemController">
@@ -721,6 +751,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckIfHeroesAt">
+      <soap:operation soapAction="http://tempuri.org/IHeroController/CheckIfHeroesAt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttackHeroAt">
+      <soap:operation soapAction="http://tempuri.org/IHeroController/AttackHeroAt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="PickupItem">
       <soap:operation soapAction="http://tempuri.org/IHeroController/PickupItem" style="document" />
       <wsdl:input>
@@ -807,6 +855,15 @@
     </wsdl:operation>
     <wsdl:operation name="EditMonster">
       <soap:operation soapAction="http://tempuri.org/IMonstreController/EditMonster" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KillMonster">
+      <soap:operation soapAction="http://tempuri.org/IMonstreController/KillMonster" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
