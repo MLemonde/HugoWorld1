@@ -21,7 +21,6 @@ namespace Tp3Service
         {
             this.Items = new HashSet<Item>();
         }
-    
         [DataMember]
         public int CompteJoueurId { get; set; }
         [DataMember]
@@ -54,6 +53,8 @@ namespace Tp3Service
         public int MondeId { get; set; }
         [DataMember]
         public int ClasseId { get; set; }
+        [DataMember]
+        public int PV { get; set; }
 
         [DataMember]
         public virtual Classe Classe { get; set; }

@@ -427,6 +427,9 @@ namespace HugoWorldServiceRef {
         private int NiveauField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int StatBaseDexField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -632,6 +635,19 @@ namespace HugoWorldServiceRef {
                 if ((this.NiveauField.Equals(value) != true)) {
                     this.NiveauField = value;
                     this.RaisePropertyChanged("Niveau");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PV {
+            get {
+                return this.PVField;
+            }
+            set {
+                if ((this.PVField.Equals(value) != true)) {
+                    this.PVField = value;
+                    this.RaisePropertyChanged("PV");
                 }
             }
         }
@@ -936,6 +952,9 @@ namespace HugoWorldServiceRef {
         private int ReqNiveauField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte[] RowVersionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> ValeurArgentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1150,6 +1169,19 @@ namespace HugoWorldServiceRef {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte[] RowVersion {
+            get {
+                return this.RowVersionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RowVersionField, value) != true)) {
+                    this.RowVersionField = value;
+                    this.RaisePropertyChanged("RowVersion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<decimal> ValeurArgent {
             get {
                 return this.ValeurArgentField;
@@ -1200,7 +1232,7 @@ namespace HugoWorldServiceRef {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EffetItem", Namespace="http://schemas.datacontract.org/2004/07/Tp3Service", IsReference=true)]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EffetItem", Namespace="http://schemas.datacontract.org/2004/07/Tp3Service")]
     [System.SerializableAttribute()]
     public partial class EffetItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2084,16 +2116,22 @@ namespace HugoWorldServiceRef {
         System.Threading.Tasks.Task CreateHeroAsync(int MondeID, int compteId, int classeId, int X, int Y, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent, string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/EditHero", ReplyAction="http://tempuri.org/IHeroController/EditHeroResponse")]
-        void EditHero(int HeroId, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent);
+        void EditHero(int HeroId, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent, int pv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/EditHero", ReplyAction="http://tempuri.org/IHeroController/EditHeroResponse")]
-        System.Threading.Tasks.Task EditHeroAsync(int HeroId, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent);
+        System.Threading.Tasks.Task EditHeroAsync(int HeroId, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent, int pv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/SetHeroPos", ReplyAction="http://tempuri.org/IHeroController/SetHeroPosResponse")]
         void SetHeroPos(int HeroId, int x, int y, string area);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/SetHeroPos", ReplyAction="http://tempuri.org/IHeroController/SetHeroPosResponse")]
         System.Threading.Tasks.Task SetHeroPosAsync(int HeroId, int x, int y, string area);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/PickupItem", ReplyAction="http://tempuri.org/IHeroController/PickupItemResponse")]
+        bool PickupItem(int Heroid, int x, int y);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/PickupItem", ReplyAction="http://tempuri.org/IHeroController/PickupItemResponse")]
+        System.Threading.Tasks.Task<bool> PickupItemAsync(int Heroid, int x, int y);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/ConnectHero", ReplyAction="http://tempuri.org/IHeroController/ConnectHeroResponse")]
         void ConnectHero(int heroid);
@@ -2167,12 +2205,12 @@ namespace HugoWorldServiceRef {
             return base.Channel.CreateHeroAsync(MondeID, compteId, classeId, X, Y, niveau, dex, str, stamina, Int, experience, argent, name);
         }
         
-        public void EditHero(int HeroId, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent) {
-            base.Channel.EditHero(HeroId, niveau, dex, str, stamina, Int, experience, argent);
+        public void EditHero(int HeroId, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent, int pv) {
+            base.Channel.EditHero(HeroId, niveau, dex, str, stamina, Int, experience, argent, pv);
         }
         
-        public System.Threading.Tasks.Task EditHeroAsync(int HeroId, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent) {
-            return base.Channel.EditHeroAsync(HeroId, niveau, dex, str, stamina, Int, experience, argent);
+        public System.Threading.Tasks.Task EditHeroAsync(int HeroId, int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent, int pv) {
+            return base.Channel.EditHeroAsync(HeroId, niveau, dex, str, stamina, Int, experience, argent, pv);
         }
         
         public void SetHeroPos(int HeroId, int x, int y, string area) {
@@ -2181,6 +2219,14 @@ namespace HugoWorldServiceRef {
         
         public System.Threading.Tasks.Task SetHeroPosAsync(int HeroId, int x, int y, string area) {
             return base.Channel.SetHeroPosAsync(HeroId, x, y, area);
+        }
+        
+        public bool PickupItem(int Heroid, int x, int y) {
+            return base.Channel.PickupItem(Heroid, x, y);
+        }
+        
+        public System.Threading.Tasks.Task<bool> PickupItemAsync(int Heroid, int x, int y) {
+            return base.Channel.PickupItemAsync(Heroid, x, y);
         }
         
         public void ConnectHero(int heroid) {

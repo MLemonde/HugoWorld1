@@ -47,8 +47,9 @@ namespace HugoLand.Controller
             Item item = context.Items.FirstOrNull(i => i.Id == itemId);
             if (item != null)
             {
-                context.Items.Remove(item);
-                context.SaveChanges();
+                
+                //context.Items.Remove(item);
+                //context.SaveChanges();
             }
         }
         

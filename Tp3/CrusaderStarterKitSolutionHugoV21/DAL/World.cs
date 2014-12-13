@@ -76,7 +76,8 @@ namespace HugoWorld
 
             //Create and position the hero character
             _heroPosition = new Point(3, 3);
-
+            if (dead)
+                Data.vie = Data.Stam * 10;
             if (!dead)
             {
                 _heroPosition.X = _currentHero.x % 8;
@@ -113,7 +114,7 @@ namespace HugoWorld
                 try
                 {
                     HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
-                    HeroClient.EditHero(_heroid, Data.Lvl, Data.Dex, Data.Str, Data.Stam, Data.Intel, Data.Exp, Data.Argent);
+                    HeroClient.EditHero(_heroid, Data.Lvl, Data.Dex, Data.Str, Data.Stam, Data.Intel, Data.Exp, Data.Argent,Data.vie);
                     break;
                 }
                 catch (Exception ex)
@@ -148,7 +149,7 @@ namespace HugoWorld
         public override void Update(double gameTime, double elapsedTime)
         {
             time += elapsedTime;
-            if(time > 5)
+            if(time > 2)
             {
                 time = 0;
                 SaveState();
@@ -185,6 +186,11 @@ namespace HugoWorld
 
         private void checkObjects()
         {
+            string[] lststr = _currentArea.Name.Split(',');
+
+            int herox = int.Parse(lststr[0]) * 8 + _heroPosition.X;
+            int heroy = int.Parse(lststr[1]) * 8 + _heroPosition.Y;
+            
             bool pickedup = false;
             Tile objectTile = _currentArea.Map[_heroPosition.X, _heroPosition.Y].ObjectTile;
             if (objectTile == null)
@@ -193,88 +199,170 @@ namespace HugoWorld
             {
                 //Most objects change your stats in some way.
                 case "Armor":
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
                     Data.Str++;
                     UpdateGameState();
                     Sounds.Pickup();
                     pickedup = true;
                     break;
+                        }
+                    else
+                    {
+                        _currentArea.Refresh();
+                        break;
+                    }
 
                 case "Dagger":
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
+                        
                     Data.Dex++;
                     UpdateGameState();
                     Sounds.Pickup();
                     pickedup = true;
                     break;
+                        }
+                    else
+                    {
+                        _currentArea.Refresh();
+                        break;
+                    }
 
                 case "Sword":
-                  //  if (Data.HeroController.PickUpItem())
-                   // {
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
                         Data.Str++;
                         UpdateGameState();
                         Sounds.Pickup();
                         pickedup = true;
                         break;
-                 //   }
-                  //  else
-                   // {
+                    }
+                    else
+                    {
                         _currentArea.Refresh();
-                  //  }
+                        break;
+                    }
 
                 case "SpikedMace":
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
                     Data.Str += 3;
                     UpdateGameState();
                     Sounds.Pickup();
                     pickedup = true;
                     break;
+                            }
+                    else
+                    {
+                        _currentArea.Refresh();
+                        break;
+                    }
 
                 case "Axe":
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
                     Data.Str += 3;
                     UpdateGameState();
                     pickedup = true;
                     Sounds.Pickup();
                     break;
+                                }
+                    else
+                    {
+                        _currentArea.Refresh();
+                        break;
+                    }
 
                 case "Heart":
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
                     Data.Stam += 3;
                     UpdateGameState();
                     pickedup = true;
                     Sounds.Eat();
                     break;
+                    }
+                    else
+                    {
+                        _currentArea.Refresh();
+                        break;
+                    }
 
                 case "Food":
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
                     Data.Stam += 1;
                     pickedup = true;
                     UpdateGameState();
                     Sounds.Eat();
                     break;
+                        }
+                    else
+                    {
+                        _currentArea.Refresh();
+                        break;
+                    }
 
                 case "GoldPile":
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
                     Data.Argent += 5;
                     pickedup = true;
                     UpdateGameState();
                     Sounds.Pickup();
                     break;
+                        }
+                    else
+                    {
+                        _currentArea.Refresh();
+                        break;
+                    }
 
                 case "GoldBag":
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
                     Data.Argent += 15;
                     pickedup = true;
                     UpdateGameState();
                     Sounds.Pickup();
                     break;
+                        }
+                    else
+                    {
+                        _currentArea.Refresh();
+                        break;
+                    }
 
                 case "Potion":
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
                     _gameState.Potions++;
                     pickedup = true;
                     UpdateGameState();
                     Sounds.Pickup();
                     break;
+                        }
+                    else
+                    {
+                        _currentArea.Refresh();
+                        break;
+                    }
 
                 case "Key":
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    {
                     _gameState.HasRedKey = true;
                     pickedup = true;
                     UpdateGameState();
                     Sounds.Pickup();
                     break;
+                    }
+                    else
+                    {
+                        _currentArea.Refresh();
+                        break;
+                    }
 
 
             }
@@ -296,7 +384,7 @@ namespace HugoWorld
             _gameState.Armour = Data.Str / 2 + Data.Dex / 2 + Data.Intel; ;
             _gameState.Experience = Data.Exp;
             _gameState.Level = Data.Lvl;
-            _gameState.Health = Data.Stam * 10;
+            _gameState.Health = Data.vie;
             _gameState.Treasure = Data.Argent;
         }
         private bool checkDestination()
@@ -362,6 +450,8 @@ namespace HugoWorld
                             //Can we move to the next tile or not (blocking tile or monster)
                             if (checkNextTile(_currentArea.Map[_heroPosition.X + 1, _heroPosition.Y], _heroPosition.X + 1, _heroPosition.Y))
                             {
+                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
+
                                 _popups.Clear();
                                 _popups.Add(new textPopup((int)_heroSprite.Location.X + 100, (int)_heroSprite.Location.Y+100, Data.HeroName));
                                 _heroSprite.Velocity = new PointF(100, 0);
@@ -369,6 +459,8 @@ namespace HugoWorld
                                 _heroSpriteAnimating = true;
                                 _direction = HeroDirection.Right;
                                 _heroPosition.X++;
+                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
+
                                 setDestination();
                                 
 
@@ -404,6 +496,8 @@ namespace HugoWorld
                                 _heroSpriteAnimating = true;
                                 _direction = HeroDirection.Left;
                                 _heroPosition.X--;
+                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
+
                                 setDestination();
                                 
 
@@ -437,6 +531,8 @@ namespace HugoWorld
                                 _heroSpriteAnimating = true;
                                 _direction = HeroDirection.Up;
                                 _heroPosition.Y--;
+                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
+
                                 setDestination();
                                 
                                 
@@ -473,6 +569,8 @@ namespace HugoWorld
                                 _heroSpriteAnimating = true;
                                 _direction = HeroDirection.Down;
                                 _heroPosition.Y++;
+                                HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
+
                                 setDestination();
                                 
 
@@ -575,7 +673,6 @@ namespace HugoWorld
                 //Hero
                 _popups.Clear();
                 _popups.Add(new textPopup((int)_heroSprite.Location.X + 40, (int)_heroSprite.Location.Y + 20, (heroDamage != 0) ? heroDamage.ToString() : "miss"));
-                _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y, "George le magicien"));
 
 
                 //A monsters armour is 1/5 of their max health

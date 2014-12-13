@@ -25,11 +25,13 @@ namespace HugoWorld
         private Monde currentWorld;
         private int _x;
         private int _y;
+        public string[,] _names = new string[MapSizeX, MapSizeY];
         Dictionary<string, Tile> _tiles;
         public MapTile[,] Map = new MapTile[MapSizeX, MapSizeY];
         public MapTile[,] MapItem = new MapTile[MapSizeX, MapSizeY];
         private Rectangle _areaRectangle = new Rectangle(AreaOffsetX, AreaOffsetY, MapSizeX * Tile.TileSizeX, MapSizeY * Tile.TileSizeY);
-
+        private static Font _font = new Font("Arial", 24);
+        private static Brush _brush = new SolidBrush(Color.White);
         public string Name;
         public string NorthArea;
         public string EastArea;
@@ -113,7 +115,11 @@ namespace HugoWorld
 
         public void Refresh()
         {
+            List<Monde> lstmonde = Data.MondeController.GetListMonde();
+            currentWorld = lstmonde.FirstOrDefault(c => c.Id == currentWorld.Id);
+
             FillGrass();
+            
             List<Monstre> lstmonstre = currentWorld.Monstres.Where(c => c.MondeId == currentWorld.Id
                 && c.x >= _x * MapSizeX
                 && c.x < (_x * MapSizeX + MapSizeX)
@@ -171,14 +177,21 @@ namespace HugoWorld
             }
             foreach (var m in lstitem)
             {
-                int xi = m.x.Value - _x * MapSizeX;
-                int yi = m.y.Value - _y * MapSizeY;
+                if (m.x.Value == 0 && m.y.Value == 0)
+                {
+                    Console.WriteLine("inv");
+                }
+                else
+                {
+                    int xi = m.x.Value - _x * MapSizeX;
+                    int yi = m.y.Value - _y * MapSizeY;
 
-                MapTile mapTile = new MapTile();
-                Map[xi, yi] = mapTile;
-                mapTile.Tile = _tiles[m.Nom];
-                mapTile.ObjectTile = _tiles[m.Nom];
-                mapTile.SetSprite(xi, yi);
+                    MapTile mapTile = new MapTile();
+                    Map[xi, yi] = mapTile;
+                    mapTile.Tile = _tiles[m.Nom];
+                    mapTile.ObjectTile = _tiles[m.Nom];
+                    mapTile.SetSprite(xi, yi);
+                }
             }
 
             List<Hero> lstheronear = Data.HeroController.GetListHeroNearHero(Data.CurrentHeroId);
@@ -195,6 +208,8 @@ namespace HugoWorld
                             mapTile.Tile = _tiles[her.Classe.Description];
                             mapTile.ObjectTile = _tiles[her.Classe.Description];
                             mapTile.SetSprite(her.x % 8, her.y % 8);
+                            _names[her.x % 8, her.y % 8] = her.Name;
+
                         }
                     }
                 }
@@ -238,7 +253,7 @@ namespace HugoWorld
                         MapItem[i, j] = mapTile2;
                         mapTile2.Tile = _tiles["Grass"];
                         mapTile2.SetSprite(i, j);
-                    
+                        _names[i, j] = null;
 
                     
                       Map[i, j] = MapItem[i, j];
@@ -274,6 +289,8 @@ namespace HugoWorld
 
         public override void Draw(Graphics graphics)
         {
+            
+            
             foreach (MapTile mapTile in MapItem)
             {
                 if (mapTile != null)
@@ -302,7 +319,16 @@ namespace HugoWorld
             }
 
 
-
+            for (int j = 0; j < MapSizeY; j++)
+            {
+                for (int i = 0; i < MapSizeX; i++)
+                {
+                    if (_names[i, j] != null)
+                    {
+                        graphics.DrawString(_names[i, j], _font, _brush,100+ i * 100,100+ j * 100);
+                    }
+                }
+            }
 
         }
     }

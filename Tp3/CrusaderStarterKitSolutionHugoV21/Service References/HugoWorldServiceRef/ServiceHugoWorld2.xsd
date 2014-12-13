@@ -46,6 +46,7 @@
       <xs:element minOccurs="0" name="MondeId" type="xs:int" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Niveau" type="xs:int" />
+      <xs:element minOccurs="0" name="PV" type="xs:int" />
       <xs:element minOccurs="0" name="StatBaseDex" type="xs:int" />
       <xs:element minOccurs="0" name="StatBaseInt" type="xs:int" />
       <xs:element minOccurs="0" name="StatBaseStam" type="xs:int" />
@@ -95,6 +96,7 @@
       <xs:element minOccurs="0" name="ReqForce" type="xs:int" />
       <xs:element minOccurs="0" name="ReqIntelligence" type="xs:int" />
       <xs:element minOccurs="0" name="ReqNiveau" type="xs:int" />
+      <xs:element minOccurs="0" name="RowVersion" nillable="true" type="xs:base64Binary" />
       <xs:element minOccurs="0" name="ValeurArgent" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="x" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="y" nillable="true" type="xs:int" />
@@ -117,8 +119,6 @@
       <xs:element minOccurs="0" name="TypeEffet" type="xs:int" />
       <xs:element minOccurs="0" name="ValeurEffet" type="xs:int" />
     </xs:sequence>
-    <xs:attribute ref="ser:Id" />
-    <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="EffetItem" nillable="true" type="tns:EffetItem" />
   <xs:complexType name="Monde">

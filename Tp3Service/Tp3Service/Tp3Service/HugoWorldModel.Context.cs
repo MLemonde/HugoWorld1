@@ -48,7 +48,7 @@ namespace Tp3Service
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteHero", heroIdParameter);
         }
     
-        public virtual int InsertHero(Nullable<int> compteJoueurId, Nullable<int> niveau, Nullable<long> experience, Nullable<int> x, Nullable<int> y, Nullable<decimal> argent, Nullable<int> statBaseStr, Nullable<int> statBaseDex, Nullable<int> statBaseInt, Nullable<int> statBaseStam, Nullable<int> mondeId, Nullable<int> classeId, string name, Nullable<bool> connected, Nullable<System.DateTime> activity)
+        public virtual int InsertHero(Nullable<int> compteJoueurId, Nullable<int> niveau, Nullable<long> experience, Nullable<int> x, Nullable<int> y, Nullable<decimal> argent, Nullable<int> statBaseStr, Nullable<int> statBaseDex, Nullable<int> statBaseInt, Nullable<int> statBaseStam, Nullable<int> mondeId, Nullable<int> classeId, string name, Nullable<bool> connected, Nullable<System.DateTime> activity, Nullable<int> pV)
         {
             var compteJoueurIdParameter = compteJoueurId.HasValue ?
                 new ObjectParameter("CompteJoueurId", compteJoueurId) :
@@ -110,10 +110,14 @@ namespace Tp3Service
                 new ObjectParameter("Activity", activity) :
                 new ObjectParameter("Activity", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHero", compteJoueurIdParameter, niveauParameter, experienceParameter, xParameter, yParameter, argentParameter, statBaseStrParameter, statBaseDexParameter, statBaseIntParameter, statBaseStamParameter, mondeIdParameter, classeIdParameter, nameParameter, connectedParameter, activityParameter);
+            var pVParameter = pV.HasValue ?
+                new ObjectParameter("PV", pV) :
+                new ObjectParameter("PV", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertHero", compteJoueurIdParameter, niveauParameter, experienceParameter, xParameter, yParameter, argentParameter, statBaseStrParameter, statBaseDexParameter, statBaseIntParameter, statBaseStamParameter, mondeIdParameter, classeIdParameter, nameParameter, connectedParameter, activityParameter, pVParameter);
         }
     
-        public virtual int UpdateHero(Nullable<int> heroId, Nullable<int> mondeId, Nullable<int> classeId, Nullable<int> compteJoueurId, Nullable<int> niveau, Nullable<long> experience, Nullable<int> x, Nullable<int> y, Nullable<decimal> argent, Nullable<int> statBaseStr, Nullable<int> statBaseDex, Nullable<int> statBaseInt, Nullable<int> statBaseStam, string name, Nullable<bool> connected, Nullable<System.DateTime> activity)
+        public virtual int UpdateHero(Nullable<int> heroId, Nullable<int> mondeId, Nullable<int> classeId, Nullable<int> compteJoueurId, Nullable<int> niveau, Nullable<long> experience, Nullable<int> x, Nullable<int> y, Nullable<decimal> argent, Nullable<int> statBaseStr, Nullable<int> statBaseDex, Nullable<int> statBaseInt, Nullable<int> statBaseStam, string name, Nullable<bool> connected, Nullable<System.DateTime> activity, Nullable<int> pV)
         {
             var heroIdParameter = heroId.HasValue ?
                 new ObjectParameter("HeroId", heroId) :
@@ -179,7 +183,11 @@ namespace Tp3Service
                 new ObjectParameter("Activity", activity) :
                 new ObjectParameter("Activity", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateHero", heroIdParameter, mondeIdParameter, classeIdParameter, compteJoueurIdParameter, niveauParameter, experienceParameter, xParameter, yParameter, argentParameter, statBaseStrParameter, statBaseDexParameter, statBaseIntParameter, statBaseStamParameter, nameParameter, connectedParameter, activityParameter);
+            var pVParameter = pV.HasValue ?
+                new ObjectParameter("PV", pV) :
+                new ObjectParameter("PV", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateHero", heroIdParameter, mondeIdParameter, classeIdParameter, compteJoueurIdParameter, niveauParameter, experienceParameter, xParameter, yParameter, argentParameter, statBaseStrParameter, statBaseDexParameter, statBaseIntParameter, statBaseStamParameter, nameParameter, connectedParameter, activityParameter, pVParameter);
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)

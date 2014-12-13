@@ -98,8 +98,8 @@ namespace Vue
                 HugoWorld.Data.Attack = herotolog.StatBaseStr + herotolog.StatBaseDex;
                 HugoWorld.Data.Def = herotolog.StatBaseStr /2 + herotolog.StatBaseDex/2 + herotolog.StatBaseInt;
                 HugoWorld.Data.Lvl = herotolog.Niveau;
+                HugoWorld.Data.vie = herotolog.PV;
                 HugoWorld.Data.Exp = (int)herotolog.Experience;
-                HugoWorld.Data.vie = herotolog.StatBaseStam * 10;
                 HugoWorld.Data.Argent = (int)herotolog.Argent;
                 HugoWorld.Data.Dex = herotolog.StatBaseDex;
                 HugoWorld.Data.Intel = herotolog.StatBaseInt;

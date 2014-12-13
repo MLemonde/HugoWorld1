@@ -64,7 +64,7 @@ Tiger,20,character,gamedata\AllTiles.bmp,3,8,N,1,Open,30,Monstre
 Orc,21,character,gamedata\AllTiles.bmp,4,8,N,1,Open,40,Monstre
 Pig,22,character,gamedata\AllTiles.bmp,5,8,N,1,Open,50,Monstre
 Spider,23,character,gamedata\AllTiles.bmp,6,8,N,1,Open,60,Monstre
-Scorpion,24,Floor,gamedata\AllTiles.bmp,7,8,N,1,Open,70,Monstre
+Scorpion,24,character,gamedata\AllTiles.bmp,7,8,N,1,Open,70,Monstre
 Paper1,27,Floor,gamedata\AllTiles.bmp,1,9,Y,1,Open,,Objet
 Paper2,28,Floor,gamedata\AllTiles.bmp,2,9,Y,1,Open,,Objet
 Paper3,29,Floor,gamedata\AllTiles.bmp,3,9,Y,1,Open,,Objet

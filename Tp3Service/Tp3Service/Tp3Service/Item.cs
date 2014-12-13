@@ -11,6 +11,7 @@ namespace Tp3Service
 {
     using System;
     using System.Collections.Generic;
+
     using System.Runtime.Serialization;
 
     [DataContract(IsReference = true)]
@@ -51,6 +52,8 @@ namespace Tp3Service
         public int MondeId { get; set; }
         [DataMember]
         public int Quantite { get; set; }
+        [DataMember]
+        public byte[] RowVersion { get; set; }
 
         [DataMember]
         public virtual ICollection<EffetItem> EffetItems { get; set; }

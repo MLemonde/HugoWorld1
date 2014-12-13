@@ -11,6 +11,7 @@ namespace Tp3Service
 {
     using System;
     using System.Collections.Generic;
+
     using System.Runtime.Serialization;
 
     [DataContract(IsReference = true)]
@@ -24,6 +25,7 @@ namespace Tp3Service
             this.Monstres = new HashSet<Monstre>();
             this.ObjetMondes = new HashSet<ObjetMonde>();
         }
+    
         [DataMember]
         public int Id { get; set; }
         [DataMember]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -352,8 +353,8 @@ namespace Tp3Service
 
         List<Monde> IMondeController.GetListMonde()
         {
-            lock (context.Mondes)
-            {
+            //context.Dispose();
+            //context = new HugoWorldEntities();
                 return context.Mondes
                     .Include("Classes")
                     .Include("Heroes")
@@ -361,7 +362,7 @@ namespace Tp3Service
                     .Include("Monstres")
                     .Include("ObjetMondes")
                     .ToList(); 
-            }
+            
         }
         #endregion
 
@@ -568,7 +569,8 @@ namespace Tp3Service
                             Name = name,
                             x = X,
                             y = Y,
-                            LastActivity = DateTime.Now
+                            LastActivity = DateTime.Now,
+                            PV = stamina*10
                         };
 
                         db.Heroes.Add(hero);
@@ -587,7 +589,7 @@ namespace Tp3Service
         /// Auteur Francis Lussier
         /// permet de modifier un héro
         /// </summary>
-        void IHeroController.EditHero(int HeroId,int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent)
+        void IHeroController.EditHero(int HeroId,int niveau, int dex, int str, int stamina, int Int, long experience, decimal argent,int pv)
         {
             Hero hero = context.Heroes.FirstOrNull(h => h.Id == HeroId);
             
@@ -606,6 +608,7 @@ namespace Tp3Service
                     hero.Argent = argent;
                     hero.LastActivity = DateTime.Now;
                     hero.Connected = true;
+                    hero.PV = pv;
                     context.SaveChanges();
                 }
                 catch(Exception ex)
@@ -655,7 +658,7 @@ namespace Tp3Service
         {
             lock (context.Heroes)
             {
-                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
+                Hero hero = context.Heroes.Include("Classe").FirstOrNull(h => h.Id == heroId);
                 if (hero == null)
                     return new List<Hero>();
 
@@ -668,10 +671,10 @@ namespace Tp3Service
 
                 foreach(var her in context.Heroes)
                 {
-                    int x1 = (her.x+1) / 8;
-                    int x2 = (hero.x+1) / 8;
-                    int y1 = (her.y+1) / 8;
-                    int y2 =  (hero.y+1) / 8;
+                    int x1 = (her.x) / 8;
+                    int x2 = (hero.x) / 8;
+                    int y1 = (her.y) / 8;
+                    int y2 =  (hero.y) / 8;
                     
                     if (x1==x2)
                         if (y1 == y2)
@@ -1087,7 +1090,60 @@ namespace Tp3Service
 
 
 
+       //// private void Refreshcontext()
+       // {
+       //     var objContext = ((IObjectContextAdapter)context).ObjectContext;
+       //     var refreshableObjects = (from entry in objContext.ObjectStateManager.GetObjectStateEntries(
+       //                                         EntityState.Added
+       //                                        | EntityState.Deleted
+       //                                        | EntityState.Modified
+       //                                        | EntityState.Unchanged)
+       //                               where entry.EntityKey != null
+       //                               select entry.Entity);
 
-       
+       //     objContext.Refresh(RefreshMode.StoreWins, refreshableObjects);
+       // }
+
+
+
+        bool IHeroController.PickupItem(int Heroid, int x, int y)
+        {
+            lock (context.Items)
+            {
+                Item item = context.Items.FirstOrNull(i => i.x == x && i.y == y);
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == Heroid);                
+                while (true)
+                {
+                    try
+                    {
+                        if (hero == null)
+                            return false;
+
+                        if (item != null)
+                        {
+                            var original = item.RowVersion;
+                            item.x = 0;
+                            item.y = 0;
+                            hero.Items.Add(item);
+                            context.SaveChanges();
+                            var newro = item.RowVersion;
+                            if (original != newro)
+                            {
+                               // Refreshcontext();
+                                return true;
+                            }
+                        }
+                        else
+                            return false;
+                    }
+                    catch (Exception ex)
+                    {
+                        var objContext = ((IObjectContextAdapter)context).ObjectContext;
+                        objContext.Refresh(RefreshMode.StoreWins, item);
+                    }
+                }
+            }
+            
+        }
     }
 }
