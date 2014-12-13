@@ -25,13 +25,14 @@ namespace Vue
                 btnEditClass.Visible = true;
             
         }
-
+        //ouvre form create new hero
         private void btnCreate_Click(object sender, EventArgs e)
         {
             if (new Vue.FrmCreateHeros().ShowDialog() == DialogResult.OK)
                 refreshDataGridView();
         }
 
+        //refresh hero list
         private void refreshDataGridView()
         {
             dtgridViewHeros.Rows.Clear();
@@ -57,7 +58,7 @@ namespace Vue
         {
             new frmClass().ShowDialog(this);
         }
-
+        //log avec ce hero
         private void btnPlay_Click(object sender, EventArgs e)
         {
             if (dtgridViewHeros.SelectedRows.Count == 1)
@@ -75,7 +76,7 @@ namespace Vue
             else
                 MessageBox.Show("Veuillez créer au moins un héro");
         }
-
+        //supprime hero
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dtgridViewHeros.SelectedRows.Count == 1)
@@ -85,6 +86,7 @@ namespace Vue
             }
         }
 
+        //load data of hero
         private void dtgridViewHeros_SelectionChanged(object sender, EventArgs e)
         {
             if (dtgridViewHeros.SelectedRows.Count == 1)

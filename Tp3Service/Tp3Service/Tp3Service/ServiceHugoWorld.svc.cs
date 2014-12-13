@@ -51,6 +51,11 @@ namespace Tp3Service
             }
         }
 
+        /// <summary>
+        /// Timer qui sert a disconnect les joueurs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             try
@@ -63,7 +68,7 @@ namespace Tp3Service
                 
                     foreach (Hero hero in heroes)
                     {
-                        if (hero.LastActivity.Value + new TimeSpan(00, 05, 00) < DateTime.Now)
+                        if (hero.LastActivity.Value + new TimeSpan(00, 02, 00) < DateTime.Now)
                             hero.Connected = false;
                     }
                     

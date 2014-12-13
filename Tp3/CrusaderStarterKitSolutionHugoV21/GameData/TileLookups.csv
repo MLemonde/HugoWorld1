@@ -1,7 +1,7 @@
 Dirt,1,Floor,gamedata\AllTiles.bmp,1,1,Y,1,Open,,Objet
 Grass,2,Floor,gamedata\AllTiles.bmp,2,1,Y,1,Open,,Objet
 River,3,Wall,gamedata\AllTiles.bmp,3,1,N,1,Open,,Objet
-Sea,4,Wall,gamedata\AllTiles.bmp,4,1,N,1,Open,,Objet
+Sea,4,Wall,gamedata\AllTiles.bmp,4,1,N,1,Block,,Objet
 Snow,5,Floor,gamedata\AllTiles.bmp,5,1,Y,1,Open,,Objet
 Sand,6,Floor,gamedata\AllTiles.bmp,6,1,Y,1,Open,,Objet
 BrickWall,7,Wall,gamedata\AllTiles.bmp,7,1,N,1,Block,,Objet

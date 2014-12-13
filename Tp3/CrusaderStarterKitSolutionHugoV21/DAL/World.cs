@@ -9,7 +9,9 @@ using HugoWorldServiceRef;
 
 namespace HugoWorld
 {
-    //Textpop up used to display damage when monsters and players are hit
+    /// <summary>
+    /// Auteurs: Mathew Lemonde, Francis Lussier, Marc-André Landry
+    /// </summary>
     struct textPopup
     {
         public int X;
@@ -59,39 +61,47 @@ namespace HugoWorld
             Classe currentclasse = Data.ClassController.GetListClasses(Data.WorldId).FirstOrDefault(c=> c.Id == Data.ClassId);
             _currentHero = Data.HeroController.GetListHero(Data.UserId).First(c => c.Id == Data.CurrentHeroId);
             _heroClasse = currentclasse.Description;
-            //Read in the map file
+            //load la map
             CreerAreaDic(mondeid);
+            //load les stat du hero
             UpdateGameState();
 
-            //DEPENDING POS TODO
+           
 
             //Find the start point
             _heroid = _currentHero.Id;
-
+            //trouve l'area du hero
             int xarea = _currentHero.x / 8;
             int yarea = _currentHero.y / 8;
 
             _currentArea = _world[xarea.ToString() + "," + yarea.ToString()];
 
 
-            //Create and position the hero character
+            
             _heroPosition = new Point(3, 3);
+
+            //si mort, retourne debut full life
             if (dead)
+            {
+               _currentArea = _world["0,0"];
+
                 Data.vie = Data.Stam * 10;
+            }
             if (!dead)
             {
+                //si pas mort, trouve pos
                 _heroPosition.X = _currentHero.x % 8;
                 _heroPosition.Y = _currentHero.y % 8;
             }
 
 
-
+            //set sprite selon classe
             _heroSprite = new Sprite(null, _heroPosition.X * Tile.TileSizeX + Area.AreaOffsetX,
                                             _heroPosition.Y * Tile.TileSizeY + Area.AreaOffsetY,
                                             _tiles[_heroClasse].Bitmap, _tiles[_heroClasse].Rectangle, _tiles[_heroClasse].NumberOfFrames);
 
             
-            
+            //affiche nom
             _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y +100, Data.HeroName));
 
 
@@ -101,19 +111,24 @@ namespace HugoWorld
 
         }
 
+        //useless
         void _tmrRefresh_Tick(object sender, EventArgs e)
         {
            
 
         }
 
+        //Save pos et stat hero
         private void SaveState()
         {
+            //boucle while pour concurrence
             while (true)
             {
                 try
                 {
+                    //save pos
                     HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
+                    //save stat
                     HeroClient.EditHero(_heroid, Data.Lvl, Data.Dex, Data.Str, Data.Stam, Data.Intel, Data.Exp, Data.Argent,Data.vie);
                     break;
                 }
@@ -124,6 +139,7 @@ namespace HugoWorld
             }
            
         }
+        //load la map 
         private void CreerAreaDic(int mapid)
         {
             MondeControllerClient client = new MondeControllerClient();
@@ -184,6 +200,7 @@ namespace HugoWorld
 
         }
 
+        //Regarde pour des item, ramasse et donne au hero si oui
         private void checkObjects()
         {
             string[] lststr = _currentArea.Name.Split(',');
@@ -377,6 +394,7 @@ namespace HugoWorld
                 //  _currentArea.Update(0,0);
             }
         }
+        //update gamestate avec data
         private void UpdateGameState()
         {
             _gameState.Attack = Data.Str + Data.Dex;
@@ -387,6 +405,7 @@ namespace HugoWorld
             _gameState.Health = Data.vie;
             _gameState.Treasure = Data.Argent;
         }
+
         private bool checkDestination()
         {
             //Depending on the direction we are moving we check different bounds of the destination
@@ -427,8 +446,10 @@ namespace HugoWorld
 
         }
 
+
         /// <summary>
         /// Gestion du déplacement du héro
+        /// fais bouger le nom et save dans la bd lors deplacement
         /// </summary>
         /// <param name="key"></param>
         public void KeyDown(Keys key)
@@ -468,7 +489,7 @@ namespace HugoWorld
                         }
                         else if (_currentArea.EastArea != "-")
                         {
-                            if (checkNextTile(_world[_currentArea.EastArea].Map[7, _heroPosition.Y], 7, _heroPosition.Y))
+                            if (checkNextTile(_world[_currentArea.EastArea].Map[0, _heroPosition.Y], 0, _heroPosition.Y))
                             {
                                 //Edge of map - move to next area
                                 

@@ -54,6 +54,7 @@ namespace Vue
                 _bEnterPressed = false;
         }
 
+        //login
         private void tryToConnect()
         {
             if (HugoWorld.Data.CompteJoueurController.ValidatePlayer(txtUserName.Text, txtPassword.Text))
@@ -65,6 +66,7 @@ namespace Vue
                 MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
         }
 
+        //creer un nouveau compte
         private void btnRegister_Click(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(txtRegistEmail.Text) && !String.IsNullOrEmpty(txtRegistPass.Text) && !String.IsNullOrEmpty(txtRegistUsername.Text))

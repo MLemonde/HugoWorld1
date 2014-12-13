@@ -30,8 +30,8 @@ namespace HugoWorld
         public MapTile[,] Map = new MapTile[MapSizeX, MapSizeY];
         public MapTile[,] MapItem = new MapTile[MapSizeX, MapSizeY];
         private Rectangle _areaRectangle = new Rectangle(AreaOffsetX, AreaOffsetY, MapSizeX * Tile.TileSizeX, MapSizeY * Tile.TileSizeY);
-        private static Font _font = new Font("Arial", 24);
-        private static Brush _brush = new SolidBrush(Color.White);
+        private static Font _font = new Font("Arial", 18);
+        private static Brush _brush = new SolidBrush(Color.Red);
         public string Name;
         public string NorthArea;
         public string EastArea;
@@ -113,6 +113,7 @@ namespace HugoWorld
 
         }
 
+        //refresh la map
         public void Refresh()
         {
             List<Monde> lstmonde = Data.MondeController.GetListMonde();
@@ -240,6 +241,7 @@ namespace HugoWorld
             //}
         }
 
+        //met du gazon par defaut
         public void FillGrass()
         {
             for (int j = 0; j < MapSizeY; j++)
@@ -318,14 +320,14 @@ namespace HugoWorld
                 }
             }
 
-
+            //dessine nom
             for (int j = 0; j < MapSizeY; j++)
             {
                 for (int i = 0; i < MapSizeX; i++)
                 {
                     if (_names[i, j] != null)
                     {
-                        graphics.DrawString(_names[i, j], _font, _brush,100+ i * 100,100+ j * 100);
+                        graphics.DrawString(_names[i, j], _font, _brush,50+ i * 100,150+ j * 100);
                     }
                 }
             }

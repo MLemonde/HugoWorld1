@@ -234,14 +234,14 @@
             // 
             // Niveau
             // 
-            this.Niveau.HeaderText = "Niveau";
+            this.Niveau.HeaderText = "Nom";
             this.Niveau.Name = "Niveau";
             this.Niveau.ReadOnly = true;
             this.Niveau.Width = 65;
             // 
             // Nom
             // 
-            this.Nom.HeaderText = "Nom";
+            this.Nom.HeaderText = "Niveau";
             this.Nom.Name = "Nom";
             this.Nom.ReadOnly = true;
             this.Nom.Width = 65;
