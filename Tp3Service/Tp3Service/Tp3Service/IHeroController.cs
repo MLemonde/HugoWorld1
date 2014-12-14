@@ -33,6 +33,9 @@ namespace Tp3Service
         string AttackHeroAt(int attackerHeroId, int x, int y, string area);
 
         [OperationContract]
+        Hero GetHero(int heroId);
+
+        [OperationContract]
         bool PickupItem(int Heroid, int x, int y);
 
         [OperationContract]
@@ -49,9 +52,14 @@ namespace Tp3Service
         [OperationContract]
         List<Hero> GetListHero(int compteId);
 
+        [OperationContract]
+        int RemoveHitPoints(int heroId, int damage);
 
         [OperationContract]
         void DeconnectHero(int heroId);
+
+        [OperationContract]
+        void SetHeroHp(int HeroId, int hp);
 
         /// <summary>
         /// Auteur Francis Lussier

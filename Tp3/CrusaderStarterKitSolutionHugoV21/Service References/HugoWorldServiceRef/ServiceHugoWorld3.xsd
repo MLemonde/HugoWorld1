@@ -415,6 +415,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetHero">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="heroId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHeroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetHeroResult" nillable="true" type="q4:Hero" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="PickupItem">
     <xs:complexType>
       <xs:sequence>
@@ -465,7 +479,22 @@
   <xs:element name="GetListHeroResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetListHeroResult" nillable="true" type="q4:ArrayOfHero" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetListHeroResult" nillable="true" type="q5:ArrayOfHero" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveHitPoints">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="heroId" type="xs:int" />
+        <xs:element minOccurs="0" name="damage" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveHitPointsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RemoveHitPointsResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -481,6 +510,19 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="SetHeroHp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HeroId" type="xs:int" />
+        <xs:element minOccurs="0" name="hp" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetHeroHpResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetListHeroNearHero">
     <xs:complexType>
       <xs:sequence>
@@ -491,7 +533,7 @@
   <xs:element name="GetListHeroNearHeroResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetListHeroNearHeroResult" nillable="true" type="q5:ArrayOfHero" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetListHeroNearHeroResult" nillable="true" type="q6:ArrayOfHero" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -505,7 +547,7 @@
   <xs:element name="GetElementsArroundHeroResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetElementsArroundHeroResult" nillable="true" type="q6:Elements" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Tp3Service" minOccurs="0" name="GetElementsArroundHeroResult" nillable="true" type="q7:Elements" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

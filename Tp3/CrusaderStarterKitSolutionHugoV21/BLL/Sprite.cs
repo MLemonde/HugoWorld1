@@ -19,7 +19,6 @@ namespace HugoWorld
         
         private Color _colorKey;
         private ImageAttributes _attributes;
-
         protected List<Bitmap> _frames = new List<Bitmap>();
         private List<Rectangle> _rectangle = new List<Rectangle>();
         protected GameState _gameState;
@@ -41,8 +40,6 @@ namespace HugoWorld
             get { return _frames.Count; }
         }
 	
-        
-
         private Sprite()
         {
             //No default constructor
@@ -66,8 +63,6 @@ namespace HugoWorld
             //Set the location and use the height and width from the 1st frame
             initialize(gameState, x, y, _frames[0].Width, _frames[0].Height);
         }
-
-
 
         public Sprite(GameState gameState, float x, float y, Bitmap bitmap, Rectangle rectangle, int numberAnimationFrames)
         {

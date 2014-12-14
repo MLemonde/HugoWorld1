@@ -2139,6 +2139,12 @@ namespace HugoWorldServiceRef {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/AttackHeroAt", ReplyAction="http://tempuri.org/IHeroController/AttackHeroAtResponse")]
         System.Threading.Tasks.Task<string> AttackHeroAtAsync(int attackerHeroId, int x, int y, string area);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/GetHero", ReplyAction="http://tempuri.org/IHeroController/GetHeroResponse")]
+        HugoWorldServiceRef.Hero GetHero(int heroId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/GetHero", ReplyAction="http://tempuri.org/IHeroController/GetHeroResponse")]
+        System.Threading.Tasks.Task<HugoWorldServiceRef.Hero> GetHeroAsync(int heroId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/PickupItem", ReplyAction="http://tempuri.org/IHeroController/PickupItemResponse")]
         bool PickupItem(int Heroid, int x, int y);
         
@@ -2163,11 +2169,23 @@ namespace HugoWorldServiceRef {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/GetListHero", ReplyAction="http://tempuri.org/IHeroController/GetListHeroResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<HugoWorldServiceRef.Hero>> GetListHeroAsync(int compteId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/RemoveHitPoints", ReplyAction="http://tempuri.org/IHeroController/RemoveHitPointsResponse")]
+        int RemoveHitPoints(int heroId, int damage);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/RemoveHitPoints", ReplyAction="http://tempuri.org/IHeroController/RemoveHitPointsResponse")]
+        System.Threading.Tasks.Task<int> RemoveHitPointsAsync(int heroId, int damage);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/DeconnectHero", ReplyAction="http://tempuri.org/IHeroController/DeconnectHeroResponse")]
         void DeconnectHero(int heroId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/DeconnectHero", ReplyAction="http://tempuri.org/IHeroController/DeconnectHeroResponse")]
         System.Threading.Tasks.Task DeconnectHeroAsync(int heroId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/SetHeroHp", ReplyAction="http://tempuri.org/IHeroController/SetHeroHpResponse")]
+        void SetHeroHp(int HeroId, int hp);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/SetHeroHp", ReplyAction="http://tempuri.org/IHeroController/SetHeroHpResponse")]
+        System.Threading.Tasks.Task SetHeroHpAsync(int HeroId, int hp);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHeroController/GetListHeroNearHero", ReplyAction="http://tempuri.org/IHeroController/GetListHeroNearHeroResponse")]
         System.Collections.Generic.List<HugoWorldServiceRef.Hero> GetListHeroNearHero(int heroId);
@@ -2249,6 +2267,14 @@ namespace HugoWorldServiceRef {
             return base.Channel.AttackHeroAtAsync(attackerHeroId, x, y, area);
         }
         
+        public HugoWorldServiceRef.Hero GetHero(int heroId) {
+            return base.Channel.GetHero(heroId);
+        }
+        
+        public System.Threading.Tasks.Task<HugoWorldServiceRef.Hero> GetHeroAsync(int heroId) {
+            return base.Channel.GetHeroAsync(heroId);
+        }
+        
         public bool PickupItem(int Heroid, int x, int y) {
             return base.Channel.PickupItem(Heroid, x, y);
         }
@@ -2281,12 +2307,28 @@ namespace HugoWorldServiceRef {
             return base.Channel.GetListHeroAsync(compteId);
         }
         
+        public int RemoveHitPoints(int heroId, int damage) {
+            return base.Channel.RemoveHitPoints(heroId, damage);
+        }
+        
+        public System.Threading.Tasks.Task<int> RemoveHitPointsAsync(int heroId, int damage) {
+            return base.Channel.RemoveHitPointsAsync(heroId, damage);
+        }
+        
         public void DeconnectHero(int heroId) {
             base.Channel.DeconnectHero(heroId);
         }
         
         public System.Threading.Tasks.Task DeconnectHeroAsync(int heroId) {
             return base.Channel.DeconnectHeroAsync(heroId);
+        }
+        
+        public void SetHeroHp(int HeroId, int hp) {
+            base.Channel.SetHeroHp(HeroId, hp);
+        }
+        
+        public System.Threading.Tasks.Task SetHeroHpAsync(int HeroId, int hp) {
+            return base.Channel.SetHeroHpAsync(HeroId, hp);
         }
         
         public System.Collections.Generic.List<HugoWorldServiceRef.Hero> GetListHeroNearHero(int heroId) {

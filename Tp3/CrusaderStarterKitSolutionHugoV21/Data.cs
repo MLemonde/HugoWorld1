@@ -19,7 +19,7 @@ namespace HugoWorld
         public static int Lvl { get; set; }
         public static int Exp { get; set; }
         public static int vie { get; set; }
-        public static int  Argent { get; set; }
+        public static int Argent { get; set; }
         public static int Dex { get; set; }
         public static int Str { get; set; }
         public static int Stam { get; set; }

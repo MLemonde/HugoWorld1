@@ -19,11 +19,6 @@ namespace HugoWorld
 
         public HugoWorld()
         {
-            
-            // TEMPORARY
-            // kill app NOW
-            //Process.GetCurrentProcess().Kill();
-
             //Setup the form
             InitializeComponent();
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
@@ -42,7 +37,6 @@ namespace HugoWorld
             _lastTime = 0.0;
             _timer.Reset();
             _timer.Start();
-
         }
 
         private void Crusader_Paint(object sender, PaintEventArgs e)
@@ -53,18 +47,14 @@ namespace HugoWorld
             _lastTime = gameTime;
             _frameCounter++;
 
-
             //Perform any animation and updates
             _gameState.Update(gameTime, elapsedTime);
-
 
             //Draw everything
             _gameState.Draw(e.Graphics);
 
-
             //Force the next Paint()
             this.Invalidate();
-
         }
 
         private void Crusader_KeyDown(object sender, KeyEventArgs e)

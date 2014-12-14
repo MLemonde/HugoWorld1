@@ -36,6 +36,13 @@ namespace Tp3Service
                 else
                     throw new FaultException("Connection error...");
 
+                lock (context.Heroes)
+                {
+                    foreach (Hero hero in context.Heroes.Where(h => h.Connected))
+                        hero.Connected = false;
+                    context.SaveChanges();
+                }
+
                 timer = new System.Timers.Timer(15000);
                 timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
 
@@ -61,7 +68,7 @@ namespace Tp3Service
                     List<Hero> heroes = context.Heroes.Where(h => h.Connected).ToList();
                 
                     foreach (Hero hero in heroes)
-                        if (hero.LastActivity.Value + new TimeSpan(00, 02, 00) < DateTime.Now)
+                        if (hero.LastActivity.Value + new TimeSpan(00, 01, 00) < DateTime.Now)
                             hero.Connected = false;
                     context.SaveChanges();
                 }
@@ -69,6 +76,20 @@ namespace Tp3Service
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void UpdateActivity(int heroId)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == heroId);
+                if (hero != null)
+                {
+                    hero.Connected = true;
+                    hero.LastActivity = DateTime.Now;
+                    context.SaveChanges();
+                }
             }
         }
 
@@ -647,6 +668,21 @@ namespace Tp3Service
             
         }
 
+        int IHeroController.RemoveHitPoints(int heroId, int damage)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.Include("Classe").FirstOrNull(h => h.Id == heroId);
+                if (hero == null)
+                    return 0;
+                hero.PV -= damage;
+                if (hero.PV < 0)
+                    hero.PV = 0;
+                context.SaveChanges();
+                return hero.PV;
+            }
+        }
+
         List<Hero> IHeroController.GetListHeroNearHero(int heroId)
         {
             lock (context.Heroes)
@@ -705,12 +741,25 @@ namespace Tp3Service
                     }
                     else
                     {
-                        hero.x = 0;
-                        hero.y = 0;
-                        hero.Connected = true;
-                        hero.LastActivity = DateTime.Now;
-                        db.SaveChanges();
-                        throw new FaultException("Error: You can't login at that position because there's currently someone.\nYou were teleported at the spawn.");
+                        //get first position AREA 0;0 that isnt full
+                        for (int x = 0; x < 8; x++)
+                            for (int y = 0; y < 8; y++)
+                                if (lstHeroes.Count(h => h.x == x && h.y == y) == 0)
+                                    lock (context.Items)
+                                        if (context.Items.Count(i => i.x == x && i.y == y) == 0)
+                                            lock (context.ObjetMondes)
+                                                if (context.ObjetMondes.Count(o => o.x == x && o.y == y) == 0)
+                                                    lock (context.Monstres)
+                                                        if (context.Monstres.Count(m => m.x == x && m.y == y) == 0)
+                                                        {
+                                                            hero.x = x;
+                                                            hero.y = y;
+                                                            hero.Connected = true;
+                                                            hero.LastActivity = DateTime.Now;
+                                                            db.SaveChanges();
+                                                            return;
+                                                        }
+                        throw new FaultException("Error: too many accounts are login...\nRetry later because the first area is currently full.");                       
                     }
                 }
             }
@@ -762,21 +811,44 @@ namespace Tp3Service
                 Hero hero = context.Heroes.FirstOrNull(h => h.Id == attackerHeroId);
                 if (hero != null)
                 {
+                    if (!hero.Connected)
+                        throw new FaultException("Error: the hero was disconnected, or he wasn't connected at all.");
+                    UpdateActivity(attackerHeroId);
+
                     //list hero avec meme position et connecté
-                    List<Hero> lstHeroes = context.Heroes.Where(h => h.x == hero.x && h.y == hero.y && h.Connected && h.Id != hero.Id).ToList();
+                    x = int.Parse(area.Split(',')[0]) * 8 + x;
+                    y = int.Parse(area.Split(',')[1]) * 8 + y;
+                    List<Hero> lstHeroes = context.Heroes.Where(h => h.x == x && h.y == y && h.Connected && h.Id != hero.Id).ToList();
                     switch (lstHeroes.Count)
                     {
-                        case 0:
-                            throw new FaultException("Error: No hero were found at that position");
+                        //case 0:
+                        //    throw new FaultException("Error: No hero were found at that position");
                         case 1:
-                            string str = String.Empty;
-
-                            return str;
+                            int dmg = new Random().Next(hero.StatBaseStr + hero.StatBaseDex);
+                            lstHeroes[0].PV -= dmg;
+                            if (lstHeroes[0].PV < 0)
+                                lstHeroes[0].PV = 0;
+                            context.SaveChanges();
+                            return dmg.ToString();
                         default:
-                            return String.Empty;
+                            return "0";
                     }
                 }
                 return String.Empty;
+            }
+        }
+
+        void IHeroController.SetHeroHp(int HeroId, int hp)
+        {
+            lock (context.Heroes)
+            {
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == HeroId);
+
+                if (hero != null)
+                {
+                    hero.PV = hp;
+                    context.SaveChanges();
+                }
             }
         }
 
@@ -788,10 +860,14 @@ namespace Tp3Service
 
                 if (hero != null)
                 {
+                    //if (!hero.Connected)
+                    //    throw new FaultException("Error: the hero was disconnected, or he wasn't connected at all.");
+
                     string[] lststr = area.Split(',');
 
                     hero.x = int.Parse(lststr[0]) * 8 + x;
                     hero.y = int.Parse(lststr[1]) * 8 + y;
+                    hero.LastActivity = DateTime.Now;
 
                     context.SaveChanges();
                 }
@@ -816,6 +892,48 @@ namespace Tp3Service
             }
             return elements;
         }
+
+        bool IHeroController.PickupItem(int Heroid, int x, int y)
+        {
+            lock (context.Items)
+            {
+                Item item = context.Items.FirstOrNull(i => i.x == x && i.y == y);
+                Hero hero = context.Heroes.FirstOrNull(h => h.Id == Heroid);
+                while (true)
+                {
+                    try
+                    {
+                        if (hero == null)
+                            return false;
+
+                        if (item != null)
+                        {
+                            var original = item.RowVersion;
+                            item.x = 0;
+                            item.y = 0;
+                            hero.Items.Add(item);
+                            hero.LastActivity = DateTime.Now;
+                            context.SaveChanges();
+                            var newro = item.RowVersion;
+                            if (original != newro)
+                            {
+                                // Refreshcontext();
+                                return true;
+                            }
+                        }
+                        else
+                            return false;
+                    }
+                    catch (Exception ex)
+                    {
+                        var objContext = ((IObjectContextAdapter)context).ObjectContext;
+                        objContext.Refresh(RefreshMode.StoreWins, item);
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine("Error fixed : StoreWins");
+                    }
+                }
+            }
+        }   
         #endregion
 
         #region Monstre
@@ -911,7 +1029,6 @@ namespace Tp3Service
                 }
             }
         }
-        
         #endregion
 
         #region EffetItem
@@ -1147,7 +1264,14 @@ namespace Tp3Service
             context.SaveChanges();
         }
         #endregion
-
+        
+        Hero IHeroController.GetHero(int heroId)
+        {
+            lock (context.Heroes)
+            {
+                return context.Heroes.FirstOrNull(h => h.Id == heroId);
+            }
+        }
        //// private void Refreshcontext()
        // {
        //     var objContext = ((IObjectContextAdapter)context).ObjectContext;
@@ -1161,47 +1285,5 @@ namespace Tp3Service
 
        //     objContext.Refresh(RefreshMode.StoreWins, refreshableObjects);
        // }
-
-        bool IHeroController.PickupItem(int Heroid, int x, int y)
-        {
-            lock (context.Items)
-            {
-                Item item = context.Items.FirstOrNull(i => i.x == x && i.y == y);
-                Hero hero = context.Heroes.FirstOrNull(h => h.Id == Heroid);                
-                while (true)
-                {
-                    try
-                    {
-                        if (hero == null)
-                            return false;
-
-                        if (item != null)
-                        {
-                            var original = item.RowVersion;
-                            item.x = 0;
-                            item.y = 0;
-                            hero.Items.Add(item);
-                            context.SaveChanges();
-                            var newro = item.RowVersion;
-                            if (original != newro)
-                            {
-                               // Refreshcontext();
-                                return true;
-                            }
-                        }
-                        else
-                            return false;
-                    }
-                    catch (Exception ex)
-                    {
-                        var objContext = ((IObjectContextAdapter)context).ObjectContext;
-                        objContext.Refresh(RefreshMode.StoreWins, item);
-                        Console.WriteLine(ex.Message);
-                        Console.WriteLine("Error fixed : StoreWins");
-                    }
-                }
-            }
-            
-        }
     }
 }

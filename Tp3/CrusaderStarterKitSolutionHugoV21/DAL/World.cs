@@ -29,7 +29,7 @@ namespace HugoWorld
     public class World : GameObject
     {
         private double time = 0;
-        private Timer _tmrRefresh = new Timer();
+        private System.Timers.Timer _tmrRefresh = new System.Timers.Timer();
         private const string _startArea = "0,0";
         private int _heroid = 0;
         private string _heroClasse;
@@ -56,7 +56,8 @@ namespace HugoWorld
         {
             _gameState = gameState;
             _tmrRefresh.Interval = 2000;
-            _tmrRefresh.Tick += _tmrRefresh_Tick;
+            _tmrRefresh.Enabled = true;
+            _tmrRefresh.Elapsed += _tmrRefresh_Tick;
             _tiles = tiles;
             Classe currentclasse = Data.ClassController.GetListClasses(Data.WorldId).FirstOrDefault(c=> c.Id == Data.ClassId);
             _currentHero = Data.HeroController.GetListHero(Data.UserId).First(c => c.Id == Data.CurrentHeroId);
@@ -66,8 +67,6 @@ namespace HugoWorld
             //load les stat du hero
             UpdateGameState();
 
-           
-
             //Find the start point
             _heroid = _currentHero.Id;
             //trouve l'area du hero
@@ -75,8 +74,6 @@ namespace HugoWorld
             int yarea = _currentHero.y / 8;
 
             _currentArea = _world[xarea.ToString() + "," + yarea.ToString()];
-
-
             
             _heroPosition = new Point(3, 3);
 
@@ -94,28 +91,30 @@ namespace HugoWorld
                 _heroPosition.Y = _currentHero.y % 8;
             }
 
-
             //set sprite selon classe
             _heroSprite = new Sprite(null, _heroPosition.X * Tile.TileSizeX + Area.AreaOffsetX,
                                             _heroPosition.Y * Tile.TileSizeY + Area.AreaOffsetY,
                                             _tiles[_heroClasse].Bitmap, _tiles[_heroClasse].Rectangle, _tiles[_heroClasse].NumberOfFrames);
-
             
             //affiche nom
             _popups.Add(new textPopup((int)_heroSprite.Location.X, (int)_heroSprite.Location.Y +100, Data.HeroName));
 
-
             _heroSprite.Flip = true;
             _heroSprite.ColorKey = Color.FromArgb(75, 75, 75);
-            _tmrRefresh.Enabled = true;
-
+            _tmrRefresh.Start();
         }
 
         //useless
         void _tmrRefresh_Tick(object sender, EventArgs e)
         {
-           
-
+            try
+            {
+                _gameState.Health = Data.HeroController.GetHero(Data.CurrentHeroId).PV;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);   
+            }
         }
 
         //Save pos et stat hero
@@ -161,7 +160,6 @@ namespace HugoWorld
             }
         }
 
-
         public override void Update(double gameTime, double elapsedTime)
         {
             time += elapsedTime;
@@ -171,6 +169,7 @@ namespace HugoWorld
                 SaveState();
                 _currentArea.Refresh();
             }
+            
             //We only actually update the current area the rest all 'sleep'
             _currentArea.Update(gameTime, elapsedTime*5);
 
@@ -191,13 +190,19 @@ namespace HugoWorld
                 }
             }
 
+            //update PV de l'héro
+            try
+            {
+                Hero hero = Data.HeroController.GetHero(Data.CurrentHeroId);
+                Data.vie = hero.PV;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             //The hero gets animated when moving or fighting
-
             _heroSprite.CurrentFrame = 0;
-
-
-
-
         }
 
         //Regarde pour des item, ramasse et donne au hero si oui
@@ -209,43 +214,36 @@ namespace HugoWorld
             int heroy = int.Parse(lststr[1]) * 8 + _heroPosition.Y;
             
             bool pickedup = false;
+            
             Tile objectTile = _currentArea.Map[_heroPosition.X, _heroPosition.Y].ObjectTile;
             if (objectTile == null)
                 return;
+            
             switch (objectTile.Name)
             {
                 //Most objects change your stats in some way.
                 case "Armor":
-                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
+                    if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox, heroy))
                     {
-                    Data.Str++;
-                    UpdateGameState();
-                    Sounds.Pickup();
-                    pickedup = true;
-                    break;
-                        }
-                    else
-                    {
-                        _currentArea.Refresh();
-                        break;
+                        Data.Str++;
+                        UpdateGameState();
+                        Sounds.Pickup();
+                        pickedup = true;
                     }
-
+                    else
+                        _currentArea.Refresh();
+                    break;
                 case "Dagger":
                     if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
                     {
-                        
-                    Data.Dex++;
-                    UpdateGameState();
-                    Sounds.Pickup();
-                    pickedup = true;
-                    break;
-                        }
-                    else
-                    {
-                        _currentArea.Refresh();
-                        break;
+                        Data.Dex++;
+                        UpdateGameState();
+                        Sounds.Pickup();
+                        pickedup = true;
                     }
-
+                    else
+                        _currentArea.Refresh();
+                    break;
                 case "Sword":
                     if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
                     {
@@ -253,119 +251,87 @@ namespace HugoWorld
                         UpdateGameState();
                         Sounds.Pickup();
                         pickedup = true;
-                        break;
                     }
                     else
-                    {
                         _currentArea.Refresh();
-                        break;
-                    }
-
+                    break;
                 case "SpikedMace":
                     if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
                     {
-                    Data.Str += 3;
-                    UpdateGameState();
-                    Sounds.Pickup();
-                    pickedup = true;
-                    break;
-                            }
-                    else
-                    {
-                        _currentArea.Refresh();
-                        break;
+                        Data.Str += 3;
+                        UpdateGameState();
+                        Sounds.Pickup();
+                        pickedup = true;
                     }
-
+                    else
+                        _currentArea.Refresh();
+                    break;
                 case "Axe":
                     if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
                     {
-                    Data.Str += 3;
-                    UpdateGameState();
-                    pickedup = true;
-                    Sounds.Pickup();
-                    break;
-                                }
-                    else
-                    {
-                        _currentArea.Refresh();
-                        break;
+                        Data.Str += 3;
+                        UpdateGameState();
+                        pickedup = true;
+                        Sounds.Pickup();
                     }
-
+                    else
+                        _currentArea.Refresh();
+                    break;
                 case "Heart":
                     if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
                     {
-                    Data.Stam += 3;
-                    UpdateGameState();
-                    pickedup = true;
-                    Sounds.Eat();
-                    break;
+                        Data.Stam += 3;
+                        UpdateGameState();
+                        pickedup = true;
+                        Sounds.Eat();
                     }
                     else
-                    {
                         _currentArea.Refresh();
-                        break;
-                    }
-
+                    break;
                 case "Food":
                     if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
                     {
-                    Data.Stam += 1;
-                    pickedup = true;
-                    UpdateGameState();
-                    Sounds.Eat();
-                    break;
-                        }
-                    else
-                    {
-                        _currentArea.Refresh();
-                        break;
+                        Data.Stam += 1;
+                        pickedup = true;
+                        UpdateGameState();
+                        Sounds.Eat();
                     }
-
+                    else
+                        _currentArea.Refresh();
+                    break;
                 case "GoldPile":
                     if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
                     {
-                    Data.Argent += 5;
-                    pickedup = true;
-                    UpdateGameState();
-                    Sounds.Pickup();
-                    break;
-                        }
-                    else
-                    {
-                        _currentArea.Refresh();
-                        break;
+                        Data.Argent += 5;
+                        pickedup = true;
+                        UpdateGameState();
+                        Sounds.Pickup();
                     }
-
+                    else
+                        _currentArea.Refresh();
+                    break;
                 case "GoldBag":
                     if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
                     {
-                    Data.Argent += 15;
-                    pickedup = true;
-                    UpdateGameState();
-                    Sounds.Pickup();
-                    break;
-                        }
-                    else
-                    {
-                        _currentArea.Refresh();
-                        break;
+                        Data.Argent += 15;
+                        pickedup = true;
+                        UpdateGameState();
+                        Sounds.Pickup();
                     }
-
+                    else
+                        _currentArea.Refresh();
+                    break;
                 case "Potion":
                     if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
                     {
-                    _gameState.Potions++;
-                    pickedup = true;
-                    UpdateGameState();
-                    Sounds.Pickup();
-                    break;
-                        }
-                    else
-                    {
-                        _currentArea.Refresh();
-                        break;
+                        _gameState.Potions++;
+                        pickedup = true;
+                        UpdateGameState();
+                        Sounds.Pickup();
                     }
-
+                    else
+                        _currentArea.Refresh();
+                    break;
                 case "Key":
                     if (Data.HeroController.PickupItem(Data.CurrentHeroId,herox,heroy))
                     {
@@ -380,26 +346,26 @@ namespace HugoWorld
                         _currentArea.Refresh();
                         break;
                     }
-
-
             }
+
             //Remove the object unless its bones or fire
             if (pickedup)
             {
                 _currentArea.Map[_heroPosition.X, _heroPosition.Y].ObjectTile = null;
                 _currentArea.Map[_heroPosition.X, _heroPosition.Y].Sprite = null;
                 _currentArea.Map[_heroPosition.X, _heroPosition.Y].ObjectSprite = null;
-
-                _currentArea.Map[_heroPosition.X, _heroPosition.Y].Sprite = _currentArea.MapItem[_heroPosition.X, _heroPosition.Y].Sprite;
+                _currentArea.Map[_heroPosition.X, _heroPosition.Y].Sprite = 
+                    _currentArea.MapItem[_heroPosition.X, _heroPosition.Y].Sprite;
                 //  _currentArea.Update(0,0);
             }
         }
+
         //update gamestate avec data
         private void UpdateGameState()
         {
             _gameState.Attack = Data.Str + Data.Dex;
             _gameState.Potions = 0;
-            _gameState.Armour = Data.Str / 2 + Data.Dex / 2 + Data.Intel; ;
+            _gameState.Armour = Data.Str / 2 + Data.Dex / 2 + Data.Intel;
             _gameState.Experience = Data.Exp;
             _gameState.Level = Data.Lvl;
             _gameState.Health = Data.vie;
@@ -446,7 +412,6 @@ namespace HugoWorld
 
         }
 
-
         /// <summary>
         /// Gestion du déplacement du héro
         /// fais bouger le nom et save dans la bd lors deplacement
@@ -454,11 +419,6 @@ namespace HugoWorld
         /// <param name="key"></param>
         public void KeyDown(Keys key)
         {
-
-
-           
-
-
             //Ignore keypresses while we are animating or fighting
             if (!_heroSpriteAnimating)
             {
@@ -483,8 +443,6 @@ namespace HugoWorld
                                 HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
 
                                 setDestination();
-                                
-
                             }
                         }
                         else if (_currentArea.EastArea != "-")
@@ -520,9 +478,6 @@ namespace HugoWorld
                                 HeroClient.SetHeroPos(_heroid, _heroPosition.X, _heroPosition.Y, _currentArea.Name);
 
                                 setDestination();
-                                
-
-
                             }
                         }
                         else if (_currentArea.WestArea != "-")
@@ -623,7 +578,6 @@ namespace HugoWorld
 
                             _heroSpriteFighting = true;
 
-
                             //All monsters on the screen take maximum damage
                             _popups.Clear();
                             for (int i = 0; i < Area.MapSizeX; i++)
@@ -655,6 +609,7 @@ namespace HugoWorld
             //See if there is a door we need to open
             checkDoors(mapTile, x, y);
 
+
             //See if there is character to fight
             if (mapTile.ObjectTile != null && mapTile.ObjectTile.Category == "character")
             {
@@ -666,66 +621,161 @@ namespace HugoWorld
                     return false; //Don't want to walk on her
                 }
 
-                Sounds.Fight();
-
-                _heroSpriteFighting = true;
-
-
-                int heroDamage = 0;
-                //A monsters attack ability is 1/2 their max health. Compare that to your armour
-                //If you outclass them then there is still a chance of a lucky hit
-                if (_random.Next((mapTile.ObjectTile.Health / 2) + 1) >= _gameState.Armour
-                    || (mapTile.ObjectTile.Health / 2 < _gameState.Armour && _random.Next(10) == 0))
+                if (mapTile.ObjectTile.Health != 0)
                 {
-                    //Monsters do damage up to their max health - if they hit you.
-                    heroDamage = _random.Next(mapTile.ObjectTile.Health) + 1;
-                    _gameState.Health -= heroDamage;
-
-                    if (_gameState.Health <= 0)
-                    {
-                        _gameState.Health = 0;
-                        //_heroSprite = new Sprite(null, _heroPosition.X * Tile.TileSizeX + Area.AreaOffsetX,
-                        //        _heroPosition.Y * Tile.TileSizeY + Area.AreaOffsetY,
-                        //        _tiles["bon"].Bitmap, _tiles["bon"].Rectangle, _tiles["bon"].NumberOfFrames);
-                        _heroSprite.ColorKey = Color.FromArgb(75, 75, 75);
-                    }
-
+                    Sounds.Fight();
+                    _heroSpriteFighting = true;
                 }
-                //Hero
-                _popups.Clear();
-                _popups.Add(new textPopup((int)_heroSprite.Location.X + 40, (int)_heroSprite.Location.Y + 20, (heroDamage != 0) ? heroDamage.ToString() : "miss"));
 
-
-                //A monsters armour is 1/5 of their max health
-                if (_random.Next(_gameState.Attack + 1) >= (mapTile.ObjectTile.Health / 5))
+                #region Hero
+                if (mapTile.ObjectTile.Name == "WarriorM" ||
+                    mapTile.ObjectTile.Name == "WarriorF" ||
+                    mapTile.ObjectTile.Name == "HunterM" ||
+                    mapTile.ObjectTile.Name == "HunterF" ||
+                    mapTile.ObjectTile.Name == "WizardM" ||
+                    mapTile.ObjectTile.Name == "WizardF" ||
+                    mapTile.ObjectTile.Name == "ClericM" ||
+                    mapTile.ObjectTile.Name == "ClericF" ||
+                    mapTile.ObjectTile.Name == "EvilWiz1" ||
+                    mapTile.ObjectTile.Name == "EvilWiz2")
                 {
-                    //Hero damage is up to twice the attack rating
-                    if (damageMonster(_random.Next(_gameState.Attack * 2) + 1, mapTile, x, y))
+                    _popups.Clear();
+
+                    //Fight vs Hero
+                    #region CurrentHeroTakingDamage
+                    if (_random.Next((_gameState.Health / 2) + 1) >= _gameState.Armour
+                        || (_gameState.Health / 2 < _gameState.Armour && _random.Next(10) == 0))
                     {
-                        //Monster is dead now
+                        string damage = String.Empty;
                         try
                         {
-                            Data.MonstreController.KillMonster(Data.WorldId, x, y);
+                            damage = Data.HeroController.AttackHeroAt(Data.CurrentHeroId, x, y, _currentArea.Name);
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
+                            Environment.Exit(0);
                         }
+                        _popups.Add(new textPopup((int)_heroSprite.Location.X + 40, (int)_heroSprite.Location.Y + 20, damage == "" ? "miss" : damage));
+
+                        if (damage != "miss")
+                        {
+                            _gameState.Health -= int.Parse(damage);
+                        }
+                        if (_gameState.Health <= 0)
+                        {
+                            _gameState.Health = 0;
+                            //_heroSprite = new Sprite(null, _heroPosition.X * Tile.TileSizeX + Area.AreaOffsetX,
+                            //        _heroPosition.Y * Tile.TileSizeY + Area.AreaOffsetY,
+                            //        _tiles["bon"].Bitmap, _tiles["bon"].Rectangle, _tiles["bon"].NumberOfFrames);
+                            _heroSprite.ColorKey = Color.FromArgb(75, 75, 75);
+                        }
+                        Data.HeroController.SetHeroHp(Data.CurrentHeroId, _gameState.Health);
+                    }
+                    else
+                    {
+                        _popups.Add(new textPopup((int)_heroSprite.Location.X + 40, (int)_heroSprite.Location.Y + 20, "miss"));
+                    }
+                    #endregion
+                    
+                    #region OtherHeroTakingDamage
+                    if (mapTile.ObjectTile.Health == 0)
+                    {
+                        _popups.Add(new textPopup((int)mapTile.Sprite.Location.X + 40, (int)mapTile.Sprite.Location.Y + 20, "dead"));
                         return true;
                     }
+                    else if (_random.Next((mapTile.ObjectTile.Health / 2) + 1) >= _gameState.Armour
+                        || (mapTile.ObjectTile.Health / 2 < _gameState.Armour && _random.Next(10) == 0))
+                    {
+                        //int damage = _random.Next(_gameState.Attack * 2) + 1;
+                        string damage = Data.HeroController.AttackHeroAt(Data.CurrentHeroId, x, y, _currentArea.Name);
+                        _popups.Add(new textPopup((int)mapTile.Sprite.Location.X + 40, (int)mapTile.Sprite.Location.Y + 20, damage == "" ? "miss" : damage));
+                        //_popups.Add(new textPopup((int)mapTile.Sprite.Location.X + 40, (int)mapTile.Sprite.Location.Y + 20, damage.ToString() == "" ? "miss" : damage.ToString()));
+                        if (damage != "miss")
+                        {
+                            mapTile.ObjectTile.Health -= int.Parse(damage);
+                        }
+                        if (mapTile.ObjectTile.Health <= 0)
+                        {
+                            mapTile.ObjectTile.Health = 0;
+                            return true;
+                        }
+                    }
+                    else
+                    {
+
+                        _popups.Add(new textPopup((int)mapTile.Sprite.Location.X + 40, (int)mapTile.Sprite.Location.Y + 20, "miss"));
+                    }
+                    return false;
+                    #endregion
                 }
+                #endregion
+
                 else
                 {
-                    _popups.Add(new textPopup((int)mapTile.Sprite.Location.X + 40, (int)mapTile.Sprite.Location.Y + 20, "miss"));
-                }
-                //Monster not dead
-                return false;
+                    _popups.Clear();
+
+                    #region AttackHero
+                    //A monsters attack ability is 1/2 their max health. Compare that to your armour
+                    //If you outclass them then there is still a chance of a lucky hit
+                    if (_random.Next((mapTile.ObjectTile.Health / 2) + 1) >= _gameState.Armour
+                        || (mapTile.ObjectTile.Health / 2 < _gameState.Armour && _random.Next(10) == 0))
+                    {
+                        //Monsters do damage up to their max health - if they hit you.
+                        int heroDamage = _random.Next(mapTile.ObjectTile.Health) + 1;
+                        _gameState.Health = Data.HeroController.RemoveHitPoints(Data.CurrentHeroId, heroDamage);
+
+                        _popups.Add(new textPopup((int)_heroSprite.Location.X + 40, (int)_heroSprite.Location.Y + 20, heroDamage.ToString()));
+                        
+                        if (_gameState.Health == 0)
+                        {
+                            //_heroSprite = new Sprite(null, _heroPosition.X * Tile.TileSizeX + Area.AreaOffsetX,
+                            //        _heroPosition.Y * Tile.TileSizeY + Area.AreaOffsetY,
+                            //        _tiles["bon"].Bitmap, _tiles["bon"].Rectangle, _tiles["bon"].NumberOfFrames);
+                            _heroSprite.ColorKey = Color.FromArgb(75, 75, 75);
+                        }
+                        //Data.HeroController.SetHeroHp(Data.CurrentHeroId, _gameState.Health);
+                    }
+                    else
+                    {
+                        //Hero
+                        _popups.Add(new textPopup((int)_heroSprite.Location.X + 40, (int)_heroSprite.Location.Y + 20, "miss"));
+                    }
+                    #endregion
+
+                    #region AttackMonster
+                    //A monsters armour is 1/5 of their max health
+                    if (_random.Next(_gameState.Attack + 1) >= (mapTile.ObjectTile.Health / 5))
+                    {
+                        //Hero damage is up to twice the attack rating
+                        if (damageMonster(_random.Next(_gameState.Attack * 2) + 1, mapTile, x, y))
+                        {
+                            //Monster is dead now
+                            try
+                            {
+                                Data.MonstreController.KillMonster(Data.WorldId, x + int.Parse(_currentArea.Name.Split(',')[0]) * 8, y + int.Parse(_currentArea.Name.Split(',')[1]) * 8);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        _popups.Add(new textPopup((int)mapTile.Sprite.Location.X + 40, (int)mapTile.Sprite.Location.Y + 20, "miss"));
+                    }
+                    //Monster not dead
+                    #endregion
+
+                    return false;
+                    //can't move because monster is not dead.
+	            }
             }
 
             //If the next tile is a blocker then we can't move
-            if (mapTile.Tile.IsBlock) return false;
-
-            return true;
+            return !mapTile.Tile.IsBlock;
         }
 
         private bool damageMonster(int damage, MapTile mapTile, int x, int y)
